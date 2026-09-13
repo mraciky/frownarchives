@@ -1,0 +1,2259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="frown, fashion, one of one, handmade, clothing, streetwear" />
+<meta name="description" content="FROWN - Independent fashion. One of one pieces." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style type="text/css">
+
+/* =============================================
+   FROWN
+   ============================================= */
+
+* { margin: 0; padding: 0; }
+
+body {
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+  font-size: 11px;
+  background-color: #d4d0c8;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z8BQDwAEgAF/QualIQAAAABJRU5ErkJggg==");
+  color: #333333;
+  min-width: 900px;
+}
+
+a { color: #525252; text-decoration: underline; }
+a:hover { color: #cc2200; text-decoration: underline; }
+a:visited { color: #551a8b; }
+
+
+/* =============================================
+   HEADER
+   — upravuj tu farby a gradient hlavicky
+   ============================================= */
+
+#header {
+  background-color: #0e0e0d;
+  /* Tmavy gradient (skoro cierny dole) — cierne pozadie loga sa do neho stopi,
+     zostanu viditelne len biele/strieborne litery a iskricky. Jemna radialna
+     "vitrina" zia hore v strede za logom (ako svetlo na exponate v archive). */
+  background-image:
+    radial-gradient(ellipse 820px 230px at 50% -55%, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0) 70%),
+    linear-gradient(to bottom,
+      #2b2b29 0%,
+      #171716 45%,
+      #0a0a09 100%
+    );
+  border-bottom: 3px solid #a0998c;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 6px rgba(0,0,0,0.35);
+  padding: 0;
+  width: 100%;
+}
+
+#header-inner {
+  padding: 8px 10px 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Druhy logo obrazok — vycentrovany v headeri */
+#header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+#logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Parchment/strieborna farba — ladi s khaki/beige paletou zvysku stranky
+   (#a0998c borders, #d4d0c8 body) namiesto povodnej modrej, ktora nikde inde nebola. */
+#header-right {
+  text-align: right;
+  color: #c7c0b2;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+#header-right a { color: #b7ae9c; text-decoration: none; }
+/* Hover — teply jantar/ember, odkaz na hlavnu accent farbu stranky (#cc2200 pri hoveroch a cenach) */
+#header-right a:hover { color: #837d70; text-decoration: underline; }
+
+/* --- HEADER-RIGHT RIADKY ---
+   3 riadky pod sebou: (1) Welcome + odkazy, (2) Last updated + Secure connection,
+   (3) mute/unmute tlacidlo. Kazdy riadok je samostatny <div>, takze ich vies
+   ľubovolne presúvať/upravovať bez toho, aby si rozbil ostatné. */
+#header-links-row {
+  margin-bottom: 0px;
+ }
+#header-status-row {
+  margin-bottom: 0px;
+}
+
+#header-mute-row {
+  margin-top: 5px;
+}
+
+/* Samotné tlacidlo (kruh/ikonka) na stiseneie/zapnutie hudby */
+#mute-toggle {
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#mute-icon {
+  width: 15px;
+  height: 15px;
+  filter: grayscale(0%);
+  vertical-align: middle;
+}
+
+
+/* Hamburger — skryty na desktope. Media query nizsie ho zobrazi LEN na mobile. */
+#mobile-menu-toggle { display: none; }
+
+
+/* =============================================
+   TOP NAVIGATION BAR
+   — upravuj tu farby navigacie a hover/active stavy
+   ============================================= */
+
+#topnav {
+  background: linear-gradient(to bottom, #e8e4dc 0%, #d8d4cc 100%);
+  border-bottom: 2px solid #a0998c;
+  border-top: 1px solid #f0ece4;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+#topnav-links {
+  display: flex;
+  align-items: stretch;
+}
+
+.topnav-item {
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #333333;
+  text-decoration: none;
+  border-right: 1px solid #b8b0a4;
+  cursor: pointer;
+  background: transparent;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* HOVER — #575a58 */
+.topnav-item:hover {
+  background: #575a58;
+  color: white;
+  text-decoration: none;
+}
+
+/* ACTIVE — 20% tmavsi ako hover (#575a58 * 0.8 = #464846) */
+.topnav-item.active {
+  background: #464846;
+  color: white;
+}
+
+/* Ikony v navigacii */
+/* TODO: Zmen src v kazdej .nav-icon na tvoj vlastny obrazok (odporucane 14x14px) */
+.nav-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: cover;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+#search-bar {
+  margin-left: auto;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#search-bar label { font-size: 11px; font-weight: bold; color: #555; }
+
+#search-input {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  border: 1px solid #888;
+  border-top-color: #555;
+  border-left-color: #555;
+  padding: 2px 5px;
+  width: 160px;
+  background: white;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.15);
+}
+
+#search-btn {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  background: linear-gradient(to bottom, #f0ece4, #d8d0c4);
+  border: 1px solid #888;
+  border-top-color: #ccc;
+  border-left-color: #ccc;
+  border-bottom-color: #555;
+  border-right-color: #555;
+  padding: 2px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+#search-btn:hover { background: #575a58; color: white; border-color: #484b49 }
+#search-btn:active { background: #464846; color: white; border-color: #3d3f3d }
+
+
+/* =============================================
+   MAIN LAYOUT
+   ============================================= */
+
+#wrapper {
+  width: 960px;
+  margin: 8px auto;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+
+/* =============================================
+   LEFT SIDEBAR
+   — sidebar boxy, kategorie, itemy
+   ============================================= */
+
+#sidebar {
+  width: 175px;
+  flex-shrink: 0;
+}
+
+.sidebar-box {
+  background: white;
+  border: 1px solid #a0998c;
+  border-top: 2px solid #666;
+  margin-bottom: 6px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+/* SIDEBAR BOX NADPIS — seda (bolo modre) */
+.sidebar-box-title {
+  background: linear-gradient(to bottom, #686b69 0%, #464948 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 8px;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+}
+
+.sidebar-section-title {
+  background: linear-gradient(to bottom, #e8e4dc, #d8d4cc);
+  color: #333;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-bottom: 1px solid #c0b8b0;
+  border-top: 1px solid #f0ece4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 8px 3px 14px;
+  border-bottom: 1px solid #ece8e0;
+  cursor: pointer;
+  font-size: 11px;
+  color: #333;
+  text-decoration: none;
+}
+
+.sidebar-item:hover { background-color: #eef2f8; color: #cc2200; text-decoration: underline; }
+.sidebar-item.active { background-color: #e0e0dc; font-weight: bold; color: #1a1a1a; }
+
+.sidebar-count {
+  background: #e8e4dc;
+  border: 1px solid #c0b8b0;
+  color: #666;
+  font-size: 9px;
+  padding: 0px 4px;
+  border-radius: 2px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.sidebar-item.active .sidebar-count { background: #525252; color: white; border-color: #333; }
+
+.sidebar-cat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ece8e0;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  color: #333;
+  background: linear-gradient(to bottom, #f8f4ec, #ece8e0);
+}
+
+.sidebar-cat:hover { background: linear-gradient(to bottom, #eef2f8, #dde8f8); color: #1a4d8a; }
+.sidebar-cat.sidebar-cat-active { background: linear-gradient(to bottom, #ccccca, #b4b2ae); color: #1a1a1a; font-weight: bold; }
+
+.sidebar-info-box {
+  padding: 7px 8px;
+  font-size: 10px;
+  color: #555;
+  line-height: 1.7;
+  border-bottom: 1px solid #ece8e0;
+}
+
+.sidebar-info-box strong { color: #2a2a2a; }
+
+.sidebar-stats { padding: 6px 8px; font-size: 10px; line-height: 1.9; color: #555; }
+.sidebar-stats span { color: #cc2200; font-weight: bold; }
+
+
+/* =============================================
+   MAIN CONTENT AREA
+   ============================================= */
+
+#content { flex: 1; min-width: 0; }
+
+/* Content box */
+.content-box {
+  background: white;
+  border: 1px solid #a0998c;
+  margin-bottom: 6px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+/* CONTENT BOX NADPIS — seda (bolo modre) */
+.content-box-title {
+  background: linear-gradient(to bottom, #686b69 0%, #464948 100%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.content-box-title span { font-size: 10px; font-weight: normal; color: #c0c0b8; }
+
+.content-box-subtitle {
+  background: linear-gradient(to bottom, #e8e4dc, #d8d4cc);
+  border-bottom: 1px solid #b8b0a4;
+  border-top: 1px solid #f0ece4;
+  padding: 3px 10px;
+  font-size: 10px;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+
+/* =============================================
+   PRODUCT LISTING TABLE (marketplace style)
+   ============================================= */
+
+.listing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.listing-table th {
+  background: linear-gradient(to bottom, #e8e4dc, #d0ccc4);
+  border-bottom: 1px solid #a0998c;
+  border-right: 1px solid #d0ccc4;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #555;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.listing-row {
+  border-bottom: 1px solid #ece8e0;
+  cursor: pointer;
+  transition: none;
+}
+
+.listing-row:hover { background-color: #f0f4fc; }
+.listing-row:nth-child(even) { background-color: #faf8f4; }
+.listing-row:nth-child(even):hover { background-color: #eef2fc; }
+
+.listing-row td { padding: 6px 8px; vertical-align: middle; font-size: 11px; border-right: 1px solid #ece8e0; }
+
+.listing-thumb {
+  width: 54px;
+  height: 64px;
+  background: linear-gradient(135deg, #e8e4dc 0%, #d0ccc4 100%);
+  border: 1px solid #b8b0a4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #999;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.listing-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.listing-title { font-weight: bold; color: #2a2a2a; font-size: 12px; }
+.listing-title:hover { color: #cc2200; }
+.listing-desc { color: #666; font-size: 10px; margin-top: 2px; line-height: 1.5; }
+.listing-meta { color: #888; font-size: 10px; margin-top: 3px; }
+
+.badge-sold {
+  display: inline-block;
+  background: linear-gradient(to bottom, #cc4444, #aa2222);
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 2px;
+  border: 1px solid #882222;
+  text-transform: uppercase;
+}
+
+.badge-Available {
+  display: inline-block;
+  background: linear-gradient(to bottom, #44aa44, #228822);
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 2px;
+  border: 1px solid #116611;
+  text-transform: uppercase;
+}
+
+.badge-new {
+  display: inline-block;
+  background: linear-gradient(to bottom, #ff8800, #dd6600);
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 1px 4px;
+  border-radius: 2px;
+  border: 1px solid #aa4400;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
+.price-cell { font-weight: bold; color: #cc2200; font-size: 13px; white-space: nowrap; }
+.price-sold { font-weight: bold; color: #888; font-size: 11px; text-decoration: line-through; }
+
+
+/* =============================================
+   PRODUCT GRID (museum/archive view)
+   ============================================= */
+
+.product-grid-old {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid #ece8e0;
+}
+
+.pgrid-item {
+  border-right: 1px solid #ece8e0;
+  border-bottom: 1px solid #ece8e0;
+  padding: 8px;
+  cursor: pointer;
+  background: white;
+  text-align: center;
+}
+
+.pgrid-item:hover { background: #f0f4fc; }
+
+.pgrid-thumb {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(135deg, #e8e4dc 0%, #ccc8c0 100%);
+  border: 1px solid #b8b0a4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.12), 1px 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pgrid-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.pgrid-thumb-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+}
+
+.thumb-icon { font-size: 22px; opacity: 0.3; }
+.thumb-label { font-size: 8px; color: #aaa; text-align: center; line-height: 1.4; }
+
+.pgrid-id { font-size: 9px; color: #999; margin-bottom: 2px; }
+.pgrid-name { font-size: 11px; font-weight: bold; color: #2a2a2a; margin-bottom: 3px; }
+.pgrid-item:hover .pgrid-name { color: #cc2200; text-decoration: underline; }
+.pgrid-type { font-size: 9px; color: #888; margin-bottom: 4px; }
+
+.pgrid-status-bar {
+  background: linear-gradient(to bottom, #e8e4dc, #d8d4cc);
+  border: 1px solid #c0b8b0;
+  padding: 2px 4px;
+  font-size: 9px;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* =============================================
+   DETAIL OVERLAY (popup okno pre piece)
+   ============================================= */
+
+#detail-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 900;
+  overflow-y: auto;
+  padding: 30px 0;
+}
+
+#detail-overlay.open { display: block; }
+
+#detail-window {
+  width: 900px;
+  margin: 0 auto;
+  background: white;
+  border: 2px solid #666;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.5);
+}
+
+/* DETAIL TITLEBAR — seda (bolo modre) */
+#detail-titlebar {
+  background: linear-gradient(to bottom, #686b69, #363938);
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#detail-titlebar-text { color: white; font-weight: bold; font-size: 12px; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); }
+
+#detail-close-btn {
+  background: linear-gradient(to bottom, #ee4444, #aa1111);
+  border: 1px solid #881111;
+  color: white;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 1px 7px;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+#detail-close-btn:hover { background: linear-gradient(to bottom, #ff6666, #cc2222); }
+
+#detail-menubar {
+  background: linear-gradient(to bottom, #e8e4dc, #d8d4cc);
+  border-bottom: 1px solid #a0998c;
+  padding: 2px 8px;
+  font-size: 10px;
+  color: #555;
+}
+
+#detail-body { padding: 12px; display: flex; gap: 14px; }
+
+/* =============================================
+   CAROUSEL — sipky pre prepinanie obrazkov/videi
+   ============================================= */
+
+#detail-img-col {
+  width: 480px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Wrapper okolo hlavneho obrazka — sipky su absolutne v nom */
+#detail-img-wrapper {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+#detail-main-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #e8e4dc, #c8c4bc);
+  border: 1px solid #a0998c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 1px 1px 3px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+#detail-main-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Sipky — LEFT a RIGHT */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.55);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 14px;
+  font-weight: bold;
+  width: 22px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  user-select: none;
+  font-family: Tahoma, Arial, sans-serif;
+  line-height: 1;
+}
+
+.carousel-arrow:hover { background: rgba(0,0,0,0.82); }
+.carousel-arrow.left  { left: 2px; }
+.carousel-arrow.right { right: 2px; }
+
+/* Counter napravo dole — "2 / 4" */
+#carousel-counter {
+  position: absolute;
+  bottom: 4px;
+  right: 5px;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 9px;
+  padding: 1px 5px;
+  font-family: Tahoma, Arial, sans-serif;
+  pointer-events: none;
+}
+
+.detail-thumb-row {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.detail-thumb-sm {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #e8e4dc, #d0ccc4);
+  border: 1px solid #a0998c;
+  cursor: pointer;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: 0.15s;
+  flex-shrink: 0;
+}
+
+.detail-thumb-sm img, .detail-thumb-sm video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-thumb-sm:hover { border-color: #555; transform: scale(1.05); }
+.detail-thumb-sm.active { border: 2px solid #222; }
+
+#detail-info-col { flex: 1; min-width: 0; }
+
+#detail-item-title {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2a2a2a;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #ece8e0;
+  padding-bottom: 6px;
+}
+
+#detail-item-id { font-size: 10px; color: #888; margin-bottom: 8px; }
+
+.detail-price-box {
+  background: linear-gradient(to bottom, #fef8ec, #faecd8);
+  border: 1px solid #d4b870;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.detail-price { font-size: 18px; font-weight: bold; color: #cc2200; font-family: Arial, sans-serif; }
+.detail-price-sub { font-size: 10px; color: #888; }
+
+.detail-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.detail-table td { padding: 3px 6px; font-size: 11px; border-bottom: 1px solid #f0ece4; vertical-align: top; }
+.detail-table td:first-child { font-weight: bold; color: #555; width: 110px; white-space: nowrap; }
+.detail-table td:last-child { color: #333; }
+
+.detail-desc-box {
+  background: #faf8f4;
+  border: 1px solid #ece8e0;
+  border-left: 3px solid #525252;
+  padding: 8px;
+  font-size: 11px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.detail-includes-box {
+  background: linear-gradient(to bottom, #f0f8ec, #e4f0dc);
+  border: 1px solid #88bb66;
+  padding: 7px 10px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  color: #336633;
+  line-height: 1.9;
+}
+
+.detail-includes-box strong { color: #224422; font-size: 11px; display: block; margin-bottom: 3px; }
+
+.detail-links-box { margin-bottom: 10px; }
+.detail-links-title { font-size: 10px; font-weight: bold; color: #555; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.detail-link-item {
+  display: inline-block;
+  background: linear-gradient(to bottom, #f0ece4, #d8d4cc);
+  border: 1px solid #a0998c;
+  border-bottom-color: #808080;
+  padding: 2px 8px;
+  font-size: 10px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  text-decoration: none;
+}
+
+.detail-link-item:hover { background: linear-gradient(to bottom, #4a7acc, #2a5298); color: white; border-color: #1a3a7a; }
+
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+
+.btn-old {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #f0ece4, #d0ccc4);
+  border: 1px solid #888;
+  border-top-color: #ccc;
+  border-left-color: #ccc;
+  border-bottom-color: #555;
+  border-right-color: #555;
+  padding: 4px 14px;
+  cursor: pointer;
+  color: #333;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+
+.btn-old:hover { background: linear-gradient(to bottom, #4a7acc, #2a5298); color: white; border-color: #1a3a7a; }
+.btn-old:active { background: linear-gradient(to bottom, #1a4a9a, #3a6abb); }
+
+.btn-primary-old {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #66aa44, #448822);
+  border: 1px solid #336611;
+  padding: 4px 14px;
+  cursor: pointer;
+  color: white;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+.btn-primary-old:hover { background: linear-gradient(to bottom, #88cc55, #559933); }
+
+
+/* =============================================
+   SOCIAL PAGE
+   ============================================= */
+
+.social-table {
+  display: flex;
+  width: 100%;
+  align-items: stretch; /* KLUCOVE: kazda bunka sa natiahne na vysku najvyssej suseda — garantovane spec-om, nie percentualnou vyskou co je v <td> nespolahliva */
+}
+.social-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-right: 1px solid #ece8e0;
+  border-bottom: 1px solid #ece8e0;
+  min-width: 0;
+}
+.social-cell:last-child { border-right: none; }
+
+/* Tlacidlo sa vzdy pritiahne na spodok bunky — takze "Visit ..." tlacidla
+   su zarovnane presne na rovnaky pixel od spodku boxu, nech je popis
+   akokolvek dlhy/kratky */
+.social-cell .btn-old {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Rovnaka hover farba ako topnav/filter tlacidla (#575a58), miesto modrej z btn-old */
+.social-cell .btn-old:hover {
+  background: #575a58;
+  color: white;
+  border-color: #3a3c3b;
+}
+
+.social-platform-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #2a2a2a;
+  margin-bottom: 3px;
+}
+
+.social-handle { font-size: 11px; color: #525252; margin-bottom: 4px; }
+.social-desc { font-size: 10px; color: #666; line-height: 1.6; margin-bottom: 6px; }
+
+.social-icon {
+  font-size: 26px;
+  margin-bottom: 5px;
+  opacity: 0.7;
+}
+
+
+/* =============================================
+   INFO / ABOUT PAGE
+   ============================================= */
+
+.info-section { padding: 10px 12px; border-bottom: 1px solid #ece8e0; }
+.info-section:last-child { border-bottom: none; }
+.info-section-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2a2a2a;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #d0ccc4;
+}
+
+.info-table-plain { width: 100%; border-collapse: collapse; font-size: 11px; }
+.info-table-plain tr { border-bottom: 1px solid #f0ece4; }
+.info-table-plain td { padding: 4px 6px; vertical-align: top; }
+.info-table-plain td:first-child { font-weight: bold; color: #555; width: 160px; }
+.info-table-plain td:last-child { color: #333; line-height: 1.6; }
+
+.manifesto-box {
+  background: #f8f4ec;
+  border: 1px solid #d8d0c4;
+  border-left: 4px solid #525252;
+  padding: 10px 12px;
+  font-size: 11px;
+  color: #444;
+  line-height: 1.9;
+  font-style: italic;
+}
+
+
+/* =============================================
+   FOOTER
+   ============================================= */
+
+#footer {
+  width: 960px;
+  margin: 0 auto 12px;
+  background: linear-gradient(to bottom, #e8e4dc, #d8d4cc);
+  border: 1px solid #a0998c;
+  border-top: 2px solid #666;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  padding: 8px 12px;
+  font-size: 10px;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#footer a { color: #333; }
+
+.footer-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 10px;
+  color: #888;
+}
+
+.footer-stats span { color: #cc2200; font-weight: bold; }
+
+
+/* =============================================
+   MISC / UTILITIES
+   ============================================= */
+
+.separator { height: 1px; background: linear-gradient(to right, #ccc, #e8e4dc, #ccc); margin: 6px 0; }
+
+.notice-box {
+  background: linear-gradient(to bottom, #fffbec, #fff3cc);
+  border: 1px solid #ddbb44;
+  padding: 6px 10px;
+  font-size: 10px;
+  color: #664400;
+  line-height: 1.7;
+  margin: 6px 0;
+}
+
+.notice-box strong { color: #442200; }
+
+.breadcrumb { font-size: 10px; color: #888; padding: 4px 10px; background: #faf8f4; border-bottom: 1px solid #ece8e0; }
+.breadcrumb a { color: #333; }
+
+.filter-row {
+  padding: 4px 8px;
+  background: #faf8f4;
+  border-bottom: 1px solid #ece8e0;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 10px;
+  color: #555;
+}
+
+.filter-btn {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 10px;
+  background: linear-gradient(to bottom, #f0ece4, #d8d4cc);
+  border: 1px solid #a0998c;
+  border-bottom-color: #707070;
+  border-right-color: #707070;
+  padding: 1px 8px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* HOVER — rovnaka seda ako v navigation (#575a58) */
+.filter-btn:hover {
+  background: #575a58;
+  color: white;
+  border-color: #3a3c3b;
+}
+/* ACTIVE (zakliknute) — rovnaka tmava ako aktiva stranka v navigation (#464846) */
+.filter-btn.active {
+  background: #464846;
+  color: white;
+  border-color: #2e302f;
+}
+
+
+/* =============================================
+   MOBILE (<= 800px)
+   — hamburger schova topnav + sidebar do jedneho menu,
+     wrapper/detail/social sa stackuju pod seba,
+     product grid ide na 2 stlpce.
+   VSETKO tu je scopnute cez @media, takze desktop layout
+   (nad 800px) sa NEMENI ani o pixel.
+   ============================================= */
+@media (max-width: 800px) {
+
+  body { min-width: 0; }
+
+  /* --- HEADER --- */
+  #header-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 10px 8px 10px;
+  }
+
+  #mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+    background: linear-gradient(to bottom, #4a4742, #2c2a27);
+    border: 1px solid #5c584f;
+    color: #e4dfd2;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px 10px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+  #mobile-menu-toggle:hover { background: linear-gradient(to bottom, #5c584f, #38352f); }
+  #mobile-menu-icon { font-size: 13px; }
+
+  #logo-area { justify-content: center; }
+  /* Inline style="height/width" na obrazkoch loga potrebuje !important, inak vyhrava inline atribut */
+  #frown-archive-logo { height: 38px !important; width: 114px !important; }
+  /* Stvorcove/mascot logo — na mobile ho vypneme, zostane len Frown Archives logo.
+     !important je nutny, lebo obrazok ma inline style="display:block" (rovnaky dovod
+     preco je !important aj pri #frown-archive-logo vyssie). */
+  #frown-mascot-logo { display: none !important; }
+
+  #header-right { text-align: center; }
+  /* Mute riadok je uz vycentrovany cez #header-right text-align: center vyssie */
+
+  /* --- TOPNAV — schovany, hamburger ho odhali cely (linky + search) --- */
+  #topnav { display: none; }
+  body.mobile-nav-open #topnav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #topnav-links { flex-direction: column; width: 100%; }
+  .topnav-item {
+    border-right: none;
+    border-bottom: 1px solid #b8b0a4;
+    padding: 10px 14px;
+    justify-content: flex-start;
+  }
+  #search-bar {
+    margin-left: 0;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  /* font-size: 16px TU je oprava toho "vsetko sa zrazu ukaze obrovske" glitchu —
+     iOS Safari automaticky pri kliknuti zooomuje cely web ak ma input font-size pod 16px.
+     Desktop nemenime (tam je stale 11px, viz #search-input vyssie). */
+  #search-input { flex: 1; width: auto; font-size: 16px; }
+
+  /* --- SIDEBAR — schovany, hamburger ho odhali (rovnaky prepinac ako topnav) --- */
+  #sidebar { display: none; width: 100%; }
+  body.mobile-nav-open #sidebar { display: block; }
+
+  .sidebar-item { padding: 9px 8px 9px 14px; }
+  .sidebar-cat { padding: 8px; }
+  .sidebar-box-title { padding: 7px 8px; }
+
+  /* --- WRAPPER — sidebar + content pod sebou, nie vedla seba --- */
+  #wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 8px auto;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+  #content { width: 100%; }
+
+  /* --- FILTER RIADOK — vela tlacidiel, nech sa lamu na viac riadkov --- */
+  .filter-row { flex-wrap: wrap; }
+  .filter-btn { padding: 4px 9px; }
+
+  .content-box-title { flex-wrap: wrap; gap: 4px; }
+  .content-box-title span { font-size: 9px; }
+  .content-box-subtitle { flex-wrap: wrap; gap: 4px; }
+
+  /* --- PRODUCT GRID — 2 stlpce namiesto 4 --- */
+  .product-grid-old { grid-template-columns: repeat(2, 1fr); }
+
+  /* --- LIST VIEW (tabulka) — nezuzuj, radsej scrolluj do strany --- */
+  #museum-content, #shop-content { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .listing-table { min-width: 560px; }
+
+  /* --- DETAIL POPUP — zmensene "okno", obrazok + info pod sebou --- */
+  #detail-overlay { padding: 14px 0; }
+  #detail-window { width: 94vw; }
+  #detail-body { flex-direction: column; padding: 10px; gap: 10px; }
+  #detail-img-col { width: 100%; }
+  #detail-titlebar-text {
+    font-size: 11px;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #detail-close-btn { flex-shrink: 0; }
+  .detail-table td:first-child { width: 90px; }
+
+  /* --- SOCIAL PAGE — bunky pod sebou namiesto 5 vedla seba --- */
+  .social-table { flex-direction: column; }
+  .social-cell { border-right: none; }
+
+  /* --- INFO / ABOUT TABULKY — uzsi label stlpec --- */
+  .info-table-plain td:first-child { width: 100px; }
+
+  /* --- FOOTER --- */
+  #footer {
+    width: auto;
+    max-width: 100%;
+    margin: 0 8px 12px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+  }
+}
+
+</style>
+</head>
+<body>
+<!-- Audio element — src sa meni automaticky cez playlist nizsie -->
+<audio id="bg-music"></audio>
+
+<script>
+// =============================================
+// PLAYLIST — pridaj/zmaz pesnicke tu
+// =============================================
+// Kazda pesnicka: { src: 'URL alebo cesta.mp3', title: 'Nazov' }
+// Pesnicky hraju v NAHODNOM poradi (shuffle).
+// Ked jedna skonci, automaticky ide dalsia.
+// Ked preberietie vsetky, znova sa zamieshaju a ideme odznova.
+//
+// TODO: Zmen tieto placeholder tracky na svoje vlastne pesnicke.
+//       Pre lokalne subory: src: 'hudba/pesnicka.mp3'  (subor musi byt v rovnakom priecinku ako HTML)
+//       Pre online link:    src: 'https://...'
+// =============================================
+var PLAYLIST = [
+  { src: 'music/Water_Colour_My_Tears_KLICKAUD.mp3', title: 'Water Colour My Tears' },
+  { src: 'music/heaven_sent_beezleak_KLICKAUD.mp3', title: 'Heaven Sent' },
+  { src: 'music/my_life_is_a_shitty_little_fantaasy_x_x_og_KLICKAUD.mp3', title: 'My Life Is A Shitty Little Fantasy' },
+  { src: 'music/KENDO_THUGS_KLICKAUD.mp3', title: 'KENDO THUGS' },
+  { src: 'music/1oneam_ohsxnta_-_stay_the_night_prod_perc40_KLICKAUD.mp3', title: 'Stay The Night' },
+  { src: 'music/wormfood_c418_KLICKAUD.mp3', title: 'wormfood' },
+  // Pridaj dalsi track:
+  // , { src: 'cesta/k/suboru.mp3', title: 'Nazov pesne' }
+];
+
+var playlistOrder = [];
+var playlistPos   = 0;
+
+function shufflePlaylist() {
+  playlistOrder = PLAYLIST.map(function(_, i) { return i; });
+  for (var i = playlistOrder.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = playlistOrder[i]; playlistOrder[i] = playlistOrder[j]; playlistOrder[j] = tmp;
+  }
+  playlistPos = 0;
+}
+
+function loadTrack(pos) {
+  var bgm = document.getElementById('bg-music');
+  var track = PLAYLIST[playlistOrder[pos]];
+  bgm.src = track.src;
+  bgm.volume = 0.2;
+  var ic = document.getElementById('mute-icon');
+  if (ic) ic.title = track.title;
+}
+
+function playNextTrack() {
+  playlistPos = (playlistPos + 1) % playlistOrder.length;
+  if (playlistPos === 0) shufflePlaylist();
+  loadTrack(playlistPos);
+  document.getElementById('bg-music').play().catch(function(){});
+  window.isMusicPlaying = true;
+  var ic = document.getElementById('mute-icon');
+  if (ic) { ic.src = window.ICON_ON; ic.style.filter = ''; }
+}
+
+// Init — zamieshaj a nacitaj prvy track
+shufflePlaylist();
+loadTrack(0);
+document.getElementById('bg-music').addEventListener('ended', playNextTrack);
+
+// Hudba sa nacita hned pri otvoreni stranky, ale ZOSTAVA MUTED/paused,
+// kym clovek sam neklikne na mute/unmute tlacidlo (viz toggleMute() nizsie).
+// Ziadny "autoplay pri prvom kliku kdekolvek" — to bolo otravne.
+</script>
+
+<!-- =============================================
+     HEADER
+     — logo, nav linky vpravo, mute tlacidlo
+     (ONLINE badge bol odstraneny — cely, aj z mobilnej verzie,
+     lebo je to ten isty element pre obe verzie)
+     ============================================= -->
+<div id="header">
+  <div id="header-inner">
+    <!-- Hamburger — LEN na mobile (CSS nizsie), na desktope display:none, layout sa nemeni -->
+    <div id="mobile-menu-toggle" onclick="toggleMobileMenu()">
+      <span id="mobile-menu-icon">&#9776;</span> <span id="mobile-menu-label">Menu</span>
+    </div>
+    <div id="logo-area">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <!-- Stvorcove/mascot logo — na mobile schovane cez #frown-mascot-logo v @media nizsie -->
+        <img id="frown-mascot-logo" src="upscaled logo v2 beige.png" style="height: 55px; width:65px; display:block;filter:invert(0%);" alt="frown_mascot" />
+        <img id="frown-archive-logo" src="frownarchives3.png" style="height:50px;width:150px;display:block;" alt="frown-logo-center" />
+      </div>
+    </div>
+    <div id="header-right">
+
+      <!-- RIADOK 1 — Welcome + odkazy -->
+      <div id="header-links-row">
+        <span style="color:#b7ae9c;">Welcome, visitor</span> &nbsp;|&nbsp;
+        <a href="#" onclick="nav('info')">About</a> &nbsp;|&nbsp;
+        <a href="#" onclick="nav('social')">Contact</a>
+      </div>
+
+      <!-- RIADOK 2 — Last updated + Secure connection -->
+      <div id="header-status-row">
+        <span id="last-updated-text" style="color:#9a9488;font-size:9px;">Last updated: — &nbsp;·&nbsp; Secure connection</span>
+      </div>
+
+      <!-- RIADOK 3 — mute/unmute tlacidlo (presunute sem, pod Secure connection).
+           Kliknutím na tento obrázok stíšiš alebo zapneš hudbu.
+           ICON_OFF = obrazok ked hudba nehrá (grayscale), ICON_ON = obrazok ked hudba hrá (farebny).
+           TODO: Zmen src a data-on na tvoje vlastne obrazky — napr. ikona noty alebo reproduktora -->
+      <div id="header-mute-row">
+        <div id="mute-toggle" onclick="toggleMute()">
+          <img id="mute-icon"
+            src="icons/mute2.png"
+            data-off="icons/mute2.png"
+            data-on="icons/unmute2.png"
+            alt="Mute">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     TOP NAVIGATION
+     — stranky, hover/active farby (CSS vyssie)
+     — TODO: Zmen src v kazdej nav-icon na tvoj vlastny obrazok
+     ============================================= -->
+<div id="topnav">
+  <div id="topnav-links">
+    <span class="topnav-item active" id="nav-museum" onclick="nav('museum')">
+      <img src="icons/archive.png" class="nav-icon" alt="" />
+      Archive
+    </span>
+    <span class="topnav-item" id="nav-social" onclick="nav('social')">
+      <img src="icons/shop.png" class="nav-icon" alt="" />
+      Socials
+    </span>
+    <span class="topnav-item" id="nav-info" onclick="nav('info')">
+      <img src="icons/manifesto.png" class="nav-icon" alt="" />
+      About Frown
+    </span>
+  </div>
+  <div id="search-bar">
+    <label for="search-input">Search:</label>
+    <input type="text" id="search-input" placeholder="search pieces..." oninput="doSearch(this.value)" />
+    <button id="search-btn" onclick="doSearch(document.getElementById('search-input').value)">Go</button>
+  </div>
+</div>
+
+<!-- =============================================
+     WRAPPER — sidebar + content vedla seba
+     ============================================= -->
+<div id="wrapper">
+
+  <!-- =============================================
+       LEFT SIDEBAR
+       ============================================= -->
+  <div id="sidebar">
+
+    <div class="sidebar-box">
+      <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Browse Categories" -->
+      <div class="sidebar-box-title"><img src="icons/browse categories.png" class="nav-icon" alt="" /> Browse Categories</div>
+
+      <div class="sidebar-cat">Archive</div>
+      <a class="sidebar-item active" id="sb-all" onclick="nav('museum'); sbActive('sb-all')">All Pieces <span class="sidebar-count" id="sc-all">4</span></a>
+      <a class="sidebar-item" id="sb-tops" onclick="nav('museum'); filterMuseum('tops'); sbActive(null)">&#8627; Tops <span class="sidebar-count" id="sc-tops">2</span></a>
+      <a class="sidebar-item" id="sb-hoodies" onclick="nav('museum'); filterMuseum('hoodies'); sbActive(null)">&#8627; Hoodies <span class="sidebar-count" id="sc-hoodies">1</span></a>
+      <a class="sidebar-item" id="sb-other" onclick="nav('museum'); filterMuseum('other'); sbActive(null)">&#8627; Other <span class="sidebar-count" id="sc-other">1</span></a>
+
+      <div class="sidebar-cat">Socials</div>
+      <a class="sidebar-item" onclick="nav('social')">Instagram <span class="sidebar-count">&#8599;</span></a>
+      <a class="sidebar-item" onclick="nav('social')">TikTok <span class="sidebar-count">&#8599;</span></a>
+      <a class="sidebar-item" onclick="nav('social')">YouTube <span class="sidebar-count">&#8599;</span></a>
+      <a class="sidebar-item" onclick="nav('social')">Vinted <span class="sidebar-count">&#8599;</span></a>
+
+      <div class="sidebar-cat">Info</div>
+      <a class="sidebar-item" id="sb-info" onclick="nav('info'); sbActive('sb-info')">About Frown <span class="sidebar-count">&#8212;</span></a>
+      <a class="sidebar-item" onclick="nav('info')">Process <span class="sidebar-count">&#8212;</span></a>
+      <a class="sidebar-item" onclick="nav('social')">Contact <span class="sidebar-count">&#8212;</span></a>
+    </div>
+
+    <div class="sidebar-box">
+      <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Marketplace Stats" -->
+      <div class="sidebar-box-title"><img src="icons/stats.png" class="nav-icon" alt="" /> Marketplace Stats</div>
+      <div class="sidebar-stats">
+        Total pieces: <span>4</span><br />
+        Available: <span>1</span><br />
+        Sold: <span>3</span><br />
+        Drops in 2025: <span>4</span><br />
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Contact" -->
+      <div class="sidebar-box-title"><img src="icons/contact.png" class="nav-icon" alt="" /> Contact</div>
+      <div class="sidebar-info-box">
+        DM on Instagram:<br />
+        <a href="https://www.instagram.com/frownlinea/"><strong>@frownlinea</strong></a><br />
+        Mail:<br />
+         <strong>frownlinea@gmail.com</strong></a><br />
+        <span style="color:#888;">For inquiries, collabs,<br />or anything at all.</span>
+      </div>
+    </div>
+
+  </div>
+  <!-- /SIDEBAR -->
+
+  <!-- =============================================
+       CONTENT PAGES
+       ============================================= -->
+  <div id="content">
+
+    <!-- ========================
+         ARCHIVE / MUSEUM PAGE
+         ======================== -->
+    <div class="page active" id="page-museum">
+      <div class="content-box">
+        <div class="content-box-title">
+          Archive — All Pieces
+          <span>showing all 4 drops &nbsp;·&nbsp; one of one only</span>
+        </div>
+        <div class="breadcrumb">
+          <a href="#" onclick="nav('museum')">FROWN</a> &rsaquo;
+          <a href="#" onclick="nav('museum')">Archive</a> &rsaquo;
+          All Pieces
+        </div>
+        <div class="filter-row">
+          View as:
+          <button class="filter-btn active" onclick="setMuseumView('grid',this)">Grid</button>
+          <button class="filter-btn" onclick="setMuseumView('list',this)">List</button>
+          &nbsp;&nbsp; Filter:
+          <button class="filter-btn active" id="mf-all" onclick="filterMuseum('all');mfActive('mf-all')">All</button>
+          <button class="filter-btn" id="mf-tops" onclick="filterMuseum('tops');mfActive('mf-tops')">Tops</button>
+          <button class="filter-btn" id="mf-hoodies" onclick="filterMuseum('hoodies');mfActive('mf-hoodies')">Hoodies</button>
+          <button class="filter-btn" id="mf-other" onclick="filterMuseum('other');mfActive('mf-other')">Other</button>
+          &nbsp;&nbsp; Status:
+          <button class="filter-btn active" id="ms-all" onclick="filterMuseumStatus('all');msActive('ms-all')">All</button>
+          <button class="filter-btn" id="ms-avail" onclick="filterMuseumStatus('available');msActive('ms-avail')">Available</button>
+          <button class="filter-btn" id="ms-sold" onclick="filterMuseumStatus('sold');msActive('ms-sold')">Sold</button>
+          &nbsp;&nbsp; Sort:
+          <button class="filter-btn active" id="msort-latest" onclick="setMuseumSort('latest');msortActive('msort-latest')">Latest</button>
+          <button class="filter-btn" id="msort-oldest" onclick="setMuseumSort('oldest');msortActive('msort-oldest')">Oldest</button>
+        </div>
+        <div class="notice-box" id="archive-notice" style="margin:6px 10px;position:relative;">
+          <span onclick="document.getElementById('archive-notice').style.display='none'" style="float:right;cursor:pointer;font-weight:bold;margin-left:10px;color:#664400;" title="Dismiss">&#10005;</span>
+          <strong>Notice:</strong> Every Frown piece is strictly one of one. No restocks, no reprints. Each drop ships with a handwritten note, YouTube documentary, and visual edit. To inquire: DM <a href="https://www.instagram.com/frownlinea/">@frownlinea</a> on Instagram.
+        </div>
+        <div id="museum-content"></div>
+      </div>
+    </div>
+
+    <!-- ========================
+         SOCIAL / LINKS PAGE
+         ======================== -->
+    <div class="page" id="page-social">
+      <div class="content-box">
+        <div class="content-box-title">Socials &amp; Links</div>
+        <div class="breadcrumb"><a href="#" onclick="nav('museum')">FROWN</a> &rsaquo; Socials</div>
+        <div class="social-table">
+          <div class="social-cell">
+            <!-- TODO: Zmen src na tvoj vlastny obrazok pre Instagram -->
+            <div class="social-icon"><img src="icons/instagram.png" style="width:26px;height:26px;object-fit:cover;" alt="" /></div>
+            <div class="social-platform-name">Instagram</div>
+            <!-- TODO: Zmen href na link tvojho Instagram profilu -->
+            <div class="social-handle"><a href="https://www.instagram.com/frownlinea/">@frownlinea</a></div>
+            <div class="social-desc">Drops, fit pics, behind the scenes. Main platform for visual content and fan interaction.</div>
+            <button class="btn-old" onclick="window.open('https://www.instagram.com/frownlinea/','_blank')">Visit Profile &#8599;</button>
+          </div>
+          <div class="social-cell">
+            <!-- TODO: Zmen src na tvoj vlastny obrazok pre TikTok -->
+            <div class="social-icon"><img src="icons/tiktok.png" style="width:26px;height:26px;object-fit:cover;" alt="" /></div>
+            <div class="social-platform-name">TikTok</div>
+            <!-- TODO: Zmen href na link tvojho TikTok profilu -->
+            <div class="social-handle"><a href="https://www.tiktok.com/@frownlinea">@frownlinea</a></div>
+            <div class="social-desc">Visual edits and clips from videos.</div>
+            <button class="btn-old" onclick="window.open('https://www.tiktok.com/@frownlinea','_blank')">Visit Profile &#8599;</button>
+          </div>
+          <div class="social-cell">
+            <!-- TODO: Zmen src na tvoj vlastny obrazok pre YouTube -->
+            <div class="social-icon"><img src="icons/youtubefrown.png" style="width:26px;height:26px;object-fit:cover;" alt="" /></div>
+            <div class="social-platform-name">YouTube</div>
+            <!-- TODO: Zmen href na link tvojho YouTube kanalu -->
+            <div class="social-handle"><a href="https://www.youtube.com/@frownlinea">FROWN</a></div>
+            <div class="social-desc">Full making-of documentary for every drop.</div>
+            <button class="btn-old" onclick="window.open('https://www.youtube.com/@frownlinea','_blank')">Visit Channel &#8599;</button>
+          </div>
+          <div class="social-cell">
+            <!-- TODO: Zmen src na tvoj vlastny obrazok pre Vinted -->
+            <div class="social-icon"><img src="icons/vinted.png" style="width:26px;height:26px;object-fit:cover;" alt="" /></div>
+            <div class="social-platform-name">Vinted</div>
+            <!-- TODO: Zmen href na link tvojho Vinted shopu -->
+            <div class="social-handle"><a href="https://www.vinted.sk/member/3150071500">FROWN</a></div>
+            <div class="social-desc">Primary sales platform. All available pieces listed here.</div>
+            <button class="btn-old" onclick="window.open('https://www.vinted.sk/member/3150071500','_blank')">Visit Shop &#8599;</button>
+          </div>
+          <div class="social-cell">
+            <!-- TODO: Zmen src na tvoj vlastny obrazok pre osobny YouTube -->
+            <div class="social-icon"><img src="icons/youtubemrak.png" style="width:26px;height:26px;object-fit:cover;" alt="" /></div>
+            <div class="social-platform-name">More From Me</div>
+            <!-- TODO: Zmen href na link tvojho osobneho Mrak/YouTube kanalu -->
+            <div class="social-handle"><a href="https://www.youtube.com/@mraciky">@marek</a></div>
+            <div class="social-desc">Vlogs and everything outside of frown.</div>
+            <button class="btn-old" onclick="window.open('https://www.youtube.com/@mraciky','_blank')">Visit Channel &#8599;</button>
+          </div>
+        </div>
+        <div class="content-box-subtitle" style="margin-top:0;">
+          All content is created by me with the help from my friends. Every piece has a dedicated visual edit and YouTube documentary.
+        </div>
+      </div>
+
+      <!-- CONTACT SEKCIA -->
+      <div class="content-box" style="margin-top:6px;">
+        <div class="content-box-title">Contact</div>
+        <div class="info-section">
+          <p style="font-size:11px;color:#555;line-height:1.8;">
+            For inquiries, collaborations, or anything DM me on instagram or contact me through email.<br />
+            <!-- TODO: Zmen href na link tvojho Instagram profilu -->
+            <strong><a href="https://www.instagram.com/frownlinea/">@frownlinea</a></strong> — serious inquiries only.<br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================
+         INFO / ABOUT PAGE
+         ======================== -->
+    <div class="page" id="page-info">
+      <div class="content-box">
+        <div class="content-box-title">About Frown</div>
+        <div class="breadcrumb"><a href="#" onclick="nav('museum')">FROWN</a> &rsaquo; About</div>
+
+        <div class="info-section">
+          <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Manifesto" -->
+          <div class="info-section-title"><img src="icons/manifesto.png" class="nav-icon" alt="" /> Manifesto</div>
+          <div class="manifesto-box">
+            Too many people walk around pretending to be some serious, grown up version of themselves,<br />
+            even when they know deep down that's not who they actually are or want to be.<br />
+            People deserve to be different, to actually be themselves,<br />
+            instead of whatever everyone else wants from them.<br />
+            What's the point of living if you don't even get to enjoy it?<br />
+            I'm not going to make up any meaning to no piece,<br />
+            whatever meaning it has is whatever you give it.
+          </div>
+        </div>
+
+        <div class="info-section">
+          <!-- TODO: Zmen src na tvoj vlastny obrazok pre "What You Get" -->
+          <div class="info-section-title"><img src="icons/drop includes2.png" class="nav-icon" alt="" /> What You Get With Every Drop</div>
+          <table class="info-table-plain">
+            <tr><td>Garment</td><td>A one of one piece. Made by hand or whatever method i used in the video.</td></tr>
+            <tr><td>Plushie (Optional)</td><td>Made from the leftover materials of the same piece.</td></tr>
+            <tr><td>Temporary Tattoo(Optional)</td><td>Frown logo tattoo Pretty self explanatory.</td></tr>
+            <tr><td>YouTube Documentary</td><td>Fully documented making process. QR code on the note links directly to it.</td></tr>
+            <tr><td>Visual Edit</td><td>Short visualisation dedicated specifically to the piece.</td></tr>
+            <tr><td>Handmade Note</td><td>A note with a personal message and a QR code that links to the YouTube documentary.</td></tr>
+          </table>
+        </div>
+
+        <div class="info-section">
+          <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Brand Info" -->
+          <div class="info-section-title"><img src="icons/about.png" class="nav-icon" alt="" /> Brand Info</div>
+          <table class="info-table-plain">
+            <tr><td>Brand name</td><td>FROWN</td></tr>
+            <tr><td>Founded</td><td>2025</td></tr>
+            <tr><td>Origin</td><td>Slovakia</td></tr>
+            <tr><td>Format</td><td>One of one drops</td></tr>
+            <tr><td>Sales platform</td><td>Vinted (primary), Instagram DM</td></tr>
+            <tr><td>Contact</td><td><a href="https://www.instagram.com/frownlinea/">@frownlinea</a> on Instagram</td></tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- /CONTENT -->
+
+</div>
+<!-- /WRAPPER -->
+
+<!-- =============================================
+     FOOTER
+     ============================================= -->
+<div id="footer">
+  <div>
+    <strong>FROWN</strong> &copy; 2025 &nbsp;·&nbsp;
+    All pieces one of one &nbsp;·&nbsp; No restocks &nbsp;·&nbsp; No reprints<br />
+    <span style="font-size:9px;color:#999;">Handmade in Slovakia &nbsp;·&nbsp; Contact: <a href="#" onclick="nav('social')">@frownlinea</a> on Instagram</span>
+  </div>
+  <div class="footer-stats">
+    <div>Pieces indexed: <span id="footer-total">4</span></div>
+    <div>Available: <span id="footer-avail">1</span></div>
+  </div>
+</div>
+
+<!-- =============================================
+     DETAIL OVERLAY — popup okno pre piece
+     ============================================= -->
+<div id="detail-overlay">
+  <div id="detail-window">
+    <div id="detail-titlebar">
+      <span id="detail-titlebar-text">FROWN — Piece Detail</span>
+      <button id="detail-close-btn" onclick="closeDetail()">&#10005; Close</button>
+    </div>
+    <div id="detail-menubar">
+      <a href="#" onclick="closeDetail(); return false;">&#171; Back to Archive</a>
+      &nbsp;|&nbsp; <span id="detail-bc-name" style="color:#555;">&#8212;</span>
+    </div>
+    <div id="detail-body">
+      <div id="detail-img-col">
+        <!-- Carousel — sipky + counter sa generuju automaticky -->
+        <div id="detail-img-wrapper">
+          <div class="carousel-arrow left" onclick="carouselStep(-1)">&#8249;</div>
+          <div id="detail-main-img">
+            <div style="text-align:center;color:#bbb;font-size:11px;padding:20px;">
+              &#128247;<br /><br />Photo coming<br />soon
+            </div>
+          </div>
+          <div class="carousel-arrow right" onclick="carouselStep(1)">&#8250;</div>
+          <div id="carousel-counter"></div>
+        </div>
+        <!-- Thumbnails — kliknutelne + aktualizuju sa automaticky -->
+        <div class="detail-thumb-row" id="detail-thumb-row"></div>
+      </div>
+      <div id="detail-info-col">
+        <div id="detail-item-title">&#8212;</div>
+        <div id="detail-item-id" style="font-size:10px;color:#888;margin-bottom:8px;">DROP 000</div>
+        <div class="detail-price-box">
+          <div>
+            <div id="detail-price" class="detail-price">&#8212;</div>
+            <div class="detail-price-sub">One of one &middot; No restocks</div>
+          </div>
+          <div id="detail-status-badge"></div>
+        </div>
+        <table class="detail-table">
+          <tr><td>Type</td><td id="d-type">&#8212;</td></tr>
+          <tr><td>Construction</td><td id="d-construction">&#8212;</td></tr>
+          <tr><td>Year</td><td id="d-year">&#8212;</td></tr>
+          <tr><td>Status</td><td id="d-status">&#8212;</td></tr>
+          <tr><td>Includes</td><td>Garment &middot; Plushie &middot; Tattoo &middot; YouTube doc &middot; Visual edit &middot; Note</td></tr>
+        </table>
+        <div class="detail-desc-box" id="d-story">&#8212;</div>
+        <div class="detail-includes-box">
+          <strong>&#10003; What ships with this piece:</strong>
+          Garment (one of one) &nbsp;&middot;&nbsp; Plushie from scraps &nbsp;&middot;&nbsp; Frown temporary tattoo &nbsp;&middot;&nbsp; YouTube making-of (QR inside) &nbsp;&middot;&nbsp; Visual edit &nbsp;&middot;&nbsp; Handwritten note
+        </div>
+        <div class="detail-links-box" id="d-links"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <!-- TODO: Zmen href na link tvojho Vinted profilu -->
+          <button class="btn-primary-old" id="d-cta-btn" onclick="window.open('https://www.vinted.sk/member/3150071500','_blank')">&#8599; Inquire via Vinted</button>
+          <button class="btn-old" onclick="closeDetail()">&#171; Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- =============================================
+     JAVASCRIPT
+     ============================================= -->
+<script type="text/javascript">
+
+// =============================================
+// [POMOCNÍK] AUDIO A MEDIA LOGIKA PRE BACKGROUND HUDBU A MP4 VIDEÁ
+// =============================================
+var bgm = null;
+var isMusicPlaying = false;
+
+// TODO: Zmen ICON_OFF na URL obrazka ked hudba NEHRÁ (napr. seda nota)
+// TODO: Zmen ICON_ON  na URL obrazka ked hudba HRÁ  (napr. farebna nota)
+// Ked budes mat dva rozne obrazky, zmen oba linky nizssie
+var ICON_OFF = 'icons/mute2.png';
+var ICON_ON  = 'icons/unmute2.png';
+
+/* toggleMute: prepína hudbu a mení ikonu medzi ICON_OFF (grayscale) a ICON_ON (farba) */
+function toggleMute() {
+  if (!bgm) bgm = document.getElementById('bg-music');
+  var ic = document.getElementById('mute-icon');
+  if (bgm.paused) {
+    // ak este nema src (stav pred prvou interakciou), nacitaj aktuálny track
+    if (!bgm.src || bgm.src === window.location.href) loadTrack(playlistPos);
+    bgm.play().catch(function(e) { console.log("Autoplay blocked."); });
+    isMusicPlaying = true;
+    if (ic) { ic.src = ICON_ON; ic.style.filter = ''; }
+  } else {
+    bgm.pause();
+    isMusicPlaying = false;
+    if (ic) { ic.src = ICON_OFF; ic.style.filter = 'grayscale(0%)'; }
+  }
+}
+
+/* [NÁPOVEDA] Pomocné funkcie pauseBGM a playBGM zabezpečujú, že ak užívateľ manuálne pustí MP4 video v detaile, 
+   hudba na pozadí sa automaticky pozastaví, aby sa zvuky neprekrývali, a po stopnutí videa zasa rozbehne. */
+var _bgmPausedForVideo = false;
+var _videoStopping = false;
+
+function pauseBGM() {
+  if (bgm && window.isMusicPlaying && !bgm.paused) {
+    bgm.pause();
+    _bgmPausedForVideo = true;
+  }
+}
+
+function playBGM() {
+  if (!_videoStopping && bgm && _bgmPausedForVideo && bgm.paused) {
+    bgm.play().catch(function(){});
+    _bgmPausedForVideo = false;
+  }
+}
+
+function stopCurrentVideoSilently() {
+  var vid = document.querySelector('#detail-main-img video');
+  if (vid) {
+    _videoStopping = true;
+    vid.pause();
+    vid.removeAttribute('src');
+    vid.load();
+    setTimeout(function() { _videoStopping = false; }, 50);
+  }
+}
+
+/* [NÁPOVEDA] Funkcia overuje, či je odkaz na súbor video vo formáte .mp4 */
+function isVideo(url) {
+  if (!url) return false;
+  return url.toLowerCase().indexOf('.mp4') !== -1;
+}
+
+/* [NÁPOVEDA] Automaticky vytiahne prvý prvok z poľa 'gallery'. Ak pole neexistuje, vráti placeholder. */
+function getFirstMedia(p) {
+  if (p.gallery && p.gallery.length > 0) return p.gallery[0];
+  return p.img ? p.img : PLACEHOLDER_IMG;
+}
+
+
+// =============================================
+// PIECES — zoznam vsetkych kusov
+// =============================================
+//
+// ╔══════════════════════════════════════════════════╗
+// ║  JAK PRIDAT NOVY PIECE — skopiruj tento blok    ║
+// ║  a vloz ho do pola pieces[] (pred poslednu })   ║
+// ╚══════════════════════════════════════════════════╝
+//
+// {
+//   id: 'DROP 003',
+//   // ^ Cislo dropu — zobrazuje sa pod nazvom (napr. "DROP 003")
+//
+//   name: 'NAZOV KUSU',
+//   // ^ Nazov piecu — zobrazuje sa vsade ako hlavny nadpis
+//
+//   type: 'Hoodie',
+//   // ^ Typ oblecenia — pouziva sa pri filtrovani v archive
+//   //   Moznosti: 'Hoodie' / 'Long Sleeve' / 'T-Shirt' / 'Pants' / 'Jacket' / 'In Progress'
+//
+//   cat: 'hoodies',
+//   // ^ Kategoria pre filter tlacidla v archive
+//   //   Moznosti: 'hoodies' / 'tops' / 'other'
+//   //   tops = trika, longsleeve; hoodies = mikiny; other = vsetko ostatne
+//
+//   status: 'available',
+//   // ^ Status piecu — ovplyvnuje badge, ceny a shop stranku
+//   //   'available' = zeleny badge, zobrazi sa v Shope, CTA button "Inquire"
+//   //   'sold'      = cerveny badge "SOLD", zobrazi sa len v Sold Archive
+//
+//   construction: 'Handmade · Hand-stitched',
+//   // ^ Sposob vyroby — zobrazuje sa v detaile a na karte v archive
+//   //   Pisi lubovolny text, mozes kombinovat napr. 'Screen printed · Reworked'
+//
+//   year: '2025',
+//   // ^ Rok kedy bol piece vyrobeny
+//
+//   price: '120€',
+//   // ^ Cena — zobrazuje sa v detail okne
+//   //   Pre sold: mozno napisat realne predajnu cenu ako archiv (napr. '100€')
+//   //   Pre available: mozno napisat 'on vinted' alebo konkretnu sumu
+//
+//   isNew: true,
+//   // ^ NEW badge — maly oranzovy stit vedla nazvu v liste a v Shope
+//   //   true  = badge sa zobrazuje (napr. cerstvý drop)
+//   //   false = badge sa nezobrazuje (alebo tento riadok vymas uplne)
+//   //
+//   //   !! KEDY HO DAT PREC:
+//   //   Zmen na:  isNew: false
+//   //   Alebo:    vymas riadok isNew uplne — efekt je rovnaky
+//   //   Odporucanie: nechaj ho tam prvy mesiac po droppe, potom vymas
+//
+//   gallery: [
+//     'Projects/NazovPiecu/foto1.jpg',
+//     // ^ Prvy obrazok — tento sa zobrazi ako thumbnail v archive gridu
+//     //   Moze byt lokalna cesta (ked je subor vedla HTML) alebo URL
+//
+//     'Projects/NazovPiecu/foto2.jpg',
+//     // ^ Dalsi obrazok — dostupny cez sipky a thumbnail row
+//
+//     'Projects/NazovPiecu/video.mp4',
+//     // ^ Video — automaticky zobrazi prvy frame ako thumbnail,
+//     //   po kliknuti sa spusti s ovladacimi prvkami
+//     //   Mozes pridat kolko chces obrazkov a videi — sipky funguju automaticky
+//   ],
+//
+//   story: 'Pribeh alebo popis kusa. Moze byt dlhy, zobrazuje sa kurzivou v detaile.',
+//   // ^ Popis / story — zobrazuje sa v detail okne kurzivou
+//
+//   links: [
+//     { label: '&#9654; Watch Making-Of', href: 'https://youtube.com/...' },
+//     // ^ Link na YouTube making-of video — zmen href na tvoj link
+//
+//     { label: '&#9672; View Visual Edit', href: 'https://tiktok.com/...' }
+//     // ^ Link na visual edit — zmen href na tvoj link
+//     // Mozes pridat alebo vymazat lubovolny pocet linkov
+//   ]
+// },
+//
+// ╔══════════════════════════════════════════════════╗
+// ║  JAK VYMAZAT PIECE                              ║
+// ║  Zmaz cely blok { ... }, od { az po }, (vrátane║
+// ║  ciarky za zatvorenou zatvorkou)                ║
+// ╚══════════════════════════════════════════════════╝
+
+var pieces = [
+  {
+    id: 'DROP 001', name: 'Drown With Me', type: 'Hoodie', cat: 'hoodies', status: 'available',
+    construction: 'Handmade · Hand-stitched', year: '2025', price: 'on vinted',
+    isNew: false,  // NEW badge — zmen na false alebo vymas ked chces aby zmizol
+    img: '', // TODO: vloz URL fotky tohto kusa
+    gallery: [
+      'Projects/Drown With Me/iloveimg-converted/IMG_0807.jpg',
+      'Projects/Drown With Me/iloveimg-converted/IMG_0821.jpg',
+      'Projects/Drown With Me/drownn.mp4',
+      'Projects/Drown With Me/wowwwieee.mp4'
+    ],
+    story: 'The first piece i ever made.One of one hoodie with a built-in scarf mask. The front has a skull design sewn onto it made from the scarf material. Handmade and designed from scratch.',
+    links: [
+      { label: '&#9654; Watch Making-Of', href: 'https://www.youtube.com/watch?v=9MTjHykE8x8&t=32s' },  // TODO: vloz link na YouTube
+      { label: '&#9672; View Visual Edit', href: 'https://www.tiktok.com/@frownlinea/video/7596757950417440022' }  // TODO: vloz link na visual edit
+    ]
+  },
+  {
+    id: 'DROP 002', name: 'Sunburnt Eyes Stay Bloodshot', type: 'crewneck', cat: 'hoodies', status: 'available',
+    construction: 'Handmade · Hand-stitched', year: '2026', price: 'on vinted',
+    img: '', // TODO: vloz URL fotky tohto kusa
+    gallery: [
+      'Projects/sunburnt eyes stay bloodshot/fotky/DSC01814.JPG',
+      'Projects/sunburnt eyes stay bloodshot/fotky/DSC01807.JPG',
+      'Projects/sunburnt eyes stay bloodshot/fotky/DSC01813.JPG',
+      'Projects/sunburnt eyes stay bloodshot/kamera/DJI_20260131170852_0083_D.MP4',
+      'Projects/sunburnt eyes stay bloodshot/;(.mp4',
+      'Projects/sunburnt eyes stay bloodshot/fotky.mp4',
+      'Projects/sunburnt eyes stay bloodshot/pleasestop.mp4',
+      'Projects/sunburnt eyes stay bloodshot/springdemo.mp4',
+      'Projects/sunburnt eyes stay bloodshot/whisperinterlude.mp4',
+    ],
+    story: 'A crewneck with a flannel skull thats filled with batting, so its looks 3D and feels really soft',
+    links: [
+      { label: '&#9654; Watch Making-Of', href: 'https://prdik.sk' },
+      { label: '&#9672; View Visual Edit', href: 'https://prdik.sk' }
+    ]
+  },
+];
+
+var museumView = 'grid';
+var currentMuseumFilter = 'all';
+
+// PLACEHOLDER — obrazok kym nemas vlastnu fotku
+// TODO: toto prdik.sk najdes cez Ctrl+F a zmenis na URL tvojej fotky (rovnaky link pre vsetky pieces kym nemas individualne)
+var PLACEHOLDER_IMG = 'https://i.pinimg.com/736x/a4/ca/9d/a4ca9d729c7d5085882e239a1eb86b56.jpg';
+
+// =============================================
+// GALLERY PLACEHOLDERS
+// =============================================
+
+var PLACEHOLDER_GALLERY = [
+  'https://i.pinimg.com/736x/a4/ca/9d/a4ca9d729c7d5085882e239a1eb86b56.jpg',
+  'https://i.pinimg.com/736x/a4/ca/9d/a4ca9d729c7d5085882e239a1eb86b56.jpg',
+  'https://i.pinimg.com/736x/a4/ca/9d/a4ca9d729c7d5085882e239a1eb86b56.jpg',
+  'https://i.pinimg.com/736x/a4/ca/9d/a4ca9d729c7d5085882e239a1eb86b56.jpg'
+];
+
+// =============================================
+// RENDER FUNCTIONS — generovanie HTML pre pieces
+// Ak pridáš img: 'url' do pieces[], zobrazi sa automaticky
+// =============================================
+
+function getGridSrc(p) {
+  // Prvy obrazok z gallery — ak je video, vrati video element, inak img
+  if (p.gallery && p.gallery.length > 0) return p.gallery[0];
+  if (p.img) return p.img;
+  return PLACEHOLDER_IMG;
+}
+
+function makeThumb(p) {
+  var src = getGridSrc(p);
+  var inner;
+  if (isVideo(src)) {
+    // Video thumbnail — zobrazuje prvy frame
+    inner = '<video src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
+  } else {
+    inner = '<img src="' + src + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;" />';
+  }
+  return '<div class="pgrid-thumb">' + inner + '</div>';
+}
+
+function makeListThumb(p) {
+  var src = getGridSrc(p);
+  var inner;
+  if (isVideo(src)) {
+    inner = '<video src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
+  } else {
+    inner = '<img src="' + src + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;" />';
+  }
+  return '<div class="listing-thumb" style="width:54px;height:64px;">' + inner + '</div>';
+}
+
+function renderMuseum(list) {
+  var el = document.getElementById('museum-content');
+  if (museumView === 'grid') {
+    var html = '<div class="product-grid-old">';
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i];
+      var ri = pieces.indexOf(p);
+      html += '<div class="pgrid-item" onclick="openDetail(' + ri + ')">';
+      html += makeThumb(p);
+      html += '<div class="pgrid-id">' + p.id + '</div>';
+      html += '<div class="pgrid-name">' + p.name + (p.isNew ? ' <span class="badge-new">NEW</span>' : '') + '</div>';
+      html += '<div class="pgrid-type">' + p.type + '</div>';
+      html += '<div class="pgrid-status-bar">';
+      html += '<span style="font-weight:bold;color:' + (p.status === 'sold' ? '#888' : '#cc2200') + ';">' + (p.price ? p.price : '—') + '</span>';
+      if (p.status === 'sold') html += '<span class="badge-sold">Sold</span>';
+      else html += '<span class="badge-Available">Available</span>';
+      html += '</div></div>';
+    }
+    html += '</div>';
+    el.innerHTML = html;
+  } else {
+    var html = '<table class="listing-table"><thead><tr><th style="width:60px;">Photo</th><th>Item</th><th style="width:90px;">Type</th><th style="width:70px;">Price</th><th style="width:80px;">Status</th><th style="width:70px;">Drop</th></tr></thead><tbody>';
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i];
+      var ri = pieces.indexOf(p);
+      html += '<tr class="listing-row" onclick="openDetail(' + ri + ')">';
+      html += '<td>' + makeListThumb(p) + '</td>';
+      html += '<td><div class="listing-title">' + p.name;
+      if (p.isNew) html += '<span class="badge-new">NEW</span>';
+      html += '</div><div class="listing-desc">' + p.story.substring(0, 90) + '...</div><div class="listing-meta">' + p.construction + ' &nbsp;·&nbsp; ' + p.year + '</div></td>';
+      html += '<td>' + p.type + '</td>';
+      html += '<td class="' + (p.status === 'sold' ? 'price-sold' : 'price-cell') + '">' + (p.price ? p.price : '—') + '</td>';
+      html += '<td>' + (p.status === 'sold' ? '<span class="badge-sold">Sold</span>' : '<span class="badge-Available">Available</span>') + '</td>';
+      html += '<td>' + p.id + '</td>';
+      html += '</tr>';
+    }
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+}
+
+function renderShop(list) {
+  var el = document.getElementById('shop-content');
+  var html = '<table class="listing-table"><thead><tr><th style="width:60px;">Photo</th><th>Item</th><th style="width:90px;">Type</th><th style="width:80px;">Price</th><th style="width:70px;">Status</th></tr></thead><tbody>';
+  if (list.length === 0) {
+    html += '<tr><td colspan="5" style="padding:20px;text-align:center;color:#888;font-size:12px;">No pieces match this filter.</td></tr>';
+  }
+  for (var i = 0; i < list.length; i++) {
+    var p = list[i];
+    var ri = pieces.indexOf(p);
+    html += '<tr class="listing-row" onclick="openDetail(' + ri + ')">';
+    html += '<td>' + makeListThumb(p) + '</td>';
+    html += '<td><div class="listing-title">' + p.name;
+    if (p.isNew) html += '<span class="badge-new">NEW</span>';
+    html += '</div><div class="listing-desc">' + p.story.substring(0, 80) + '...</div><div class="listing-meta">Includes: garment · plushie · tattoo · video · note</div></td>';
+    html += '<td>' + p.type + '</td>';
+    if (p.status === 'sold') html += '<td><span class="price-sold">&#8212;</span></td>';
+    else html += '<td class="price-cell">Inquire &#8599;</td>';
+    html += '<td>' + (p.status === 'sold' ? '<span class="badge-sold">Sold</span>' : '<span class="badge-Available">Available</span>') + '</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+// =============================================
+// NAVIGATION
+// =============================================
+
+// Hamburger menu (LEN mobile) — pridava/odobera triedu na <body>,
+// ktora v mobile media query odhali topnav (nav linky + search) a sidebar.
+// setMobileMenu() drzi aj ikonu/label tlacidla v sync (☰ Menu <-> ✕ Close).
+function setMobileMenu(open) {
+  document.body.classList.toggle('mobile-nav-open', open);
+  var icon = document.getElementById('mobile-menu-icon');
+  var label = document.getElementById('mobile-menu-label');
+  if (icon) icon.innerHTML = open ? '&#10005;' : '&#9776;';
+  if (label) label.textContent = open ? 'Close' : 'Menu';
+}
+
+function toggleMobileMenu() {
+  setMobileMenu(!document.body.classList.contains('mobile-nav-open'));
+}
+
+function nav(page) {
+  // Po kliku na akukolvek navigaciu na mobile sa menu samo zavrie
+  setMobileMenu(false);
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.topnav-item').forEach(function(n) { n.classList.remove('active'); });
+  var tn = document.getElementById('nav-' + page);
+  if (tn) tn.classList.add('active');
+
+  // Sidebar category highlight
+  var catMap = { museum: 'Archive', social: 'Socials', info: 'Info' };
+  var activeCat = catMap[page] || null;
+  document.querySelectorAll('.sidebar-cat').forEach(function(c) {
+    if (activeCat && c.textContent.trim() === activeCat) {
+      c.classList.add('sidebar-cat-active');
+    } else {
+      c.classList.remove('sidebar-cat-active');
+    }
+  });
+}
+
+function sbActive(id) {
+  document.querySelectorAll('.sidebar-item').forEach(function(i) { i.classList.remove('active'); });
+  if (id) { var el = document.getElementById(id); if (el) el.classList.add('active'); }
+}
+
+function sfltActive(id) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) {
+    if (b.id && b.id.indexOf('sflt') === 0) b.classList.remove('active');
+  });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function filterMuseum(cat) {
+  currentMuseumFilter = cat;
+  applyMuseumFilters();
+}
+
+var currentMuseumStatus = 'all';
+var currentMuseumSort = 'latest';
+
+function filterMuseumStatus(status) {
+  currentMuseumStatus = status;
+  applyMuseumFilters();
+}
+
+function setMuseumSort(sort) {
+  currentMuseumSort = sort;
+  applyMuseumFilters();
+}
+
+function applyMuseumFilters() {
+  var list = pieces.slice();
+  if (currentMuseumFilter !== 'all') list = list.filter(function(p) { return p.cat === currentMuseumFilter; });
+  if (currentMuseumStatus !== 'all') list = list.filter(function(p) { return p.status === currentMuseumStatus; });
+  if (currentMuseumSort === 'oldest') {
+    list.sort(function(a, b) { return (a.year || '0').localeCompare(b.year || '0'); });
+  } else {
+    list.sort(function(a, b) { return (b.year || '0').localeCompare(a.year || '0'); });
+  }
+  renderMuseum(list);
+}
+
+function mfActive(id) {
+  document.querySelectorAll('[id^="mf-"]').forEach(function(b) { b.classList.remove('active'); });
+  var el = document.getElementById(id); if (el) el.classList.add('active');
+}
+function msActive(id) {
+  document.querySelectorAll('[id^="ms-"]').forEach(function(b) { b.classList.remove('active'); });
+  var el = document.getElementById(id); if (el) el.classList.add('active');
+}
+function msortActive(id) {
+  document.querySelectorAll('[id^="msort-"]').forEach(function(b) { b.classList.remove('active'); });
+  var el = document.getElementById(id); if (el) el.classList.add('active');
+}
+
+function setMuseumView(view, btn) {
+  museumView = view;
+  document.querySelectorAll('.filter-btn').forEach(function(b) {
+    if (b.textContent === 'Grid' || b.textContent === 'List') b.classList.remove('active');
+  });
+  if (btn) btn.classList.add('active');
+  filterMuseum(currentMuseumFilter);
+}
+
+function shopFilter(filter) {
+  var list = filter === 'all' ? pieces : pieces.filter(function(p) { return p.status === filter; });
+  document.getElementById('shop-bc').textContent = filter === 'all' ? 'All' : filter === 'available' ? 'Available' : 'Sold Archive';
+  renderShop(list);
+}
+
+// =============================================
+// CAROUSEL — stav a funkcie pre sipkove prepinanie
+// =============================================
+
+var currentGallery = [];      // gallery aktualneho otvoreho piecu
+var currentGalleryIdx = 0;    // index aktualneho obrazka/videa
+
+/* Posun o krok (-1 = doľava, +1 = doprava), wrappuje na konci */
+function carouselStep(dir) {
+  if (currentGallery.length === 0) return;
+  var next = (currentGalleryIdx + dir + currentGallery.length) % currentGallery.length;
+  carouselGoTo(next);
+}
+
+/* Prejdi na konkretny index — aktualizuje hlavny obrazok, counter aj active thumb */
+function carouselGoTo(idx) {
+  // Zastavime aktualne video bez spustenia BGM callbacku
+  stopCurrentVideoSilently();
+
+  currentGalleryIdx = idx;
+  var src = currentGallery[idx];
+  var imgEl = document.getElementById('detail-main-img');
+
+  if (isVideo(src)) {
+    imgEl.innerHTML = '<video id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
+    var vid = document.getElementById('main-detail-photo');
+    vid.addEventListener('play', pauseBGM);
+    vid.addEventListener('pause', playBGM);
+  } else {
+    imgEl.innerHTML = '<img id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" />';
+    // Pri prechode z videa na obrazok resume BGM
+    if (_bgmPausedForVideo) playBGM();
+  }
+
+  // aktualizuj counter
+  var counter = document.getElementById('carousel-counter');
+  if (counter) counter.textContent = (idx + 1) + ' / ' + currentGallery.length;
+
+  // aktualizuj active thumb
+  document.querySelectorAll('.detail-thumb-sm').forEach(function(t, i) {
+    t.classList.toggle('active', i === idx);
+  });
+}
+
+// =============================================
+// DETAIL OVERLAY — otvorenie detailu kusa
+// =============================================
+
+function openDetail(i) {
+  var p = pieces[i];
+  document.getElementById('detail-bc-name').textContent = p.id + ' — ' + p.name;
+  document.getElementById('detail-titlebar-text').textContent = 'FROWN — ' + p.name + ' (' + p.id + ')';
+  document.getElementById('detail-item-title').textContent = p.name;
+  document.getElementById('detail-item-id').innerHTML = p.id + ' &nbsp;·&nbsp; ' + p.year;
+  document.getElementById('d-type').textContent = p.type;
+  document.getElementById('d-construction').textContent = p.construction;
+  document.getElementById('d-year').textContent = p.year;
+  document.getElementById('d-story').textContent = p.story;
+
+  // Nastav gallery pre carousel
+  currentGallery = (p.gallery && p.gallery.length) ? p.gallery : PLACEHOLDER_GALLERY;
+  currentGalleryIdx = 0;
+  carouselGoTo(0);
+
+  // Sipky — schovaj ak len 1 media
+  document.querySelectorAll('.carousel-arrow').forEach(function(a) {
+    a.style.display = currentGallery.length > 1 ? 'flex' : 'none';
+  });
+  var counter = document.getElementById('carousel-counter');
+  if (counter) counter.style.display = currentGallery.length > 1 ? 'block' : 'none';
+
+  // Thumbnails
+  var thumbRow = document.getElementById('detail-thumb-row');
+  var thumbsHTML = '';
+  for (var t = 0; t < currentGallery.length; t++) {
+    var tsrc = currentGallery[t].trim();
+    var thumbInner = isVideo(tsrc)
+      ? '<video src="' + tsrc + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>'
+      : '<img src="' + tsrc + '" alt="thumb" />';
+    thumbsHTML += '<div class="detail-thumb-sm ' + (t === 0 ? 'active' : '') + '" onclick="carouselGoTo(' + t + ')">' + thumbInner + '</div>';
+  }
+  thumbRow.innerHTML = thumbsHTML;
+
+  // Cena + status
+  var ctaBtn = document.getElementById('d-cta-btn');
+  if (p.status === 'sold') {
+    document.getElementById('detail-price').textContent = p.price ? p.price : '—';
+    document.getElementById('detail-price').style.color = '#888';
+    document.getElementById('d-status').innerHTML = '<span class="badge-sold">Sold — Archived</span>';
+    ctaBtn.style.display = 'none';
+  } else {
+    document.getElementById('detail-price').textContent = p.price ? p.price : 'Inquire for price';
+    document.getElementById('detail-price').style.color = '#cc2200';
+    document.getElementById('d-status').innerHTML = '<span class="badge-Available">Available — One of One</span>';
+    ctaBtn.style.display = '';
+    ctaBtn.textContent = '↗ Inquire via Vinted';
+  }
+  document.getElementById('detail-status-badge').innerHTML = p.status === 'sold'
+    ? '<span class="badge-sold">SOLD</span>'
+    : '<span class="badge-Available">AVAILABLE</span>';
+
+  // Links
+  var linksHtml = '';
+  if (p.links && p.links.length > 0) {
+    linksHtml = '<div class="detail-links-title">Content for this piece:</div>';
+    for (var j = 0; j < p.links.length; j++) {
+      linksHtml += '<a href="' + p.links[j].href + '" class="detail-link-item" target="_blank">' + p.links[j].label + '</a>';
+    }
+  }
+  document.getElementById('d-links').innerHTML = linksHtml;
+  document.getElementById('detail-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  // Zastavime video a resumujeme BGM
+  stopCurrentVideoSilently();
+  setTimeout(function() {
+    _bgmPausedForVideo = false;
+    if (bgm && window.isMusicPlaying && bgm.paused) bgm.play().catch(function(){});
+  }, 60);
+  document.getElementById('detail-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// =============================================
+// SEARCH
+// =============================================
+
+function doSearch(q) {
+  if (!q) { renderMuseum(pieces); return; }
+  q = q.toLowerCase();
+  var filtered = pieces.filter(function(p) {
+    return p.name.toLowerCase().indexOf(q) > -1 || p.type.toLowerCase().indexOf(q) > -1 || p.story.toLowerCase().indexOf(q) > -1;
+  });
+  nav('museum');
+  renderMuseum(filtered);
+}
+
+// =============================================
+// STATS — automaticky sa pocita z pieces[]
+// Ked pridáš alebo vymazes piece, čísla sa aktualizuju samy
+// =============================================
+function updateStats() {
+  var total = pieces.length;
+  var avail = pieces.filter(function(p) { return p.status === 'available'; }).length;
+  var sold  = pieces.filter(function(p) { return p.status === 'sold'; }).length;
+
+  // Last updated — najnovsie year z pieces
+  var years = pieces.map(function(p) { return p.year; }).filter(Boolean).sort(function(a,b){ return b.localeCompare(a); });
+  var lastYear = years[0] || '—';
+  var lastUpdatedEl = document.getElementById('last-updated-text');
+  if (lastUpdatedEl) lastUpdatedEl.innerHTML = 'Last updated: ' + lastYear + ' &nbsp;&middot;&nbsp; Secure connection';
+
+  // Sidebar stats box — bez "All one of one"
+  var statsEl = document.querySelector('.sidebar-stats');
+  if (statsEl) {
+    statsEl.innerHTML =
+      'Total pieces: <span>' + total + '</span><br />' +
+      'Available: <span>' + avail + '</span><br />' +
+      'Sold: <span>' + sold + '</span><br />' +
+      'Drops in ' + lastYear + ': <span>' + total + '</span>';
+  }
+
+  // Sidebar sidebar-item counts
+  var sbItems = document.querySelectorAll('.sidebar-item');
+  sbItems.forEach(function(el) {
+    if (el.textContent.indexOf('All Pieces') > -1) {
+      var sc = el.querySelector('.sidebar-count');
+      if (sc) sc.textContent = total;
+    }
+  });
+
+  // Category counts — automaticky z pieces[]
+  var countTops    = pieces.filter(function(p) { return p.cat === 'tops'; }).length;
+  var countHoodies = pieces.filter(function(p) { return p.cat === 'hoodies'; }).length;
+  var countOther   = pieces.filter(function(p) { return p.cat === 'other'; }).length;
+  var scAll = document.getElementById('sc-all');
+  if (scAll) scAll.textContent = total;
+  var scTops = document.getElementById('sc-tops');
+  if (scTops) scTops.textContent = countTops;
+  var scHoodies = document.getElementById('sc-hoodies');
+  if (scHoodies) scHoodies.textContent = countHoodies;
+  var scOther = document.getElementById('sc-other');
+  if (scOther) scOther.textContent = countOther;
+
+  // Footer stats
+  var footerTotal = document.getElementById('footer-total');
+  var footerAvail = document.getElementById('footer-avail');
+  if (footerTotal) footerTotal.textContent = total;
+  if (footerAvail) footerAvail.textContent = avail;
+
+  // Archive title count
+  var archTitle = document.querySelector('#page-museum .content-box-title span');
+  if (archTitle) archTitle.textContent = 'showing all ' + total + ' drops · one of one only';
+}
+
+// =============================================
+// INIT — prvy render pri nacitani stranky
+// =============================================
+applyMuseumFilters();
+updateStats();
+
+
+
+// =============================================
+// CHANGE DETAIL IMAGE
+// =============================================
+
+/* [NÁPOVEDA] changeDetailImage zabezpečuje dynamickú výmenu obsahu v hlavnom okne detailu po kliknutí na miniatúru.
+   Ak klikneš na video, vytvorí sa plnohodnotný video prehrávač s ovládacími prvkami a automatickým stíšením hudby na pozadí pri play. */
+function changeDetailImage(el, src) {
+  stopCurrentVideoSilently();
+  var imgEl = document.getElementById('detail-main-img');
+
+  if (isVideo(src)) {
+    imgEl.innerHTML = '<video id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
+    var vid = document.getElementById('main-detail-photo');
+    vid.addEventListener('play', pauseBGM);
+    vid.addEventListener('pause', playBGM);
+  } else {
+    imgEl.innerHTML = '<img id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" />';
+    if (_bgmPausedForVideo) playBGM();
+  }
+
+  document.querySelectorAll('.detail-thumb-sm').forEach(function(t) {
+    t.classList.remove('active');
+  });
+
+  el.classList.add('active');
+}
+
+</script>
+
+</body>
+</html>
