@@ -17,7 +17,7 @@ body {
   font-family: Tahoma, Arial, Verdana, sans-serif;
   font-size: 11px;
   background-color: #d4d0c8;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z8BQDwAEgAF/QualIQAAAABJRU5ErkJggg==");
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAALElEQVR42k3IsQ2AQBDEwNnTB/Rf8C0JL+Fo5ODB+pq214sJDgba7vzGJpkXS8EKFMH8XwkAAAAASUVORK5CYII=");
   color: #333333;
   min-width: 900px;
 }
@@ -998,10 +998,15 @@ a:visited { color: #551a8b; }
 
   body { min-width: 0; }
 
-  /* --- HEADER --- */
+  /* --- HEADER ---
+     header-inner je teraz na mobile RIADOK (nie stlpec): hamburger + logo su
+     v tom istom riadku vedla seba (rovnaka vyska), header-right ide na dalsi
+     riadok cez flex-basis:100% (viz nizsie). */
   #header-inner {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
     padding: 10px 10px 8px 10px;
   }
@@ -1010,7 +1015,8 @@ a:visited { color: #551a8b; }
     display: flex;
     align-items: center;
     gap: 6px;
-    align-self: flex-start;
+    order: 1;
+    flex-shrink: 0;
     background: linear-gradient(to bottom, #4a4742, #2c2a27);
     border: 1px solid #5c584f;
     color: #e4dfd2;
@@ -1025,7 +1031,9 @@ a:visited { color: #551a8b; }
   #mobile-menu-toggle:hover { background: linear-gradient(to bottom, #5c584f, #38352f); }
   #mobile-menu-icon { font-size: 13px; }
 
-  #logo-area { justify-content: center; }
+  /* logo-area je teraz vedla hamburgera (order:2, flex:1 = vyplni zvysny priestor
+     a logo sa v nom centruje) — preto je v rovnakej vyske ako menu tlacidlo */
+  #logo-area { order: 2; flex: 1; min-width: 0; justify-content: center; }
   /* Inline style="height/width" na obrazkoch loga potrebuje !important, inak vyhrava inline atribut */
   #frown-archive-logo { height: 38px !important; width: 114px !important; }
   /* Stvorcove/mascot logo — na mobile ho vypneme, zostane len Frown Archives logo.
@@ -1033,7 +1041,8 @@ a:visited { color: #551a8b; }
      preco je !important aj pri #frown-archive-logo vyssie). */
   #frown-mascot-logo { display: none !important; }
 
-  #header-right { text-align: center; }
+  /* order:3 + flex-basis:100% = zhodi header-right na novy riadok pod hamburger+logo riadok */
+  #header-right { order: 3; flex-basis: 100%; width: 100%; text-align: center; }
   /* Mute riadok je uz vycentrovany cez #header-right text-align: center vyssie */
 
   /* --- TOPNAV — schovany, hamburger ho odhali cely (linky + search) --- */
