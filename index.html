@@ -13,6 +13,11 @@
 
 * { margin: 0; padding: 0; }
 
+/* scrollbar-gutter: stable = miesto pre scrollbar je rezervovane stale, takze sa obsah
+   na desktope neposunie o ~15px ked sa otvori popup (body overflow:hidden) alebo ked
+   sa prepne na kratsiu/dlhsiu stranku. -webkit-text-size-adjust: iOS nezvacsuje text. */
+html { scrollbar-gutter: stable; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
 body {
   font-family: Tahoma, Arial, Verdana, sans-serif;
   font-size: 11px;
@@ -455,6 +460,18 @@ a:visited { color: #551a8b; }
   text-transform: uppercase;
 }
 
+.badge-unavailable {
+  display: inline-block;
+  background: linear-gradient(to bottom, #9a9a96, #76766f);
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 1px 5px;
+  border-radius: 2px;
+  border: 1px solid #5e5e58;
+  text-transform: uppercase;
+}
+
 .badge-new {
   display: inline-block;
   background: linear-gradient(to bottom, #ff8800, #dd6600);
@@ -470,6 +487,7 @@ a:visited { color: #551a8b; }
 
 .price-cell { font-weight: bold; color: #cc2200; font-size: 13px; white-space: nowrap; }
 .price-sold { font-weight: bold; color: #888; font-size: 11px; text-decoration: line-through; }
+.price-na { font-weight: bold; color: #888; font-size: 11px; white-space: nowrap; }
 
 
 /* =============================================
@@ -553,7 +571,7 @@ a:visited { color: #551a8b; }
   padding: 30px 0;
 }
 
-#detail-overlay.open { display: block; }
+#detail-overlay.open { display: block; overscroll-behavior: contain; }
 
 #detail-window {
   width: 900px;
@@ -602,21 +620,31 @@ a:visited { color: #551a8b; }
    CAROUSEL — sipky pre prepinanie obrazkov/videi
    ============================================= */
 
+/* Lavy stlpec (media) ma vzdy rovnaku vysku ako pravy stlpec s textom:
+   #detail-body je flex (align-items: stretch), media box vyplni cely zvysny priestor
+   nad thumbnailmi (flex:1), takze ak je vpravo menej textu, media sa zmensi a
+   nikde nezostane prazdne miesto. min-height je len poistka proti uplne plochemu oknu. */
 #detail-img-col {
   width: 480px;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Wrapper okolo hlavneho obrazka — sipky su absolutne v nom */
 #detail-img-wrapper {
   position: relative;
   margin-bottom: 6px;
+  flex: 1 1 auto;
+  min-height: 150px;
 }
 
 #detail-main-img {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
   width: 100%;
-  aspect-ratio: 4/3;
+  height: 100%;
   background: linear-gradient(135deg, #e8e4dc, #c8c4bc);
   border: 1px solid #a0998c;
   display: flex;
@@ -704,12 +732,10 @@ a:visited { color: #551a8b; }
   font-size: 16px;
   font-weight: bold;
   color: #2a2a2a;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #ece8e0;
   padding-bottom: 6px;
 }
-
-#detail-item-id { font-size: 10px; color: #888; margin-bottom: 8px; }
 
 .detail-price-box {
   background: linear-gradient(to bottom, #fef8ec, #faecd8);
@@ -810,6 +836,21 @@ a:visited { color: #551a8b; }
 }
 
 .btn-primary-old:hover { background: linear-gradient(to bottom, #88cc55, #559933); }
+
+/* NOT FOR SALE tlacidlo — siv, vyzera ako klikatelne (meni farbu), ale nerobi nic */
+.btn-na {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #d2d0cb, #b8b6b0);
+  border: 1px solid #8a8880;
+  padding: 4px 14px;
+  cursor: pointer;
+  color: #6d6b66;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+.btn-na:hover { background: linear-gradient(to bottom, #c0beb8, #a6a49e); color: #4f4e4a; }
+.btn-na:active { background: linear-gradient(to bottom, #a6a49e, #bab8b2); }
 
 
 /* =============================================
@@ -987,14 +1028,17 @@ a:visited { color: #551a8b; }
 
 
 /* =============================================
-   MOBILE (<= 800px)
+   MOBILE / TABLET (<= 1000px)
    — hamburger schova topnav + sidebar do jedneho menu,
      wrapper/detail/social sa stackuju pod seba,
      product grid ide na 2 stlpce.
    VSETKO tu je scopnute cez @media, takze desktop layout
    (nad 800px) sa NEMENI ani o pixel.
    ============================================= */
-@media (max-width: 800px) {
+/* Breakpoint je 1000px (nie 800px): desktop layout ma pevnu sirku 960px, takze na
+   tabletoch (810-834px) a malych oknach 800-985px vznikal vodorovny scroll a popup (900px)
+   pretekal von z obrazovky. */
+@media (max-width: 1000px) {
 
   body { min-width: 0; }
 
@@ -1002,12 +1046,13 @@ a:visited { color: #551a8b; }
      header-inner je teraz na mobile RIADOK (nie stlpec): hamburger + logo su
      v tom istom riadku vedla seba (rovnaka vyska), header-right ide na dalsi
      riadok cez flex-basis:100% (viz nizsie). */
+  /* Grid 1fr | auto | 1fr — logo je v strednom stlpci, takze je presne v strede
+     headera bez ohladu na sirku hamburger tlacidla (flex ho posuval mimo stred). */
   #header-inner {
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    row-gap: 8px;
     padding: 10px 10px 8px 10px;
   }
 
@@ -1015,8 +1060,9 @@ a:visited { color: #551a8b; }
     display: flex;
     align-items: center;
     gap: 6px;
-    order: 1;
-    flex-shrink: 0;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
     background: linear-gradient(to bottom, #4a4742, #2c2a27);
     border: 1px solid #5c584f;
     color: #e4dfd2;
@@ -1033,7 +1079,7 @@ a:visited { color: #551a8b; }
 
   /* logo-area je teraz vedla hamburgera (order:2, flex:1 = vyplni zvysny priestor
      a logo sa v nom centruje) — preto je v rovnakej vyske ako menu tlacidlo */
-  #logo-area { order: 2; flex: 1; min-width: 0; justify-content: center; }
+  #logo-area { grid-column: 2; grid-row: 1; justify-content: center; }
   /* Inline style="height/width" na obrazkoch loga potrebuje !important, inak vyhrava inline atribut */
   #frown-archive-logo { height: 38px !important; width: 114px !important; }
   /* Stvorcove/mascot logo — na mobile ho vypneme, zostane len Frown Archives logo.
@@ -1042,7 +1088,7 @@ a:visited { color: #551a8b; }
   #frown-mascot-logo { display: none !important; }
 
   /* order:3 + flex-basis:100% = zhodi header-right na novy riadok pod hamburger+logo riadok */
-  #header-right { order: 3; flex-basis: 100%; width: 100%; text-align: center; }
+  #header-right { grid-column: 1 / -1; grid-row: 2; width: 100%; text-align: center; }
   /* Mute riadok je uz vycentrovany cez #header-right text-align: center vyssie */
 
   /* --- TOPNAV — schovany, hamburger ho odhali cely (linky + search) --- */
@@ -1099,7 +1145,7 @@ a:visited { color: #551a8b; }
   .content-box-subtitle { flex-wrap: wrap; gap: 4px; }
 
   /* --- PRODUCT GRID — 2 stlpce namiesto 4 --- */
-  .product-grid-old { grid-template-columns: repeat(2, 1fr); }
+  .product-grid-old { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   /* --- LIST VIEW (tabulka) — nezuzuj, radsej scrolluj do strany --- */
   #museum-content, #shop-content { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -1107,9 +1153,12 @@ a:visited { color: #551a8b; }
 
   /* --- DETAIL POPUP — zmensene "okno", obrazok + info pod sebou --- */
   #detail-overlay { padding: 14px 0; }
-  #detail-window { width: 94vw; }
+  /* max-width: na tablete by sa popup inak roztiahol na ~940px a obrazok by bol obrovsky */
+  #detail-window { width: 94vw; max-width: 600px; }
   #detail-body { flex-direction: column; padding: 10px; gap: 10px; }
   #detail-img-col { width: 100%; }
+  /* Na mobile su media a text pod sebou, takze tu ostava fixny pomer stran 4:3 */
+  #detail-img-wrapper { flex: none; min-height: 0; aspect-ratio: 4 / 3; }
   #detail-titlebar-text {
     font-size: 11px;
     max-width: 60%;
@@ -1138,6 +1187,12 @@ a:visited { color: #551a8b; }
     padding: 10px 12px;
     box-sizing: border-box;
   }
+}
+
+
+/* Tablet (601-1000px): 3 stlpce v gride, nech obrazky nie su obrovske */
+@media (min-width: 601px) and (max-width: 1000px) {
+  .product-grid-old { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 </style>
@@ -1284,8 +1339,8 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
   </div>
   <div id="search-bar">
     <label for="search-input">Search:</label>
-    <input type="text" id="search-input" placeholder="search pieces..." oninput="doSearch(this.value)" />
-    <button id="search-btn" onclick="doSearch(document.getElementById('search-input').value)">Go</button>
+    <input type="text" id="search-input" placeholder="search pieces..." oninput="doSearch(this.value)" onkeydown="if (event.key === 'Enter') { doSearch(this.value, true); this.blur(); }" />
+    <button id="search-btn" onclick="doSearch(document.getElementById('search-input').value, true)">Go</button>
   </div>
 </div>
 
@@ -1304,10 +1359,10 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
       <div class="sidebar-box-title"><img src="icons/browse categories.png" class="nav-icon" alt="" /> Browse Categories</div>
 
       <div class="sidebar-cat">Archive</div>
-      <a class="sidebar-item active" id="sb-all" onclick="nav('museum'); sbActive('sb-all')">All Pieces <span class="sidebar-count" id="sc-all">4</span></a>
-      <a class="sidebar-item" id="sb-tops" onclick="nav('museum'); filterMuseum('tops'); sbActive(null)">&#8627; Tops <span class="sidebar-count" id="sc-tops">2</span></a>
-      <a class="sidebar-item" id="sb-hoodies" onclick="nav('museum'); filterMuseum('hoodies'); sbActive(null)">&#8627; Hoodies <span class="sidebar-count" id="sc-hoodies">1</span></a>
-      <a class="sidebar-item" id="sb-other" onclick="nav('museum'); filterMuseum('other'); sbActive(null)">&#8627; Other <span class="sidebar-count" id="sc-other">1</span></a>
+      <a class="sidebar-item active" id="sb-all" onclick="nav('museum'); filterMuseum('all')">All Pieces <span class="sidebar-count" id="sc-all">4</span></a>
+      <a class="sidebar-item" id="sb-tops" onclick="nav('museum'); filterMuseum('tops')">&#8627; Tops <span class="sidebar-count" id="sc-tops">2</span></a>
+      <a class="sidebar-item" id="sb-hoodies" onclick="nav('museum'); filterMuseum('hoodies')">&#8627; Hoodies <span class="sidebar-count" id="sc-hoodies">1</span></a>
+      <a class="sidebar-item" id="sb-other" onclick="nav('museum'); filterMuseum('other')">&#8627; Other <span class="sidebar-count" id="sc-other">1</span></a>
 
       <div class="sidebar-cat">Socials</div>
       <a class="sidebar-item" onclick="nav('social')">Instagram <span class="sidebar-count">&#8599;</span></a>
@@ -1339,7 +1394,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
         DM on Instagram:<br />
         <a href="https://www.instagram.com/frownlinea/"><strong>@frownlinea</strong></a><br />
         Mail:<br />
-         <strong>frownlinea@gmail.com</strong></a><br />
+         <strong>frownlinea@gmail.com</strong><br />
         <span style="color:#888;">For inquiries, collabs,<br />or anything at all.</span>
       </div>
     </div>
@@ -1358,13 +1413,13 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
     <div class="page active" id="page-museum">
       <div class="content-box">
         <div class="content-box-title">
-          Archive — All Pieces
-          <span>showing all 4 drops &nbsp;·&nbsp; one of one only</span>
+          <span style="font-size:12px;font-weight:bold;color:#fff;">Archive — <b id="archive-title-label">All Pieces</b></span>
+          <span id="archive-count">showing all 4 drops &nbsp;·&nbsp; one of one only</span>
         </div>
         <div class="breadcrumb">
           <a href="#" onclick="nav('museum')">FROWN</a> &rsaquo;
           <a href="#" onclick="nav('museum')">Archive</a> &rsaquo;
-          All Pieces
+          <span id="archive-bc-label">All Pieces</span>
         </div>
         <div class="filter-row">
           View as:
@@ -1379,6 +1434,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           <button class="filter-btn active" id="ms-all" onclick="filterMuseumStatus('all');msActive('ms-all')">All</button>
           <button class="filter-btn" id="ms-avail" onclick="filterMuseumStatus('available');msActive('ms-avail')">Available</button>
           <button class="filter-btn" id="ms-sold" onclick="filterMuseumStatus('sold');msActive('ms-sold')">Sold</button>
+          <button class="filter-btn" id="ms-unavail" style="display:none;" onclick="filterMuseumStatus('unavailable');msActive('ms-unavail')">Unavailable</button>
           &nbsp;&nbsp; Sort:
           <button class="filter-btn active" id="msort-latest" onclick="setMuseumSort('latest');msortActive('msort-latest')">Latest</button>
           <button class="filter-btn" id="msort-oldest" onclick="setMuseumSort('oldest');msortActive('msort-oldest')">Oldest</button>
@@ -1406,7 +1462,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
             <!-- TODO: Zmen href na link tvojho Instagram profilu -->
             <div class="social-handle"><a href="https://www.instagram.com/frownlinea/">@frownlinea</a></div>
             <div class="social-desc">Drops, fit pics, behind the scenes. Main platform for visual content and fan interaction.</div>
-            <button class="btn-old" onclick="window.open('https://www.instagram.com/frownlinea/','_blank')">Visit Profile &#8599;</button>
+            <button class="btn-old" onclick="window.open('https://www.instagram.com/frownlinea/','_blank')">Visit Profile</button>
           </div>
           <div class="social-cell">
             <!-- TODO: Zmen src na tvoj vlastny obrazok pre TikTok -->
@@ -1415,7 +1471,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
             <!-- TODO: Zmen href na link tvojho TikTok profilu -->
             <div class="social-handle"><a href="https://www.tiktok.com/@frownlinea">@frownlinea</a></div>
             <div class="social-desc">Visual edits and clips from videos.</div>
-            <button class="btn-old" onclick="window.open('https://www.tiktok.com/@frownlinea','_blank')">Visit Profile &#8599;</button>
+            <button class="btn-old" onclick="window.open('https://www.tiktok.com/@frownlinea','_blank')">Visit Profile</button>
           </div>
           <div class="social-cell">
             <!-- TODO: Zmen src na tvoj vlastny obrazok pre YouTube -->
@@ -1424,7 +1480,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
             <!-- TODO: Zmen href na link tvojho YouTube kanalu -->
             <div class="social-handle"><a href="https://www.youtube.com/@frownlinea">FROWN</a></div>
             <div class="social-desc">Full making-of documentary for every drop.</div>
-            <button class="btn-old" onclick="window.open('https://www.youtube.com/@frownlinea','_blank')">Visit Channel &#8599;</button>
+            <button class="btn-old" onclick="window.open('https://www.youtube.com/@frownlinea','_blank')">Visit Channel</button>
           </div>
           <div class="social-cell">
             <!-- TODO: Zmen src na tvoj vlastny obrazok pre Vinted -->
@@ -1433,7 +1489,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
             <!-- TODO: Zmen href na link tvojho Vinted shopu -->
             <div class="social-handle"><a href="https://www.vinted.sk/member/3150071500">FROWN</a></div>
             <div class="social-desc">Primary sales platform. All available pieces listed here.</div>
-            <button class="btn-old" onclick="window.open('https://www.vinted.sk/member/3150071500','_blank')">Visit Shop &#8599;</button>
+            <button class="btn-old" onclick="window.open('https://www.vinted.sk/member/3150071500','_blank')">Visit Shop</button>
           </div>
           <div class="social-cell">
             <!-- TODO: Zmen src na tvoj vlastny obrazok pre osobny YouTube -->
@@ -1442,7 +1498,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
             <!-- TODO: Zmen href na link tvojho osobneho Mrak/YouTube kanalu -->
             <div class="social-handle"><a href="https://www.youtube.com/@mraciky">@marek</a></div>
             <div class="social-desc">Vlogs and everything outside of frown.</div>
-            <button class="btn-old" onclick="window.open('https://www.youtube.com/@mraciky','_blank')">Visit Channel &#8599;</button>
+            <button class="btn-old" onclick="window.open('https://www.youtube.com/@mraciky','_blank')">Visit Channel</button>
           </div>
         </div>
         <div class="content-box-subtitle" style="margin-top:0;">
@@ -1555,7 +1611,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           <div class="carousel-arrow left" onclick="carouselStep(-1)">&#8249;</div>
           <div id="detail-main-img">
             <div style="text-align:center;color:#bbb;font-size:11px;padding:20px;">
-              &#128247;<br /><br />Photo coming<br />soon
+              Photo coming<br />soon
             </div>
           </div>
           <div class="carousel-arrow right" onclick="carouselStep(1)">&#8250;</div>
@@ -1566,7 +1622,6 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
       </div>
       <div id="detail-info-col">
         <div id="detail-item-title">&#8212;</div>
-        <div id="detail-item-id" style="font-size:10px;color:#888;margin-bottom:8px;">DROP 000</div>
         <div class="detail-price-box">
           <div>
             <div id="detail-price" class="detail-price">&#8212;</div>
@@ -1578,18 +1633,17 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           <tr><td>Type</td><td id="d-type">&#8212;</td></tr>
           <tr><td>Construction</td><td id="d-construction">&#8212;</td></tr>
           <tr><td>Year</td><td id="d-year">&#8212;</td></tr>
-          <tr><td>Status</td><td id="d-status">&#8212;</td></tr>
-          <tr><td>Includes</td><td>Garment &middot; Plushie &middot; Tattoo &middot; YouTube doc &middot; Visual edit &middot; Note</td></tr>
+          <tr id="d-includes-row"><td>Includes</td><td>Garment &middot; Plushie &middot; Tattoo &middot; YouTube doc &middot; Visual edit &middot; Note</td></tr>
         </table>
         <div class="detail-desc-box" id="d-story">&#8212;</div>
-        <div class="detail-includes-box">
+        <div class="detail-includes-box" id="d-includes-box">
           <strong>&#10003; What ships with this piece:</strong>
           Garment (one of one) &nbsp;&middot;&nbsp; Plushie from scraps &nbsp;&middot;&nbsp; Frown temporary tattoo &nbsp;&middot;&nbsp; YouTube making-of (QR inside) &nbsp;&middot;&nbsp; Visual edit &nbsp;&middot;&nbsp; Handwritten note
         </div>
         <div class="detail-links-box" id="d-links"></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <!-- TODO: Zmen href na link tvojho Vinted profilu -->
-          <button class="btn-primary-old" id="d-cta-btn" onclick="window.open('https://www.vinted.sk/member/3150071500','_blank')">&#8599; Inquire via Vinted</button>
+          <button class="btn-primary-old" id="d-cta-btn">&#8599; Inquire via Vinted</button>
           <button class="btn-old" onclick="closeDetail()">&#171; Back</button>
         </div>
       </div>
@@ -1622,9 +1676,13 @@ function toggleMute() {
   if (bgm.paused) {
     // ak este nema src (stav pred prvou interakciou), nacitaj aktuálny track
     if (!bgm.src || bgm.src === window.location.href) loadTrack(playlistPos);
-    bgm.play().catch(function(e) { console.log("Autoplay blocked."); });
-    isMusicPlaying = true;
-    if (ic) { ic.src = ICON_ON; ic.style.filter = ''; }
+    // Ikona sa prepne na ON az ked play() naozaj uspeje (iOS/Safari ho moze zablokovat,
+    // alebo subor chyba) — inak by ikona ukazovala "hra", hoci je ticho.
+    var setOn  = function() { isMusicPlaying = true;  if (ic) { ic.src = ICON_ON;  ic.style.filter = ''; } };
+    var setOff = function() { isMusicPlaying = false; if (ic) { ic.src = ICON_OFF; ic.style.filter = 'grayscale(0%)'; } };
+    var pr = bgm.play();
+    if (pr && pr.then) pr.then(setOn).catch(function(e) { setOff(); console.log("Autoplay blocked."); });
+    else setOn();
   } else {
     bgm.pause();
     isMusicPlaying = false;
@@ -1704,6 +1762,9 @@ function getFirstMedia(p) {
 //   // ^ Status piecu — ovplyvnuje badge, ceny a shop stranku
 //   //   'available' = zeleny badge, zobrazi sa v Shope, CTA button "Inquire"
 //   //   'sold'      = cerveny badge "SOLD", zobrazi sa len v Sold Archive
+//   //   'unavailable' = sivý badge "Unavailable", cena sa sama zobrazi ako "not for sale",
+//   //                   v popupe sivý nefunkcny "Not for sale" button, bez "What ships" casti
+//   //                   (pozri PRESET: NOT FOR SALE nizsie)
 //
 //   construction: 'Handmade · Hand-stitched',
 //   // ^ Sposob vyroby — zobrazuje sa v detaile a na karte v archive
@@ -1745,7 +1806,7 @@ function getFirstMedia(p) {
 //   // ^ Popis / story — zobrazuje sa v detail okne kurzivou
 //
 //   links: [
-//     { label: '&#9654; Watch Making-Of', href: 'https://youtube.com/...' },
+//     { label: '&#9658; Watch Making-Of', href: 'https://youtube.com/...' },
 //     // ^ Link na YouTube making-of video — zmen href na tvoj link
 //
 //     { label: '&#9672; View Visual Edit', href: 'https://tiktok.com/...' }
@@ -1759,6 +1820,29 @@ function getFirstMedia(p) {
 // ║  Zmaz cely blok { ... }, od { az po }, (vrátane║
 // ║  ciarky za zatvorenou zatvorkou)                ║
 // ╚══════════════════════════════════════════════════╝
+
+// ╔══════════════════════════════════════════════════╗
+// ║  PRESET: NOT FOR SALE (iba do archivu)          ║
+// ║  Skopiruj blok nizsie do pieces[] a vypln ho.   ║
+// ╚══════════════════════════════════════════════════╝
+// - 'price' netreba, vypise sa automaticky "not for sale"
+// - v archive: sivý badge "Unavailable"
+// - v popupe: sivý "Not for sale" button (nerobi nic), bez "What ships with this piece"
+// - links su volitelne (mozes vymazat cely riadok links)
+// - 'Unavailable' filter tlacidlo sa objavi samo, ked existuje aspon jeden taky piece
+//
+// {
+//   id: 'DROP 000', name: 'NAZOV KUSU', type: 'Hoodie', cat: 'hoodies', status: 'unavailable',
+//   construction: 'Handmade · Hand-stitched', year: '2025',
+//   gallery: [
+//     'Projects/NazovPiecu/foto1.jpg',
+//     'Projects/NazovPiecu/video.mp4'
+//   ],
+//   story: 'Pribeh alebo popis kusa.',
+//   links: [
+//     { label: '&#9658; Watch Making-Of', href: 'https://youtube.com/...' }
+//   ]
+// },
 
 var pieces = [
   {
@@ -1774,7 +1858,7 @@ var pieces = [
     ],
     story: 'The first piece i ever made.One of one hoodie with a built-in scarf mask. The front has a skull design sewn onto it made from the scarf material. Handmade and designed from scratch.',
     links: [
-      { label: '&#9654; Watch Making-Of', href: 'https://www.youtube.com/watch?v=9MTjHykE8x8&t=32s' },  // TODO: vloz link na YouTube
+      { label: '&#9658; Watch Making-Of', href: 'https://www.youtube.com/watch?v=9MTjHykE8x8&t=32s' },  // TODO: vloz link na YouTube
       { label: '&#9672; View Visual Edit', href: 'https://www.tiktok.com/@frownlinea/video/7596757950417440022' }  // TODO: vloz link na visual edit
     ]
   },
@@ -1795,7 +1879,7 @@ var pieces = [
     ],
     story: 'A crewneck with a flannel skull thats filled with batting, so its looks 3D and feels really soft',
     links: [
-      { label: '&#9654; Watch Making-Of', href: 'https://prdik.sk' },
+      { label: '&#9658; Watch Making-Of', href: 'https://prdik.sk' },
       { label: '&#9672; View Visual Edit', href: 'https://prdik.sk' }
     ]
   },
@@ -1836,9 +1920,9 @@ function makeThumb(p) {
   var inner;
   if (isVideo(src)) {
     // Video thumbnail — zobrazuje prvy frame
-    inner = '<video src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
+    inner = '<video playsinline src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
   } else {
-    inner = '<img src="' + src + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;" />';
+    inner = '<img src="' + src + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover;" />';
   }
   return '<div class="pgrid-thumb">' + inner + '</div>';
 }
@@ -1847,15 +1931,40 @@ function makeListThumb(p) {
   var src = getGridSrc(p);
   var inner;
   if (isVideo(src)) {
-    inner = '<video src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
+    inner = '<video playsinline src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
   } else {
-    inner = '<img src="' + src + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;" />';
+    inner = '<img src="' + src + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover;" />';
   }
   return '<div class="listing-thumb" style="width:54px;height:64px;">' + inner + '</div>';
 }
 
+// Pomocne funkcie pre archive (grid aj list) — jedno miesto pre text ceny a badge
+// esc(): nazov/pribeh s znakmi ako & < > " uz nerozbije HTML (grid, list, alt atributy)
+function esc(t) {
+  return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+// snip(): skrati text a prida "..." LEN ked bol naozaj dlhsi (predtym sa "..." pridavalo vzdy)
+function snip(t, n) {
+  t = String(t || '');
+  return t.length > n ? esc(t.substring(0, n).replace(/\s+$/, '')) + '...' : esc(t);
+}
+function priceText(p) {
+  if (p.status === 'unavailable') return 'not for sale';
+  return p.price ? esc(p.price) : '—';
+}
+function statusBadge(p) {
+  if (p.status === 'sold') return '<span class="badge-sold">Sold</span>';
+  if (p.status === 'unavailable') return '<span class="badge-unavailable">Unavailable</span>';
+  return '<span class="badge-Available">Available</span>';
+}
+
 function renderMuseum(list) {
   var el = document.getElementById('museum-content');
+  // Prazdny stav — predtym sa pri filtri bez kusov (napr. Tops) ukazala len prazdna biela plocha
+  if (list.length === 0) {
+    el.innerHTML = '<div style="padding:26px 10px;text-align:center;color:#888;font-size:11px;line-height:2;">No pieces match this filter.<br /><a href="#" onclick="resetMuseumFilters(); return false;">Show all pieces</a></div>';
+    return;
+  }
   if (museumView === 'grid') {
     var html = '<div class="product-grid-old">';
     for (var i = 0; i < list.length; i++) {
@@ -1863,31 +1972,28 @@ function renderMuseum(list) {
       var ri = pieces.indexOf(p);
       html += '<div class="pgrid-item" onclick="openDetail(' + ri + ')">';
       html += makeThumb(p);
-      html += '<div class="pgrid-id">' + p.id + '</div>';
-      html += '<div class="pgrid-name">' + p.name + (p.isNew ? ' <span class="badge-new">NEW</span>' : '') + '</div>';
-      html += '<div class="pgrid-type">' + p.type + '</div>';
+      html += '<div class="pgrid-name">' + esc(p.name) + (p.isNew ? ' <span class="badge-new">NEW</span>' : '') + '</div>';
+      html += '<div class="pgrid-type">' + esc(p.type) + '</div>';
       html += '<div class="pgrid-status-bar">';
-      html += '<span style="font-weight:bold;color:' + (p.status === 'sold' ? '#888' : '#cc2200') + ';">' + (p.price ? p.price : '—') + '</span>';
-      if (p.status === 'sold') html += '<span class="badge-sold">Sold</span>';
-      else html += '<span class="badge-Available">Available</span>';
+      html += '<span style="font-weight:bold;color:' + (p.status === 'available' ? '#cc2200' : '#888') + ';">' + priceText(p) + '</span>';
+      html += statusBadge(p);
       html += '</div></div>';
     }
     html += '</div>';
     el.innerHTML = html;
   } else {
-    var html = '<table class="listing-table"><thead><tr><th style="width:60px;">Photo</th><th>Item</th><th style="width:90px;">Type</th><th style="width:70px;">Price</th><th style="width:80px;">Status</th><th style="width:70px;">Drop</th></tr></thead><tbody>';
+    var html = '<table class="listing-table"><thead><tr><th style="width:60px;">Photo</th><th>Item</th><th style="width:90px;">Type</th><th style="width:90px;">Price</th><th style="width:90px;">Status</th></tr></thead><tbody>';
     for (var i = 0; i < list.length; i++) {
       var p = list[i];
       var ri = pieces.indexOf(p);
       html += '<tr class="listing-row" onclick="openDetail(' + ri + ')">';
       html += '<td>' + makeListThumb(p) + '</td>';
-      html += '<td><div class="listing-title">' + p.name;
+      html += '<td><div class="listing-title">' + esc(p.name);
       if (p.isNew) html += '<span class="badge-new">NEW</span>';
-      html += '</div><div class="listing-desc">' + p.story.substring(0, 90) + '...</div><div class="listing-meta">' + p.construction + ' &nbsp;·&nbsp; ' + p.year + '</div></td>';
-      html += '<td>' + p.type + '</td>';
-      html += '<td class="' + (p.status === 'sold' ? 'price-sold' : 'price-cell') + '">' + (p.price ? p.price : '—') + '</td>';
-      html += '<td>' + (p.status === 'sold' ? '<span class="badge-sold">Sold</span>' : '<span class="badge-Available">Available</span>') + '</td>';
-      html += '<td>' + p.id + '</td>';
+      html += '</div><div class="listing-desc">' + snip(p.story, 90) + '</div><div class="listing-meta">' + esc(p.construction) + '</div></td>';
+      html += '<td>' + esc(p.type) + '</td>';
+      html += '<td class="' + (p.status === 'sold' ? 'price-sold' : (p.status === 'unavailable' ? 'price-na' : 'price-cell')) + '">' + priceText(p) + '</td>';
+      html += '<td>' + statusBadge(p) + '</td>';
       html += '</tr>';
     }
     html += '</tbody></table>';
@@ -1938,9 +2044,10 @@ function toggleMobileMenu() {
   setMobileMenu(!document.body.classList.contains('mobile-nav-open'));
 }
 
-function nav(page) {
+function nav(page, keepMenu) {
   // Po kliku na akukolvek navigaciu na mobile sa menu samo zavrie
-  setMobileMenu(false);
+  // (okrem pisania do vyhladavania — keepMenu — inak by input zmizol uprostred pisania)
+  if (!keepMenu) setMobileMenu(false);
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   document.getElementById('page-' + page).classList.add('active');
   document.querySelectorAll('.topnav-item').forEach(function(n) { n.classList.remove('active'); });
@@ -1957,6 +2064,12 @@ function nav(page) {
       c.classList.remove('sidebar-cat-active');
     }
   });
+
+  // Sidebar polozka vzdy zodpoveda aktualnej stranke (predtym ostalo "About Frown" zvyraznene
+  // aj po navrate do Archive): Archive = aktivna kategoria, About = sb-info, Socials = nic
+  if (page === 'museum') sbActive('sb-' + currentMuseumFilter);
+  else if (page === 'info') sbActive('sb-info');
+  else sbActive(null);
 }
 
 function sbActive(id) {
@@ -1974,6 +2087,10 @@ function sfltActive(id) {
 
 function filterMuseum(cat) {
   currentMuseumFilter = cat;
+  // SYNC: tlacidlo vo filter-row (mf-*) aj polozka v sidebari (sb-*) maju rovnake id-cka
+  // ako kategoria (all / tops / hoodies / other), takze sa obe zvyraznia naraz.
+  mfActive('mf-' + cat);
+  sbActive('sb-' + cat);
   applyMuseumFilters();
 }
 
@@ -1990,16 +2107,44 @@ function setMuseumSort(sort) {
   applyMuseumFilters();
 }
 
+var currentSearch = '';
+
 function applyMuseumFilters() {
   var list = pieces.slice();
   if (currentMuseumFilter !== 'all') list = list.filter(function(p) { return p.cat === currentMuseumFilter; });
   if (currentMuseumStatus !== 'all') list = list.filter(function(p) { return p.status === currentMuseumStatus; });
+  // Vyhladavanie je teraz sucast filtrov — predtym ignorovalo kategoriu/status a po kliku
+  // na filter sa zoznam vratil na vsetko, hoci v inpute ostal text.
+  if (currentSearch) list = list.filter(function(p) {
+    return (p.name || '').toLowerCase().indexOf(currentSearch) > -1 ||
+           (p.type || '').toLowerCase().indexOf(currentSearch) > -1 ||
+           (p.story || '').toLowerCase().indexOf(currentSearch) > -1;
+  });
+  // Rovnaky rok = rozhoduje poradie v pieces[] (novsie pridany piece = "latest")
+  var idx = function(p) { return pieces.indexOf(p); };
   if (currentMuseumSort === 'oldest') {
-    list.sort(function(a, b) { return (a.year || '0').localeCompare(b.year || '0'); });
+    list.sort(function(a, b) { return (a.year || '0').localeCompare(b.year || '0') || idx(a) - idx(b); });
   } else {
-    list.sort(function(a, b) { return (b.year || '0').localeCompare(a.year || '0'); });
+    list.sort(function(a, b) { return (b.year || '0').localeCompare(a.year || '0') || idx(b) - idx(a); });
   }
   renderMuseum(list);
+
+  // Nadpis, breadcrumb a pocet vzdy zodpovedaju tomu, co je naozaj zobrazene
+  var labels = { all: 'All Pieces', tops: 'Tops', hoodies: 'Hoodies', other: 'Other' };
+  var lab = labels[currentMuseumFilter] || 'All Pieces';
+  var t1 = document.getElementById('archive-title-label'); if (t1) t1.textContent = lab;
+  var t2 = document.getElementById('archive-bc-label'); if (t2) t2.textContent = lab;
+  var cnt = document.getElementById('archive-count');
+  if (cnt) cnt.innerHTML = (list.length === pieces.length ? 'showing all ' + pieces.length : 'showing ' + list.length + ' of ' + pieces.length) + ' drops &nbsp;&middot;&nbsp; one of one only';
+}
+
+// Vrati vsetko na vychodzi stav (kategoria, status, vyhladavanie) — pouziva prazdny stav
+function resetMuseumFilters() {
+  currentMuseumStatus = 'all';
+  currentSearch = '';
+  var inp = document.getElementById('search-input'); if (inp) inp.value = '';
+  msActive('ms-all');
+  filterMuseum('all');
 }
 
 function mfActive(id) {
@@ -2054,7 +2199,7 @@ function carouselGoTo(idx) {
   var imgEl = document.getElementById('detail-main-img');
 
   if (isVideo(src)) {
-    imgEl.innerHTML = '<video id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
+    imgEl.innerHTML = '<video playsinline id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
     var vid = document.getElementById('main-detail-photo');
     vid.addEventListener('play', pauseBGM);
     vid.addEventListener('pause', playBGM);
@@ -2080,10 +2225,9 @@ function carouselGoTo(idx) {
 
 function openDetail(i) {
   var p = pieces[i];
-  document.getElementById('detail-bc-name').textContent = p.id + ' — ' + p.name;
-  document.getElementById('detail-titlebar-text').textContent = 'FROWN — ' + p.name + ' (' + p.id + ')';
+  document.getElementById('detail-bc-name').textContent = p.name;
+  document.getElementById('detail-titlebar-text').textContent = 'FROWN — ' + p.name;
   document.getElementById('detail-item-title').textContent = p.name;
-  document.getElementById('detail-item-id').innerHTML = p.id + ' &nbsp;·&nbsp; ' + p.year;
   document.getElementById('d-type').textContent = p.type;
   document.getElementById('d-construction').textContent = p.construction;
   document.getElementById('d-year').textContent = p.year;
@@ -2107,7 +2251,7 @@ function openDetail(i) {
   for (var t = 0; t < currentGallery.length; t++) {
     var tsrc = currentGallery[t].trim();
     var thumbInner = isVideo(tsrc)
-      ? '<video src="' + tsrc + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>'
+      ? '<video playsinline src="' + tsrc + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>'
       : '<img src="' + tsrc + '" alt="thumb" />';
     thumbsHTML += '<div class="detail-thumb-sm ' + (t === 0 ? 'active' : '') + '" onclick="carouselGoTo(' + t + ')">' + thumbInner + '</div>';
   }
@@ -2115,21 +2259,33 @@ function openDetail(i) {
 
   // Cena + status
   var ctaBtn = document.getElementById('d-cta-btn');
+  var priceEl = document.getElementById('detail-price');
+  var isNA = (p.status === 'unavailable');
+  // NOT FOR SALE piece: bez "Includes" riadku a bez zeleneho boxu "What ships with this piece"
+  document.getElementById('d-includes-row').style.display = isNA ? 'none' : '';
+  document.getElementById('d-includes-box').style.display = isNA ? 'none' : '';
   if (p.status === 'sold') {
-    document.getElementById('detail-price').textContent = p.price ? p.price : '—';
-    document.getElementById('detail-price').style.color = '#888';
-    document.getElementById('d-status').innerHTML = '<span class="badge-sold">Sold — Archived</span>';
+    priceEl.textContent = p.price ? p.price : '—';
+    priceEl.style.color = '#888';
     ctaBtn.style.display = 'none';
-  } else {
-    document.getElementById('detail-price').textContent = p.price ? p.price : 'Inquire for price';
-    document.getElementById('detail-price').style.color = '#cc2200';
-    document.getElementById('d-status').innerHTML = '<span class="badge-Available">Available — One of One</span>';
+  } else if (isNA) {
+    priceEl.textContent = 'Not for sale';
+    priceEl.style.color = '#888';
     ctaBtn.style.display = '';
+    ctaBtn.className = 'btn-na';
+    ctaBtn.textContent = 'Not for sale';
+    ctaBtn.onclick = function() { return false; }; // meni farbu pri hover/klik, ale nerobi nic
+  } else {
+    priceEl.textContent = p.price ? p.price : 'Inquire for price';
+    priceEl.style.color = '#cc2200';
+    ctaBtn.style.display = '';
+    ctaBtn.className = 'btn-primary-old';
     ctaBtn.textContent = '↗ Inquire via Vinted';
+    ctaBtn.onclick = function() { window.open('https://www.vinted.sk/member/3150071500', '_blank'); };
   }
   document.getElementById('detail-status-badge').innerHTML = p.status === 'sold'
     ? '<span class="badge-sold">SOLD</span>'
-    : '<span class="badge-Available">AVAILABLE</span>';
+    : (isNA ? '<span class="badge-unavailable">UNAVAILABLE</span>' : '<span class="badge-Available">AVAILABLE</span>');
 
   // Links
   var linksHtml = '';
@@ -2159,14 +2315,12 @@ function closeDetail() {
 // SEARCH
 // =============================================
 
-function doSearch(q) {
-  if (!q) { renderMuseum(pieces); return; }
-  q = q.toLowerCase();
-  var filtered = pieces.filter(function(p) {
-    return p.name.toLowerCase().indexOf(q) > -1 || p.type.toLowerCase().indexOf(q) > -1 || p.story.toLowerCase().indexOf(q) > -1;
-  });
-  nav('museum');
-  renderMuseum(filtered);
+// closeMenu = true pri Enter / tlacidle Go (na mobile sa menu zavrie a uvidis vysledky);
+// pocas pisania (oninput) ostava menu otvorene, aby input nezmizol.
+function doSearch(q, closeMenu) {
+  currentSearch = (q || '').trim().toLowerCase();
+  nav('museum', !closeMenu);
+  applyMuseumFilters();
 }
 
 // =============================================
@@ -2177,6 +2331,11 @@ function updateStats() {
   var total = pieces.length;
   var avail = pieces.filter(function(p) { return p.status === 'available'; }).length;
   var sold  = pieces.filter(function(p) { return p.status === 'sold'; }).length;
+  var unavail = pieces.filter(function(p) { return p.status === 'unavailable'; }).length;
+
+  // Filter tlacidlo "Unavailable" sa ukaze az ked existuje aspon jeden not-for-sale piece
+  var msUn = document.getElementById('ms-unavail');
+  if (msUn) msUn.style.display = unavail > 0 ? '' : 'none';
 
   // Last updated — najnovsie year z pieces
   var years = pieces.map(function(p) { return p.year; }).filter(Boolean).sort(function(a,b){ return b.localeCompare(a); });
@@ -2191,7 +2350,8 @@ function updateStats() {
       'Total pieces: <span>' + total + '</span><br />' +
       'Available: <span>' + avail + '</span><br />' +
       'Sold: <span>' + sold + '</span><br />' +
-      'Drops in ' + lastYear + ': <span>' + total + '</span>';
+      (unavail > 0 ? 'Not for sale: <span>' + unavail + '</span><br />' : '') +
+      'Drops in ' + lastYear + ': <span>' + pieces.filter(function(p) { return p.year === lastYear; }).length + '</span>';
   }
 
   // Sidebar sidebar-item counts
@@ -2222,9 +2382,7 @@ function updateStats() {
   if (footerTotal) footerTotal.textContent = total;
   if (footerAvail) footerAvail.textContent = avail;
 
-  // Archive title count
-  var archTitle = document.querySelector('#page-museum .content-box-title span');
-  if (archTitle) archTitle.textContent = 'showing all ' + total + ' drops · one of one only';
+  // (pocet v nadpise archivu sa teraz aktualizuje v applyMuseumFilters)
 }
 
 // =============================================
@@ -2246,7 +2404,7 @@ function changeDetailImage(el, src) {
   var imgEl = document.getElementById('detail-main-img');
 
   if (isVideo(src)) {
-    imgEl.innerHTML = '<video id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
+    imgEl.innerHTML = '<video playsinline id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
     var vid = document.getElementById('main-detail-photo');
     vid.addEventListener('play', pauseBGM);
     vid.addEventListener('pause', playBGM);
