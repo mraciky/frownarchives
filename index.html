@@ -34,12 +34,12 @@ a:visited { color: #551a8b; }
 
 /* =============================================
    HEADER
-   — upravuj tu farby a gradient hlavicky
+   - upravuj tu farby a gradient hlavicky
    ============================================= */
 
 #header {
   background-color: #0e0e0d;
-  /* Tmavy gradient (skoro cierny dole) — cierne pozadie loga sa do neho stopi,
+  /* Tmavy gradient (skoro cierny dole) - cierne pozadie loga sa do neho stopi,
      zostanu viditelne len biele/strieborne litery a iskricky. Jemna radialna
      "vitrina" zia hore v strede za logom (ako svetlo na exponate v archive). */
   background-image:
@@ -63,7 +63,7 @@ a:visited { color: #551a8b; }
   position: relative;
 }
 
-/* Druhy logo obrazok — vycentrovany v headeri */
+/* Druhy logo obrazok - vycentrovany v headeri */
 #header-center {
   position: absolute;
   left: 50%;
@@ -77,7 +77,7 @@ a:visited { color: #551a8b; }
   gap: 10px;
 }
 
-/* Parchment/strieborna farba — ladi s khaki/beige paletou zvysku stranky
+/* Parchment/strieborna farba - ladi s khaki/beige paletou zvysku stranky
    (#a0998c borders, #d4d0c8 body) namiesto povodnej modrej, ktora nikde inde nebola. */
 #header-right {
   text-align: right;
@@ -87,7 +87,7 @@ a:visited { color: #551a8b; }
 }
 
 #header-right a { color: #b7ae9c; text-decoration: none; }
-/* Hover — teply jantar/ember, odkaz na hlavnu accent farbu stranky (#cc2200 pri hoveroch a cenach) */
+/* Hover - teply jantar/ember, odkaz na hlavnu accent farbu stranky (#cc2200 pri hoveroch a cenach) */
 #header-right a:hover { color: #837d70; text-decoration: underline; }
 
 /* --- HEADER-RIGHT RIADKY ---
@@ -120,13 +120,13 @@ a:visited { color: #551a8b; }
 }
 
 
-/* Hamburger — skryty na desktope. Media query nizsie ho zobrazi LEN na mobile. */
+/* Hamburger - skryty na desktope. Media query nizsie ho zobrazi LEN na mobile. */
 #mobile-menu-toggle { display: none; }
 
 
 /* =============================================
    TOP NAVIGATION BAR
-   — upravuj tu farby navigacie a hover/active stavy
+   - upravuj tu farby navigacie a hover/active stavy
    ============================================= */
 
 #topnav {
@@ -158,14 +158,14 @@ a:visited { color: #551a8b; }
   gap: 4px;
 }
 
-/* HOVER — #575a58 */
+/* HOVER - #575a58 */
 .topnav-item:hover {
   background: #575a58;
   color: white;
   text-decoration: none;
 }
 
-/* ACTIVE — 20% tmavsi ako hover (#575a58 * 0.8 = #464846) */
+/* ACTIVE - 20% tmavsi ako hover (#575a58 * 0.8 = #464846) */
 .topnav-item.active {
   background: #464846;
   color: white;
@@ -237,7 +237,7 @@ a:visited { color: #551a8b; }
 
 /* =============================================
    LEFT SIDEBAR
-   — sidebar boxy, kategorie, itemy
+   - sidebar boxy, kategorie, itemy
    ============================================= */
 
 #sidebar {
@@ -253,7 +253,7 @@ a:visited { color: #551a8b; }
   box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
 }
 
-/* SIDEBAR BOX NADPIS — seda (bolo modre) */
+/* SIDEBAR BOX NADPIS - seda (bolo modre) */
 .sidebar-box-title {
   background: linear-gradient(to bottom, #686b69 0%, #464948 100%);
   color: white;
@@ -317,7 +317,7 @@ a:visited { color: #551a8b; }
   background: linear-gradient(to bottom, #f8f4ec, #ece8e0);
 }
 
-.sidebar-cat:hover { background: linear-gradient(to bottom, #eef2f8, #dde8f8); color: #1a4d8a; }
+.sidebar-cat:hover { background: linear-gradient(to bottom, #e8e6e2, #d6d4cf); color: #1a1a1a; }
 .sidebar-cat.sidebar-cat-active { background: linear-gradient(to bottom, #ccccca, #b4b2ae); color: #1a1a1a; font-weight: bold; }
 
 .sidebar-info-box {
@@ -348,7 +348,7 @@ a:visited { color: #551a8b; }
   box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
 }
 
-/* CONTENT BOX NADPIS — seda (bolo modre) */
+/* CONTENT BOX NADPIS - seda (bolo modre) */
 .content-box-title {
   background: linear-gradient(to bottom, #686b69 0%, #464948 100%);
   color: white;
@@ -581,7 +581,7 @@ a:visited { color: #551a8b; }
   box-shadow: 4px 4px 12px rgba(0,0,0,0.5);
 }
 
-/* DETAIL TITLEBAR — seda (bolo modre) */
+/* DETAIL TITLEBAR - seda (bolo modre) */
 #detail-titlebar {
   background: linear-gradient(to bottom, #686b69, #363938);
   padding: 5px 10px;
@@ -617,27 +617,28 @@ a:visited { color: #551a8b; }
 #detail-body { padding: 12px; display: flex; gap: 14px; }
 
 /* =============================================
-   CAROUSEL — sipky pre prepinanie obrazkov/videi
+   CAROUSEL - sipky pre prepinanie obrazkov/videi
    ============================================= */
 
-/* Lavy stlpec (media) ma vzdy rovnaku vysku ako pravy stlpec s textom:
-   #detail-body je flex (align-items: stretch), media box vyplni cely zvysny priestor
-   nad thumbnailmi (flex:1), takze ak je vpravo menej textu, media sa zmensi a
-   nikde nezostane prazdne miesto. min-height je len poistka proti uplne plochemu oknu. */
+/* Galeria je VZDY 4:3 (PC aj mobil) - fotky aj videa sa orezu cez object-fit: cover.
+   Lavy stlpec sa neroztahuje na vysku praveho (align-self: flex-start), takze rozmer
+   media zostava fixny bez ohladu na to, kolko textu je vpravo. */
 #detail-img-col {
   width: 480px;
   flex-shrink: 0;
   position: relative;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
 }
 
-/* Wrapper okolo hlavneho obrazka — sipky su absolutne v nom */
+/* Wrapper okolo hlavneho obrazka - sipky su absolutne v nom */
 #detail-img-wrapper {
   position: relative;
   margin-bottom: 6px;
-  flex: 1 1 auto;
-  min-height: 150px;
+  flex: none;
+  width: 100%;
+  aspect-ratio: 4 / 3;
 }
 
 #detail-main-img {
@@ -654,9 +655,10 @@ a:visited { color: #551a8b; }
   overflow: hidden;
 }
 
-#detail-main-img img { width: 100%; height: 100%; object-fit: cover; }
+#detail-main-img img, #detail-main-img video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+#detail-main-img .media-error { text-align: center; color: #888; font-size: 11px; padding: 20px; line-height: 1.7; }
 
-/* Sipky — LEFT a RIGHT */
+/* Sipky - LEFT a RIGHT */
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -682,11 +684,12 @@ a:visited { color: #551a8b; }
 .carousel-arrow.left  { left: 2px; }
 .carousel-arrow.right { right: 2px; }
 
-/* Counter napravo dole — "2 / 4" */
+/* Counter napravo HORE - "2 / 4" (dole by prekryval ovladanie videa / fullscreen) */
 #carousel-counter {
   position: absolute;
-  bottom: 4px;
+  top: 4px;
   right: 5px;
+  z-index: 10;
   background: rgba(0,0,0,0.55);
   color: white;
   font-size: 9px;
@@ -704,7 +707,8 @@ a:visited { color: #551a8b; }
 }
 
 .detail-thumb-sm {
-  width: 48px;
+  box-sizing: border-box; /* border sa pocita DO 64x48 - bez toho aktivna miniatura (border 2px) bola o 2px sirsia */
+  width: 64px;
   height: 48px;
   background: linear-gradient(135deg, #e8e4dc, #d0ccc4);
   border: 1px solid #a0998c;
@@ -723,7 +727,8 @@ a:visited { color: #551a8b; }
 }
 
 .detail-thumb-sm:hover { border-color: #555; transform: scale(1.05); }
-.detail-thumb-sm.active { border: 2px solid #222; }
+/* Aktivna miniatura: rovnaky rozmer ako ostatne (border sa nemeni), zvyraznenie je inset tien */
+.detail-thumb-sm.active { border-color: #222; box-shadow: inset 0 0 0 1px #222; }
 
 #detail-info-col { flex: 1; min-width: 0; }
 
@@ -796,7 +801,7 @@ a:visited { color: #551a8b; }
   text-decoration: none;
 }
 
-.detail-link-item:hover { background: linear-gradient(to bottom, #4a7acc, #2a5298); color: white; border-color: #1a3a7a; }
+.detail-link-item:hover { background: #575a58; color: white; border-color: #3a3c3b; }
 
 
 /* =============================================
@@ -819,8 +824,8 @@ a:visited { color: #551a8b; }
   box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
 }
 
-.btn-old:hover { background: linear-gradient(to bottom, #4a7acc, #2a5298); color: white; border-color: #1a3a7a; }
-.btn-old:active { background: linear-gradient(to bottom, #1a4a9a, #3a6abb); }
+.btn-old:hover { background: #575a58; color: white; border-color: #3a3c3b; }
+.btn-old:active { background: #464846; color: white; }
 
 .btn-primary-old {
   font-family: Tahoma, Arial, sans-serif;
@@ -837,7 +842,7 @@ a:visited { color: #551a8b; }
 
 .btn-primary-old:hover { background: linear-gradient(to bottom, #88cc55, #559933); }
 
-/* NOT FOR SALE tlacidlo — siv, vyzera ako klikatelne (meni farbu), ale nerobi nic */
+/* NOT FOR SALE tlacidlo - siv, vyzera ako klikatelne (meni farbu), ale nerobi nic */
 .btn-na {
   font-family: Tahoma, Arial, sans-serif;
   font-size: 11px;
@@ -860,7 +865,7 @@ a:visited { color: #551a8b; }
 .social-table {
   display: flex;
   width: 100%;
-  align-items: stretch; /* KLUCOVE: kazda bunka sa natiahne na vysku najvyssej suseda — garantovane spec-om, nie percentualnou vyskou co je v <td> nespolahliva */
+  align-items: stretch; /* KLUCOVE: kazda bunka sa natiahne na vysku najvyssej suseda - garantovane spec-om, nie percentualnou vyskou co je v <td> nespolahliva */
 }
 .social-cell {
   flex: 1;
@@ -873,7 +878,7 @@ a:visited { color: #551a8b; }
 }
 .social-cell:last-child { border-right: none; }
 
-/* Tlacidlo sa vzdy pritiahne na spodok bunky — takze "Visit ..." tlacidla
+/* Tlacidlo sa vzdy pritiahne na spodok bunky - takze "Visit ..." tlacidla
    su zarovnane presne na rovnaky pixel od spodku boxu, nech je popis
    akokolvek dlhy/kratky */
 .social-cell .btn-old {
@@ -936,6 +941,9 @@ a:visited { color: #551a8b; }
   line-height: 1.9;
   font-style: italic;
 }
+/* Manifesto je dlhsi text - odstavce s medzerou (globalny reset ma margin: 0) */
+.manifesto-box p { margin: 0 0 10px 0; }
+.manifesto-box p:last-child { margin-bottom: 0; }
 
 
 /* =============================================
@@ -1013,13 +1021,13 @@ a:visited { color: #551a8b; }
   color: #333;
 }
 
-/* HOVER — rovnaka seda ako v navigation (#575a58) */
+/* HOVER - rovnaka seda ako v navigation (#575a58) */
 .filter-btn:hover {
   background: #575a58;
   color: white;
   border-color: #3a3c3b;
 }
-/* ACTIVE (zakliknute) — rovnaka tmava ako aktiva stranka v navigation (#464846) */
+/* ACTIVE (zakliknute) - rovnaka tmava ako aktiva stranka v navigation (#464846) */
 .filter-btn.active {
   background: #464846;
   color: white;
@@ -1029,7 +1037,7 @@ a:visited { color: #551a8b; }
 
 /* =============================================
    MOBILE / TABLET (<= 1000px)
-   — hamburger schova topnav + sidebar do jedneho menu,
+   - hamburger schova topnav + sidebar do jedneho menu,
      wrapper/detail/social sa stackuju pod seba,
      product grid ide na 2 stlpce.
    VSETKO tu je scopnute cez @media, takze desktop layout
@@ -1046,7 +1054,7 @@ a:visited { color: #551a8b; }
      header-inner je teraz na mobile RIADOK (nie stlpec): hamburger + logo su
      v tom istom riadku vedla seba (rovnaka vyska), header-right ide na dalsi
      riadok cez flex-basis:100% (viz nizsie). */
-  /* Grid 1fr | auto | 1fr — logo je v strednom stlpci, takze je presne v strede
+  /* Grid 1fr | auto | 1fr - logo je v strednom stlpci, takze je presne v strede
      headera bez ohladu na sirku hamburger tlacidla (flex ho posuval mimo stred). */
   #header-inner {
     display: grid;
@@ -1078,11 +1086,11 @@ a:visited { color: #551a8b; }
   #mobile-menu-icon { font-size: 13px; }
 
   /* logo-area je teraz vedla hamburgera (order:2, flex:1 = vyplni zvysny priestor
-     a logo sa v nom centruje) — preto je v rovnakej vyske ako menu tlacidlo */
+     a logo sa v nom centruje) - preto je v rovnakej vyske ako menu tlacidlo */
   #logo-area { grid-column: 2; grid-row: 1; justify-content: center; }
   /* Inline style="height/width" na obrazkoch loga potrebuje !important, inak vyhrava inline atribut */
   #frown-archive-logo { height: 38px !important; width: 114px !important; }
-  /* Stvorcove/mascot logo — na mobile ho vypneme, zostane len Frown Archives logo.
+  /* Stvorcove/mascot logo - na mobile ho vypneme, zostane len Frown Archives logo.
      !important je nutny, lebo obrazok ma inline style="display:block" (rovnaky dovod
      preco je !important aj pri #frown-archive-logo vyssie). */
   #frown-mascot-logo { display: none !important; }
@@ -1091,7 +1099,7 @@ a:visited { color: #551a8b; }
   #header-right { grid-column: 1 / -1; grid-row: 2; width: 100%; text-align: center; }
   /* Mute riadok je uz vycentrovany cez #header-right text-align: center vyssie */
 
-  /* --- TOPNAV — schovany, hamburger ho odhali cely (linky + search) --- */
+  /* --- TOPNAV - schovany, hamburger ho odhali cely (linky + search) --- */
   #topnav { display: none; }
   body.mobile-nav-open #topnav {
     display: flex;
@@ -1111,12 +1119,12 @@ a:visited { color: #551a8b; }
     padding: 8px;
     box-sizing: border-box;
   }
-  /* font-size: 16px TU je oprava toho "vsetko sa zrazu ukaze obrovske" glitchu —
+  /* font-size: 16px TU je oprava toho "vsetko sa zrazu ukaze obrovske" glitchu -
      iOS Safari automaticky pri kliknuti zooomuje cely web ak ma input font-size pod 16px.
      Desktop nemenime (tam je stale 11px, viz #search-input vyssie). */
   #search-input { flex: 1; width: auto; font-size: 16px; }
 
-  /* --- SIDEBAR — schovany, hamburger ho odhali (rovnaky prepinac ako topnav) --- */
+  /* --- SIDEBAR - schovany, hamburger ho odhali (rovnaky prepinac ako topnav) --- */
   #sidebar { display: none; width: 100%; }
   body.mobile-nav-open #sidebar { display: block; }
 
@@ -1124,7 +1132,7 @@ a:visited { color: #551a8b; }
   .sidebar-cat { padding: 8px; }
   .sidebar-box-title { padding: 7px 8px; }
 
-  /* --- WRAPPER — sidebar + content pod sebou, nie vedla seba --- */
+  /* --- WRAPPER - sidebar + content pod sebou, nie vedla seba --- */
   #wrapper {
     width: 100%;
     max-width: 100%;
@@ -1136,7 +1144,7 @@ a:visited { color: #551a8b; }
   }
   #content { width: 100%; }
 
-  /* --- FILTER RIADOK — vela tlacidiel, nech sa lamu na viac riadkov --- */
+  /* --- FILTER RIADOK - vela tlacidiel, nech sa lamu na viac riadkov --- */
   .filter-row { flex-wrap: wrap; }
   .filter-btn { padding: 4px 9px; }
 
@@ -1144,21 +1152,20 @@ a:visited { color: #551a8b; }
   .content-box-title span { font-size: 9px; }
   .content-box-subtitle { flex-wrap: wrap; gap: 4px; }
 
-  /* --- PRODUCT GRID — 2 stlpce namiesto 4 --- */
+  /* --- PRODUCT GRID - 2 stlpce namiesto 4 --- */
   .product-grid-old { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  /* --- LIST VIEW (tabulka) — nezuzuj, radsej scrolluj do strany --- */
+  /* --- LIST VIEW (tabulka) - nezuzuj, radsej scrolluj do strany --- */
   #museum-content, #shop-content { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .listing-table { min-width: 560px; }
 
-  /* --- DETAIL POPUP — zmensene "okno", obrazok + info pod sebou --- */
+  /* --- DETAIL POPUP - zmensene "okno", obrazok + info pod sebou --- */
   #detail-overlay { padding: 14px 0; }
   /* max-width: na tablete by sa popup inak roztiahol na ~940px a obrazok by bol obrovsky */
   #detail-window { width: 94vw; max-width: 600px; }
   #detail-body { flex-direction: column; padding: 10px; gap: 10px; }
-  #detail-img-col { width: 100%; }
-  /* Na mobile su media a text pod sebou, takze tu ostava fixny pomer stran 4:3 */
-  #detail-img-wrapper { flex: none; min-height: 0; aspect-ratio: 4 / 3; }
+  #detail-img-col { width: 100%; align-self: stretch; }
+  /* 4:3 plati rovnako aj na mobile (definovane vyssie), tu netreba nic prepisovat */
   #detail-titlebar-text {
     font-size: 11px;
     max-width: 60%;
@@ -1169,11 +1176,11 @@ a:visited { color: #551a8b; }
   #detail-close-btn { flex-shrink: 0; }
   .detail-table td:first-child { width: 90px; }
 
-  /* --- SOCIAL PAGE — bunky pod sebou namiesto 5 vedla seba --- */
+  /* --- SOCIAL PAGE - bunky pod sebou namiesto 5 vedla seba --- */
   .social-table { flex-direction: column; }
   .social-cell { border-right: none; }
 
-  /* --- INFO / ABOUT TABULKY — uzsi label stlpec --- */
+  /* --- INFO / ABOUT TABULKY - uzsi label stlpec --- */
   .info-table-plain td:first-child { width: 100px; }
 
   /* --- FOOTER --- */
@@ -1198,12 +1205,12 @@ a:visited { color: #551a8b; }
 </style>
 </head>
 <body>
-<!-- Audio element — src sa meni automaticky cez playlist nizsie -->
+<!-- Audio element - src sa meni automaticky cez playlist nizsie -->
 <audio id="bg-music"></audio>
 
 <script>
 // =============================================
-// PLAYLIST — pridaj/zmaz pesnicke tu
+// PLAYLIST - pridaj/zmaz pesnicke tu
 // =============================================
 // Kazda pesnicka: { src: 'URL alebo cesta.mp3', title: 'Nazov' }
 // Pesnicky hraju v NAHODNOM poradi (shuffle).
@@ -1256,53 +1263,53 @@ function playNextTrack() {
   if (ic) { ic.src = window.ICON_ON; ic.style.filter = ''; }
 }
 
-// Init — zamieshaj a nacitaj prvy track
+// Init - zamieshaj a nacitaj prvy track
 shufflePlaylist();
 loadTrack(0);
 document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 
 // Hudba sa nacita hned pri otvoreni stranky, ale ZOSTAVA MUTED/paused,
 // kym clovek sam neklikne na mute/unmute tlacidlo (viz toggleMute() nizsie).
-// Ziadny "autoplay pri prvom kliku kdekolvek" — to bolo otravne.
+// Ziadny "autoplay pri prvom kliku kdekolvek" - to bolo otravne.
 </script>
 
 <!-- =============================================
      HEADER
-     — logo, nav linky vpravo, mute tlacidlo
-     (ONLINE badge bol odstraneny — cely, aj z mobilnej verzie,
+     - logo, nav linky vpravo, mute tlacidlo
+     (ONLINE badge bol odstraneny - cely, aj z mobilnej verzie,
      lebo je to ten isty element pre obe verzie)
      ============================================= -->
 <div id="header">
   <div id="header-inner">
-    <!-- Hamburger — LEN na mobile (CSS nizsie), na desktope display:none, layout sa nemeni -->
+    <!-- Hamburger - LEN na mobile (CSS nizsie), na desktope display:none, layout sa nemeni -->
     <div id="mobile-menu-toggle" onclick="toggleMobileMenu()">
       <span id="mobile-menu-icon">&#9776;</span> <span id="mobile-menu-label">Menu</span>
     </div>
     <div id="logo-area">
       <div style="display:flex;align-items:center;gap:8px;">
-        <!-- Stvorcove/mascot logo — na mobile schovane cez #frown-mascot-logo v @media nizsie -->
+        <!-- Stvorcove/mascot logo - na mobile schovane cez #frown-mascot-logo v @media nizsie -->
         <img id="frown-mascot-logo" src="upscaled logo v2 beige.png" style="height: 55px; width:65px; display:block;filter:invert(0%);" alt="frown_mascot" />
         <img id="frown-archive-logo" src="frownarchives3.png" style="height:50px;width:150px;display:block;" alt="frown-logo-center" />
       </div>
     </div>
     <div id="header-right">
 
-      <!-- RIADOK 1 — Welcome + odkazy -->
+      <!-- RIADOK 1 - Welcome + odkazy -->
       <div id="header-links-row">
         <span style="color:#b7ae9c;">Welcome, visitor</span> &nbsp;|&nbsp;
         <a href="#" onclick="nav('info')">About</a> &nbsp;|&nbsp;
         <a href="#" onclick="nav('social')">Contact</a>
       </div>
 
-      <!-- RIADOK 2 — Last updated + Secure connection -->
+      <!-- RIADOK 2 - Last updated + Secure connection -->
       <div id="header-status-row">
-        <span id="last-updated-text" style="color:#9a9488;font-size:9px;">Last updated: — &nbsp;·&nbsp; Secure connection</span>
+        <span id="last-updated-text" style="color:#9a9488;font-size:9px;">Last updated: - &nbsp;·&nbsp; Secure connection</span>
       </div>
 
-      <!-- RIADOK 3 — mute/unmute tlacidlo (presunute sem, pod Secure connection).
+      <!-- RIADOK 3 - mute/unmute tlacidlo (presunute sem, pod Secure connection).
            Kliknutím na tento obrázok stíšiš alebo zapneš hudbu.
            ICON_OFF = obrazok ked hudba nehrá (grayscale), ICON_ON = obrazok ked hudba hrá (farebny).
-           TODO: Zmen src a data-on na tvoje vlastne obrazky — napr. ikona noty alebo reproduktora -->
+           TODO: Zmen src a data-on na tvoje vlastne obrazky - napr. ikona noty alebo reproduktora -->
       <div id="header-mute-row">
         <div id="mute-toggle" onclick="toggleMute()">
           <img id="mute-icon"
@@ -1319,21 +1326,18 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 
 <!-- =============================================
      TOP NAVIGATION
-     — stranky, hover/active farby (CSS vyssie)
-     — TODO: Zmen src v kazdej nav-icon na tvoj vlastny obrazok
+     - stranky, hover/active farby (CSS vyssie)
+     - TODO: Zmen src v kazdej nav-icon na tvoj vlastny obrazok
      ============================================= -->
 <div id="topnav">
   <div id="topnav-links">
     <span class="topnav-item active" id="nav-museum" onclick="nav('museum')">
-      <img src="icons/archive.png" class="nav-icon" alt="" />
       Archive
     </span>
     <span class="topnav-item" id="nav-social" onclick="nav('social')">
-      <img src="icons/shop.png" class="nav-icon" alt="" />
       Socials
     </span>
     <span class="topnav-item" id="nav-info" onclick="nav('info')">
-      <img src="icons/manifesto.png" class="nav-icon" alt="" />
       About Frown
     </span>
   </div>
@@ -1345,7 +1349,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 </div>
 
 <!-- =============================================
-     WRAPPER — sidebar + content vedla seba
+     WRAPPER - sidebar + content vedla seba
      ============================================= -->
 <div id="wrapper">
 
@@ -1356,7 +1360,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 
     <div class="sidebar-box">
       <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Browse Categories" -->
-      <div class="sidebar-box-title"><img src="icons/browse categories.png" class="nav-icon" alt="" /> Browse Categories</div>
+      <div class="sidebar-box-title">Browse Categories</div>
 
       <div class="sidebar-cat">Archive</div>
       <a class="sidebar-item active" id="sb-all" onclick="nav('museum'); filterMuseum('all')">All Pieces <span class="sidebar-count" id="sc-all">4</span></a>
@@ -1378,7 +1382,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 
     <div class="sidebar-box">
       <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Marketplace Stats" -->
-      <div class="sidebar-box-title"><img src="icons/stats.png" class="nav-icon" alt="" /> Marketplace Stats</div>
+      <div class="sidebar-box-title">Marketplace Stats</div>
       <div class="sidebar-stats">
         Total pieces: <span>4</span><br />
         Available: <span>1</span><br />
@@ -1389,7 +1393,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 
     <div class="sidebar-box">
       <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Contact" -->
-      <div class="sidebar-box-title"><img src="icons/contact.png" class="nav-icon" alt="" /> Contact</div>
+      <div class="sidebar-box-title">Contact</div>
       <div class="sidebar-info-box">
         DM on Instagram:<br />
         <a href="https://www.instagram.com/frownlinea/"><strong>@frownlinea</strong></a><br />
@@ -1413,7 +1417,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
     <div class="page active" id="page-museum">
       <div class="content-box">
         <div class="content-box-title">
-          <span style="font-size:12px;font-weight:bold;color:#fff;">Archive — <b id="archive-title-label">All Pieces</b></span>
+          <span style="font-size:12px;font-weight:bold;color:#fff;">Archive - <b id="archive-title-label">All Pieces</b></span>
           <span id="archive-count">showing all 4 drops &nbsp;·&nbsp; one of one only</span>
         </div>
         <div class="breadcrumb">
@@ -1438,6 +1442,10 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           &nbsp;&nbsp; Sort:
           <button class="filter-btn active" id="msort-latest" onclick="setMuseumSort('latest');msortActive('msort-latest')">Latest</button>
           <button class="filter-btn" id="msort-oldest" onclick="setMuseumSort('oldest');msortActive('msort-oldest')">Oldest</button>
+        </div>
+        <!-- TYPE filter - tlacidla sa generuju automaticky z pieces[] (buildTypeFilters) -->
+        <div class="filter-row" id="type-filter-row">
+          Type: <span id="type-filters"></span>
         </div>
         <div class="notice-box" id="archive-notice" style="margin:6px 10px;position:relative;">
           <span onclick="document.getElementById('archive-notice').style.display='none'" style="float:right;cursor:pointer;font-weight:bold;margin-left:10px;color:#664400;" title="Dismiss">&#10005;</span>
@@ -1513,7 +1521,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           <p style="font-size:11px;color:#555;line-height:1.8;">
             For inquiries, collaborations, or anything DM me on instagram or contact me through email.<br />
             <!-- TODO: Zmen href na link tvojho Instagram profilu -->
-            <strong><a href="https://www.instagram.com/frownlinea/">@frownlinea</a></strong> — serious inquiries only.<br />
+            <strong><a href="https://www.instagram.com/frownlinea/">@frownlinea</a></strong> - serious inquiries only.<br />
           </p>
         </div>
       </div>
@@ -1528,35 +1536,27 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
         <div class="breadcrumb"><a href="#" onclick="nav('museum')">FROWN</a> &rsaquo; About</div>
 
         <div class="info-section">
-          <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Manifesto" -->
-          <div class="info-section-title"><img src="icons/manifesto.png" class="nav-icon" alt="" /> Manifesto</div>
+          <div class="info-section-title">Manifesto</div>
           <div class="manifesto-box">
-            Too many people walk around pretending to be some serious, grown up version of themselves,<br />
-            even when they know deep down that's not who they actually are or want to be.<br />
-            People deserve to be different, to actually be themselves,<br />
-            instead of whatever everyone else wants from them.<br />
-            What's the point of living if you don't even get to enjoy it?<br />
-            I'm not going to make up any meaning to no piece,<br />
-            whatever meaning it has is whatever you give it.
+            <p>Be honest with yourself for a second.<br />
+            How much of what you do is actually you, and how much is an act?</p>
+            <p>Acting like you understand how the world works. Like you know your next move. Like you’ve got it all figured out.</p>
+            <p>Most of us don’t. We just don’t want anyone to see that, so we keep playing the character.</p>
+            <p>If that’s you, it’s fine. But ask yourself why you’re still playing it, and who it’s even for.</p>
+            <p>Now think about a time you did something you thought was right, and people just didn’t get it. They only saw the outside, and you ended up looking bad.</p>
+            <p>We do that to other people all the time.</p>
+            <p>Almost nobody thinks they’re the bad guy. Most people believe they’re doing the right thing, and when they’re not, there’s usually something behind it that we never saw. If we knew it, a lot of our anger would look pretty stupid. A lot of petty problems would just disappear.</p>
+            <p>Only after you try to understand someone can you decide if what they did was okay or not.</p>
+            <p>But you’ll never fully get anyone. You only see what they show you, or what they couldn’t hide. The rest you make up yourself, so the person in your head is just a character you wrote. And someone out there is writing one of you too.</p>
+            <p>That doesn’t mean give up. It means remember it before you judge.</p>
+            <p>I’ve been living like this for years, always trying to understand people. And honestly, it didn’t give me anything positive back. If anything, people hurt me more, because I gave them the chance to.</p>
+            <p>I also have to admit you can’t do this all the time. Most of the time there’s no time for it. You’re talking to the person right then, and you react. That’s normal, so don’t be too hard on yourself for acting badly in that moment. What matters is what you do after. Think about it again once it’s over, so you’re not stuck in the same headspace you were in when it happened.</p>
+            <p>I don’t know if it’s worth it. Maybe you’ll find an answer I haven’t.</p>
           </div>
         </div>
 
         <div class="info-section">
-          <!-- TODO: Zmen src na tvoj vlastny obrazok pre "What You Get" -->
-          <div class="info-section-title"><img src="icons/drop includes2.png" class="nav-icon" alt="" /> What You Get With Every Drop</div>
-          <table class="info-table-plain">
-            <tr><td>Garment</td><td>A one of one piece. Made by hand or whatever method i used in the video.</td></tr>
-            <tr><td>Plushie (Optional)</td><td>Made from the leftover materials of the same piece.</td></tr>
-            <tr><td>Temporary Tattoo(Optional)</td><td>Frown logo tattoo Pretty self explanatory.</td></tr>
-            <tr><td>YouTube Documentary</td><td>Fully documented making process. QR code on the note links directly to it.</td></tr>
-            <tr><td>Visual Edit</td><td>Short visualisation dedicated specifically to the piece.</td></tr>
-            <tr><td>Handmade Note</td><td>A note with a personal message and a QR code that links to the YouTube documentary.</td></tr>
-          </table>
-        </div>
-
-        <div class="info-section">
-          <!-- TODO: Zmen src na tvoj vlastny obrazok pre "Brand Info" -->
-          <div class="info-section-title"><img src="icons/about.png" class="nav-icon" alt="" /> Brand Info</div>
+          <div class="info-section-title">Brand Info</div>
           <table class="info-table-plain">
             <tr><td>Brand name</td><td>FROWN</td></tr>
             <tr><td>Founded</td><td>2025</td></tr>
@@ -1581,7 +1581,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
      ============================================= -->
 <div id="footer">
   <div>
-    <strong>FROWN</strong> &copy; 2025 &nbsp;·&nbsp;
+    <strong>FROWN</strong> 2025 &nbsp;·&nbsp;
     All pieces one of one &nbsp;·&nbsp; No restocks &nbsp;·&nbsp; No reprints<br />
     <span style="font-size:9px;color:#999;">Handmade in Slovakia &nbsp;·&nbsp; Contact: <a href="#" onclick="nav('social')">@frownlinea</a> on Instagram</span>
   </div>
@@ -1592,12 +1592,12 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
 </div>
 
 <!-- =============================================
-     DETAIL OVERLAY — popup okno pre piece
+     DETAIL OVERLAY - popup okno pre piece
      ============================================= -->
 <div id="detail-overlay">
   <div id="detail-window">
     <div id="detail-titlebar">
-      <span id="detail-titlebar-text">FROWN — Piece Detail</span>
+      <span id="detail-titlebar-text">FROWN - Piece Detail</span>
       <button id="detail-close-btn" onclick="closeDetail()">&#10005; Close</button>
     </div>
     <div id="detail-menubar">
@@ -1606,7 +1606,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
     </div>
     <div id="detail-body">
       <div id="detail-img-col">
-        <!-- Carousel — sipky + counter sa generuju automaticky -->
+        <!-- Carousel - sipky + counter sa generuju automaticky -->
         <div id="detail-img-wrapper">
           <div class="carousel-arrow left" onclick="carouselStep(-1)">&#8249;</div>
           <div id="detail-main-img">
@@ -1617,7 +1617,7 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           <div class="carousel-arrow right" onclick="carouselStep(1)">&#8250;</div>
           <div id="carousel-counter"></div>
         </div>
-        <!-- Thumbnails — kliknutelne + aktualizuju sa automaticky -->
+        <!-- Thumbnails - kliknutelne + aktualizuju sa automaticky -->
         <div class="detail-thumb-row" id="detail-thumb-row"></div>
       </div>
       <div id="detail-info-col">
@@ -1633,12 +1633,11 @@ document.getElementById('bg-music').addEventListener('ended', playNextTrack);
           <tr><td>Type</td><td id="d-type">&#8212;</td></tr>
           <tr><td>Construction</td><td id="d-construction">&#8212;</td></tr>
           <tr><td>Year</td><td id="d-year">&#8212;</td></tr>
-          <tr id="d-includes-row"><td>Includes</td><td>Garment &middot; Plushie &middot; Tattoo &middot; YouTube doc &middot; Visual edit &middot; Note</td></tr>
         </table>
         <div class="detail-desc-box" id="d-story">&#8212;</div>
         <div class="detail-includes-box" id="d-includes-box">
-          <strong>&#10003; What ships with this piece:</strong>
-          Garment (one of one) &nbsp;&middot;&nbsp; Plushie from scraps &nbsp;&middot;&nbsp; Frown temporary tattoo &nbsp;&middot;&nbsp; YouTube making-of (QR inside) &nbsp;&middot;&nbsp; Visual edit &nbsp;&middot;&nbsp; Handwritten note
+          <strong id="d-includes-title">&#10003; What ships with this piece:</strong>
+          <span id="d-includes-text"></span>
         </div>
         <div class="detail-links-box" id="d-links"></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -1673,11 +1672,19 @@ var ICON_ON  = 'icons/unmute2.png';
 function toggleMute() {
   if (!bgm) bgm = document.getElementById('bg-music');
   var ic = document.getElementById('mute-icon');
+  // Hudba je len dociasne pozastavena kvoli videu a clovek klikne na mute = chce ju vypnut
+  // (predtym sa spustila cez zvuk videa a ikona/stav boli nesynchronne)
+  if (_bgmPausedForVideo) {
+    _bgmPausedForVideo = false;
+    isMusicPlaying = false;
+    if (ic) { ic.src = ICON_OFF; ic.style.filter = 'grayscale(0%)'; }
+    return;
+  }
   if (bgm.paused) {
     // ak este nema src (stav pred prvou interakciou), nacitaj aktuálny track
     if (!bgm.src || bgm.src === window.location.href) loadTrack(playlistPos);
     // Ikona sa prepne na ON az ked play() naozaj uspeje (iOS/Safari ho moze zablokovat,
-    // alebo subor chyba) — inak by ikona ukazovala "hra", hoci je ticho.
+    // alebo subor chyba) - inak by ikona ukazovala "hra", hoci je ticho.
     var setOn  = function() { isMusicPlaying = true;  if (ic) { ic.src = ICON_ON;  ic.style.filter = ''; } };
     var setOff = function() { isMusicPlaying = false; if (ic) { ic.src = ICON_OFF; ic.style.filter = 'grayscale(0%)'; } };
     var pr = bgm.play();
@@ -1703,16 +1710,30 @@ function pauseBGM() {
 }
 
 function playBGM() {
-  if (!_videoStopping && bgm && _bgmPausedForVideo && bgm.paused) {
-    bgm.play().catch(function(){});
+  if (_videoStopping) return;
+  resumeBGMAfterVideo();
+}
+
+/* Obnovi hudbu po videu. Mierne oneskorenie + kontrola, ci uz nebezi ine video
+   (pri prechode video -> video alebo video -> obrazok by guard _videoStopping inak
+   hudbu nikdy nespustil znova). */
+function resumeBGMAfterVideo() {
+  setTimeout(function() {
+    var v = document.querySelector('#detail-main-img video');
+    if (v && !v.paused && !v.ended) return;
+    if (_bgmPausedForVideo && bgm && bgm.paused) bgm.play().catch(function(){});
     _bgmPausedForVideo = false;
-  }
+  }, 80);
 }
 
 function stopCurrentVideoSilently() {
   var vid = document.querySelector('#detail-main-img video');
   if (vid) {
     _videoStopping = true;
+    // DOLEZITE: odpojit onerror skor, nez sa src odstrani. Prazdny src + load() totiz vyhodi
+    // asynchronnu "error" udalost, ktora by inak prepisala UZ NOVE zobrazene media
+    // hlaskou "Media could not be loaded" (glitch pri prepinani videi v karusely).
+    vid.onerror = null;
     vid.pause();
     vid.removeAttribute('src');
     vid.load();
@@ -1720,10 +1741,57 @@ function stopCurrentVideoSilently() {
   }
 }
 
-/* [NÁPOVEDA] Funkcia overuje, či je odkaz na súbor video vo formáte .mp4 */
+/* [NÁPOVEDA] Funkcia overuje, či je odkaz na súbor video (.mp4 / .webm / .mov / .m4v) */
 function isVideo(url) {
   if (!url) return false;
-  return url.toLowerCase().indexOf('.mp4') !== -1;
+  return /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(String(url).trim());
+}
+
+/* Zakoduje lokalne cesty (medzery, diakritika, ; ( ) v nazvoch suborov) tak, aby src
+   fungoval vsade. http(s) odkazy a uz zakodovane cesty necha na pokoji. */
+function mediaUrl(src) {
+  src = String(src || '').trim();
+  if (/^(https?:|data:|blob:)/i.test(src)) return src;
+  if (/%[0-9a-f]{2}/i.test(src)) return src;
+  return encodeURI(src).replace(/#/g, '%23').replace(/\?/g, '%3F');
+}
+
+/* Vytvori <img> alebo <video> cez DOM (bez skladania HTML retazcov, takze nazvy suborov
+   nemozu rozbit atribut). opts.full = plny prehravac (controls + autoplay), inak thumbnail. */
+function makeMediaEl(src, opts) {
+  opts = opts || {};
+  var url = mediaUrl(src);
+  var el;
+  if (isVideo(src)) {
+    el = document.createElement('video');
+    el.setAttribute('playsinline', '');
+    el.playsInline = true;
+    if (opts.full) {
+      el.controls = true;
+      el.autoplay = true;
+      el.src = url;
+    } else {
+      el.muted = true;
+      el.preload = 'metadata';
+      el.style.pointerEvents = 'none';
+      // #t=0.001 = prvy frame ako nahlad (funguje aj na iOS, kde currentTime hack zlyhava)
+      el.src = url + '#t=0.001';
+    }
+  } else {
+    el = document.createElement('img');
+    el.alt = opts.alt || '';
+    el.src = url;
+  }
+  el.onerror = function() {
+    if (opts.full) {
+      var box = document.getElementById('detail-main-img');
+      // Chyba starsieho (uz nahradeneho) elementu nesmie prepisat aktualne media
+      if (box && box.contains(el)) box.innerHTML = '<div class="media-error">Media could not be loaded:<br />' + esc(src) + '</div>';
+    } else {
+      el.style.visibility = 'hidden';
+    }
+  };
+  return el;
 }
 
 /* [NÁPOVEDA] Automaticky vytiahne prvý prvok z poľa 'gallery'. Ak pole neexistuje, vráti placeholder. */
@@ -1734,24 +1802,27 @@ function getFirstMedia(p) {
 
 
 // =============================================
-// PIECES — zoznam vsetkych kusov
+// PIECES - zoznam vsetkych kusov
 // =============================================
 //
 // ╔══════════════════════════════════════════════════╗
-// ║  JAK PRIDAT NOVY PIECE — skopiruj tento blok    ║
+// ║  JAK PRIDAT NOVY PIECE - skopiruj tento blok    ║
 // ║  a vloz ho do pola pieces[] (pred poslednu })   ║
 // ╚══════════════════════════════════════════════════╝
 //
 // {
 //   id: 'DROP 003',
-//   // ^ Cislo dropu — zobrazuje sa pod nazvom (napr. "DROP 003")
+//   // ^ Cislo dropu - zobrazuje sa pod nazvom (napr. "DROP 003")
 //
 //   name: 'NAZOV KUSU',
-//   // ^ Nazov piecu — zobrazuje sa vsade ako hlavny nadpis
+//   // ^ Nazov piecu - zobrazuje sa vsade ako hlavny nadpis
 //
 //   type: 'Hoodie',
-//   // ^ Typ oblecenia — pouziva sa pri filtrovani v archive
-//   //   Moznosti: 'Hoodie' / 'Long Sleeve' / 'T-Shirt' / 'Pants' / 'Jacket' / 'In Progress'
+//   // ^ Typ oblecenia - zobrazuje sa v detaile/karte a pouziva sa v TYPE filtri v archive
+//   //   Znamy zoznam (KNOWN_TYPES nizsie): Hoodie / Crewneck / Long Sleeve / T-Shirt / Pants / Jacket / Other
+//   //   'Other' existuje aj ako typ (nielen ako kategoria). Ak das lubovolny iny text
+//   //   (napr. 'Plushie') alebo nechas type prazdny, v TYPE filtri sa zaradi pod "Other";
+//   //   na karte sa ale zobrazi tvoj povodny text.
 //
 //   cat: 'hoodies',
 //   // ^ Kategoria pre filter tlacidla v archive
@@ -1759,58 +1830,65 @@ function getFirstMedia(p) {
 //   //   tops = trika, longsleeve; hoodies = mikiny; other = vsetko ostatne
 //
 //   status: 'available',
-//   // ^ Status piecu — ovplyvnuje badge, ceny a shop stranku
+//   // ^ Status piecu - ovplyvnuje badge, ceny a shop stranku
 //   //   'available' = zeleny badge, zobrazi sa v Shope, CTA button "Inquire"
 //   //   'sold'      = cerveny badge "SOLD", zobrazi sa len v Sold Archive
 //   //   'unavailable' = sivý badge "Unavailable", cena sa sama zobrazi ako "not for sale",
 //   //                   v popupe sivý nefunkcny "Not for sale" button, bez "What ships" casti
 //   //                   (pozri PRESET: NOT FOR SALE nizsie)
 //
+//   includes: ['Garment (one of one)', 'Plushie from scraps', 'Handwritten note'],
+//   // ^ VOLITELNE - co presne sa posiela s tymto kusom ("What ships with this piece").
+//   //   chyba riadok  = pouzije sa DEFAULT_INCLUDES (cely standardny balik); pri 'unavailable' sa nezobrazi nic
+//   //   includes: [...] = zobrazi sa presne tvoj zoznam (funguje aj pri 'unavailable')
+//   //   includes: []   = sekcia sa pre tento kus uplne schova
+//   //   includesTitle: 'Custom nadpis boxu' (volitelne) - zmeni nadpis "What ships with this piece:"
+//
 //   construction: 'Handmade · Hand-stitched',
-//   // ^ Sposob vyroby — zobrazuje sa v detaile a na karte v archive
+//   // ^ Sposob vyroby - zobrazuje sa v detaile a na karte v archive
 //   //   Pisi lubovolny text, mozes kombinovat napr. 'Screen printed · Reworked'
 //
 //   year: '2025',
 //   // ^ Rok kedy bol piece vyrobeny
 //
 //   price: '120€',
-//   // ^ Cena — zobrazuje sa v detail okne
+//   // ^ Cena - zobrazuje sa v detail okne
 //   //   Pre sold: mozno napisat realne predajnu cenu ako archiv (napr. '100€')
 //   //   Pre available: mozno napisat 'on vinted' alebo konkretnu sumu
 //
 //   isNew: true,
-//   // ^ NEW badge — maly oranzovy stit vedla nazvu v liste a v Shope
+//   // ^ NEW badge - maly oranzovy stit vedla nazvu v liste a v Shope
 //   //   true  = badge sa zobrazuje (napr. cerstvý drop)
 //   //   false = badge sa nezobrazuje (alebo tento riadok vymas uplne)
 //   //
 //   //   !! KEDY HO DAT PREC:
 //   //   Zmen na:  isNew: false
-//   //   Alebo:    vymas riadok isNew uplne — efekt je rovnaky
+//   //   Alebo:    vymas riadok isNew uplne - efekt je rovnaky
 //   //   Odporucanie: nechaj ho tam prvy mesiac po droppe, potom vymas
 //
 //   gallery: [
 //     'Projects/NazovPiecu/foto1.jpg',
-//     // ^ Prvy obrazok — tento sa zobrazi ako thumbnail v archive gridu
+//     // ^ Prvy obrazok - tento sa zobrazi ako thumbnail v archive gridu
 //     //   Moze byt lokalna cesta (ked je subor vedla HTML) alebo URL
 //
 //     'Projects/NazovPiecu/foto2.jpg',
-//     // ^ Dalsi obrazok — dostupny cez sipky a thumbnail row
+//     // ^ Dalsi obrazok - dostupny cez sipky a thumbnail row
 //
 //     'Projects/NazovPiecu/video.mp4',
-//     // ^ Video — automaticky zobrazi prvy frame ako thumbnail,
+//     // ^ Video - automaticky zobrazi prvy frame ako thumbnail,
 //     //   po kliknuti sa spusti s ovladacimi prvkami
-//     //   Mozes pridat kolko chces obrazkov a videi — sipky funguju automaticky
+//     //   Mozes pridat kolko chces obrazkov a videi - sipky funguju automaticky
 //   ],
 //
 //   story: 'Pribeh alebo popis kusa. Moze byt dlhy, zobrazuje sa kurzivou v detaile.',
-//   // ^ Popis / story — zobrazuje sa v detail okne kurzivou
+//   // ^ Popis / story - zobrazuje sa v detail okne kurzivou
 //
 //   links: [
 //     { label: '&#9658; Watch Making-Of', href: 'https://youtube.com/...' },
-//     // ^ Link na YouTube making-of video — zmen href na tvoj link
+//     // ^ Link na YouTube making-of video - zmen href na tvoj link
 //
 //     { label: '&#9672; View Visual Edit', href: 'https://tiktok.com/...' }
-//     // ^ Link na visual edit — zmen href na tvoj link
+//     // ^ Link na visual edit - zmen href na tvoj link
 //     // Mozes pridat alebo vymazat lubovolny pocet linkov
 //   ]
 // },
@@ -1847,8 +1925,9 @@ function getFirstMedia(p) {
 var pieces = [
   {
     id: 'DROP 001', name: 'Drown With Me', type: 'Hoodie', cat: 'hoodies', status: 'available',
-    construction: 'Handmade · Hand-stitched', year: '2025', price: 'on vinted',
-    isNew: false,  // NEW badge — zmen na false alebo vymas ked chces aby zmizol
+    includes: ['Garment (one of one)', 'Handwritten note'],
+    construction: 'Handmade, Hand-stitched', year: '2025', price: 'on vinted',
+    isNew: false,  // NEW badge - zmen na false alebo vymas ked chces aby zmizol
     img: '', // TODO: vloz URL fotky tohto kusa
     gallery: [
       'Projects/Drown With Me/iloveimg-converted/IMG_0807.jpg',
@@ -1864,7 +1943,7 @@ var pieces = [
   },
   {
     id: 'DROP 002', name: 'Sunburnt Eyes Stay Bloodshot', type: 'crewneck', cat: 'hoodies', status: 'available',
-    construction: 'Handmade · Hand-stitched', year: '2026', price: 'on vinted',
+    construction: 'Handmade, Hand-stitched', year: '2026', price: 'on vinted',
     img: '', // TODO: vloz URL fotky tohto kusa
     gallery: [
       'Projects/sunburnt eyes stay bloodshot/fotky/DSC01814.JPG',
@@ -1877,18 +1956,90 @@ var pieces = [
       'Projects/sunburnt eyes stay bloodshot/springdemo.mp4',
       'Projects/sunburnt eyes stay bloodshot/whisperinterlude.mp4',
     ],
+    includes: ['Garment (one of one)', 'Handwritten note'],
+//   // ^ VOLITELNE - co presne sa posiela s tymto kusom ("What ships with this piece").
+//   //   chyba riadok  = pouzije sa DEFAULT_INCLUDES (cely standardny balik); pri 'unavailable' sa nezobrazi nic
+//   //   includes: [...] = zobrazi sa presne tvoj zoznam (funguje aj pri 'unavailable')
+//   //   includes: []   = sekcia sa pre tento kus uplne schova
+//   //   includesTitle: 'Custom nadpis boxu' (volitelne) - zmeni nadpis "What ships with this piece:
     story: 'A crewneck with a flannel skull thats filled with batting, so its looks 3D and feels really soft',
     links: [
       { label: '&#9658; Watch Making-Of', href: 'https://prdik.sk' },
       { label: '&#9672; View Visual Edit', href: 'https://prdik.sk' }
     ]
   },
+ {
+   id: 'DROP 003', name: 'gloomy', type: 'Other', cat: 'other', status: 'unavailable',
+   construction: 'Handmade', year: '2026',
+   gallery: [
+     'Projects/gloomy/Screenshot 2026-10-31 140148.png',
+     'Projects/gloomy/Sequence 01.00_08_06_17.Still001.png',
+     'Projects/gloomy/Screenshot 2026-10-31 140055.png',
+     'Projects/gloomy/f6c3cf12-8b57-4b68-87a4-63ddc633dc64.jpg',
+     'Projects/gloomy/MOV001.mp4',
+     'Projects/gloomy/mainvisual.mp4',
+     'Projects/gloomy/djgyrottazao.mp4',
+     'Projects/gloomy/MOV004.mp4',
+     'Projects/gloomy/trick.mp4',
+   ],
+   story: 'Frown mascot',
+   links: [
+     { label: '&#9658; Watch Making-Of', href: 'https://youtu.be/asefCbkXnB4?si=c6SMG7lwft5eKMN3' },
+     { label: '&#9672; View Visual Edit', href: 'https://prdik.com' }
+   ]
+},
 ];
 
 var museumView = 'grid';
 var currentMuseumFilter = 'all';
+var currentMuseumType = 'all';
 
-// PLACEHOLDER — obrazok kym nemas vlastnu fotku
+// =============================================
+// TYPES - "Other" existuje aj ako typ (nielen ako kategoria)
+// Pridaj sem dalsi typ a objavi sa v TYPE filtri (ak existuje aspon jeden kus toho typu).
+// Cokolvek mimo tohto zoznamu (alebo prazdny type) sa v filtri zaradi pod "Other".
+// =============================================
+var KNOWN_TYPES = ['Hoodie', 'Crewneck', 'Long Sleeve', 'T-Shirt', 'Pants', 'Jacket'];
+var OTHER_TYPE = 'Other';
+
+// Kanonicky kluc typu pre filter: znamy typ -> jeho presny nazov, inak 'Other'
+function typeKey(p) {
+  var t = String((p && p.type) || '').trim().toLowerCase();
+  for (var i = 0; i < KNOWN_TYPES.length; i++) {
+    if (KNOWN_TYPES[i].toLowerCase() === t) return KNOWN_TYPES[i];
+  }
+  return OTHER_TYPE;
+}
+// Text zobrazeny pri kuse: znamy typ = kanonicky nazov (crewneck -> Crewneck),
+// vlastny text ostane ako je, prazdny = Other
+function typeLabel(p) {
+  var raw = String((p && p.type) || '').trim();
+  if (!raw) return OTHER_TYPE;
+  var k = typeKey(p);
+  return k === OTHER_TYPE && raw.toLowerCase() !== 'other' ? raw : k;
+}
+
+// =============================================
+// DEFAULT "WHAT SHIPS" - pouzije sa, ked kus nema vlastne includes: [...]
+// =============================================
+var DEFAULT_INCLUDES = [
+  'Garment (one of one)',
+  'Plushie from scraps',
+  'Frown temporary tattoo',
+  'YouTube making-of (QR inside)',
+  'Visual edit',
+  'Handwritten note'
+];
+var DEFAULT_INCLUDES_TITLE = '✓ What ships with this piece:';
+
+// Vrati zoznam includes pre kus ([] = nezobrazovat). 'unavailable' bez vlastneho zoznamu = nic.
+function getIncludes(p) {
+  if (p.includes && p.includes.length !== undefined) return p.includes;
+  if (p.status === 'unavailable') return [];
+  return DEFAULT_INCLUDES;
+}
+
+// PLACEHOLDER - obrazok kym nemas vlastnu fotku
 // TODO: toto prdik.sk najdes cez Ctrl+F a zmenis na URL tvojej fotky (rovnaky link pre vsetky pieces kym nemas individualne)
 var PLACEHOLDER_IMG = 'https://i.pinimg.com/736x/a4/ca/9d/a4ca9d729c7d5085882e239a1eb86b56.jpg';
 
@@ -1904,41 +2055,37 @@ var PLACEHOLDER_GALLERY = [
 ];
 
 // =============================================
-// RENDER FUNCTIONS — generovanie HTML pre pieces
+// RENDER FUNCTIONS - generovanie HTML pre pieces
 // Ak pridáš img: 'url' do pieces[], zobrazi sa automaticky
 // =============================================
 
 function getGridSrc(p) {
-  // Prvy obrazok z gallery — ak je video, vrati video element, inak img
+  // Prvy obrazok z gallery - ak je video, vrati video element, inak img
   if (p.gallery && p.gallery.length > 0) return p.gallery[0];
   if (p.img) return p.img;
   return PLACEHOLDER_IMG;
 }
 
-function makeThumb(p) {
+// Spolocny vnutorok thumbnailu (grid aj list). mediaUrl() zakoduje medzery a ; ( ) v nazvoch
+// suborov, #t=0.001 ukaze prvy frame videa aj na iOS.
+function thumbInner(p) {
   var src = getGridSrc(p);
-  var inner;
+  var url = esc(mediaUrl(src));
   if (isVideo(src)) {
-    // Video thumbnail — zobrazuje prvy frame
-    inner = '<video playsinline src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
-  } else {
-    inner = '<img src="' + src + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover;" />';
+    return '<video playsinline muted preload="metadata" src="' + url + '#t=0.001" style="width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>';
   }
-  return '<div class="pgrid-thumb">' + inner + '</div>';
+  return '<img src="' + url + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover;" />';
+}
+
+function makeThumb(p) {
+  return '<div class="pgrid-thumb">' + thumbInner(p) + '</div>';
 }
 
 function makeListThumb(p) {
-  var src = getGridSrc(p);
-  var inner;
-  if (isVideo(src)) {
-    inner = '<video playsinline src="' + src + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>';
-  } else {
-    inner = '<img src="' + src + '" alt="' + esc(p.name) + '" style="width:100%;height:100%;object-fit:cover;" />';
-  }
-  return '<div class="listing-thumb" style="width:54px;height:64px;">' + inner + '</div>';
+  return '<div class="listing-thumb" style="width:54px;height:64px;">' + thumbInner(p) + '</div>';
 }
 
-// Pomocne funkcie pre archive (grid aj list) — jedno miesto pre text ceny a badge
+// Pomocne funkcie pre archive (grid aj list) - jedno miesto pre text ceny a badge
 // esc(): nazov/pribeh s znakmi ako & < > " uz nerozbije HTML (grid, list, alt atributy)
 function esc(t) {
   return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -1950,7 +2097,7 @@ function snip(t, n) {
 }
 function priceText(p) {
   if (p.status === 'unavailable') return 'not for sale';
-  return p.price ? esc(p.price) : '—';
+  return p.price ? esc(p.price) : '-';
 }
 function statusBadge(p) {
   if (p.status === 'sold') return '<span class="badge-sold">Sold</span>';
@@ -1960,7 +2107,7 @@ function statusBadge(p) {
 
 function renderMuseum(list) {
   var el = document.getElementById('museum-content');
-  // Prazdny stav — predtym sa pri filtri bez kusov (napr. Tops) ukazala len prazdna biela plocha
+  // Prazdny stav - predtym sa pri filtri bez kusov (napr. Tops) ukazala len prazdna biela plocha
   if (list.length === 0) {
     el.innerHTML = '<div style="padding:26px 10px;text-align:center;color:#888;font-size:11px;line-height:2;">No pieces match this filter.<br /><a href="#" onclick="resetMuseumFilters(); return false;">Show all pieces</a></div>';
     return;
@@ -1973,7 +2120,7 @@ function renderMuseum(list) {
       html += '<div class="pgrid-item" onclick="openDetail(' + ri + ')">';
       html += makeThumb(p);
       html += '<div class="pgrid-name">' + esc(p.name) + (p.isNew ? ' <span class="badge-new">NEW</span>' : '') + '</div>';
-      html += '<div class="pgrid-type">' + esc(p.type) + '</div>';
+      html += '<div class="pgrid-type">' + esc(typeLabel(p)) + '</div>';
       html += '<div class="pgrid-status-bar">';
       html += '<span style="font-weight:bold;color:' + (p.status === 'available' ? '#cc2200' : '#888') + ';">' + priceText(p) + '</span>';
       html += statusBadge(p);
@@ -1991,7 +2138,7 @@ function renderMuseum(list) {
       html += '<td><div class="listing-title">' + esc(p.name);
       if (p.isNew) html += '<span class="badge-new">NEW</span>';
       html += '</div><div class="listing-desc">' + snip(p.story, 90) + '</div><div class="listing-meta">' + esc(p.construction) + '</div></td>';
-      html += '<td>' + esc(p.type) + '</td>';
+      html += '<td>' + esc(typeLabel(p)) + '</td>';
       html += '<td class="' + (p.status === 'sold' ? 'price-sold' : (p.status === 'unavailable' ? 'price-na' : 'price-cell')) + '">' + priceText(p) + '</td>';
       html += '<td>' + statusBadge(p) + '</td>';
       html += '</tr>';
@@ -2001,35 +2148,13 @@ function renderMuseum(list) {
   }
 }
 
-function renderShop(list) {
-  var el = document.getElementById('shop-content');
-  var html = '<table class="listing-table"><thead><tr><th style="width:60px;">Photo</th><th>Item</th><th style="width:90px;">Type</th><th style="width:80px;">Price</th><th style="width:70px;">Status</th></tr></thead><tbody>';
-  if (list.length === 0) {
-    html += '<tr><td colspan="5" style="padding:20px;text-align:center;color:#888;font-size:12px;">No pieces match this filter.</td></tr>';
-  }
-  for (var i = 0; i < list.length; i++) {
-    var p = list[i];
-    var ri = pieces.indexOf(p);
-    html += '<tr class="listing-row" onclick="openDetail(' + ri + ')">';
-    html += '<td>' + makeListThumb(p) + '</td>';
-    html += '<td><div class="listing-title">' + p.name;
-    if (p.isNew) html += '<span class="badge-new">NEW</span>';
-    html += '</div><div class="listing-desc">' + p.story.substring(0, 80) + '...</div><div class="listing-meta">Includes: garment · plushie · tattoo · video · note</div></td>';
-    html += '<td>' + p.type + '</td>';
-    if (p.status === 'sold') html += '<td><span class="price-sold">&#8212;</span></td>';
-    else html += '<td class="price-cell">Inquire &#8599;</td>';
-    html += '<td>' + (p.status === 'sold' ? '<span class="badge-sold">Sold</span>' : '<span class="badge-Available">Available</span>') + '</td>';
-    html += '</tr>';
-  }
-  html += '</tbody></table>';
-  el.innerHTML = html;
-}
+// (renderShop() odstranene - Shop stranka uz neexistuje, funkcia by pri volani hodila chybu)
 
 // =============================================
 // NAVIGATION
 // =============================================
 
-// Hamburger menu (LEN mobile) — pridava/odobera triedu na <body>,
+// Hamburger menu (LEN mobile) - pridava/odobera triedu na <body>,
 // ktora v mobile media query odhali topnav (nav linky + search) a sidebar.
 // setMobileMenu() drzi aj ikonu/label tlacidla v sync (☰ Menu <-> ✕ Close).
 function setMobileMenu(open) {
@@ -2046,7 +2171,7 @@ function toggleMobileMenu() {
 
 function nav(page, keepMenu) {
   // Po kliku na akukolvek navigaciu na mobile sa menu samo zavrie
-  // (okrem pisania do vyhladavania — keepMenu — inak by input zmizol uprostred pisania)
+  // (okrem pisania do vyhladavania - keepMenu - inak by input zmizol uprostred pisania)
   if (!keepMenu) setMobileMenu(false);
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   document.getElementById('page-' + page).classList.add('active');
@@ -2077,14 +2202,6 @@ function sbActive(id) {
   if (id) { var el = document.getElementById(id); if (el) el.classList.add('active'); }
 }
 
-function sfltActive(id) {
-  document.querySelectorAll('.filter-btn').forEach(function(b) {
-    if (b.id && b.id.indexOf('sflt') === 0) b.classList.remove('active');
-  });
-  var el = document.getElementById(id);
-  if (el) el.classList.add('active');
-}
-
 function filterMuseum(cat) {
   currentMuseumFilter = cat;
   // SYNC: tlacidlo vo filter-row (mf-*) aj polozka v sidebari (sb-*) maju rovnake id-cka
@@ -2102,6 +2219,41 @@ function filterMuseumStatus(status) {
   applyMuseumFilters();
 }
 
+// TYPE filter - tlacidla sa generuju z pieces[] (All + len typy, ktore naozaj existuju;
+// "Other" zachyti vsetko mimo KNOWN_TYPES). Znovu sa vykresli pri kazdom updateStats().
+function buildTypeFilters() {
+  var wrap = document.getElementById('type-filters');
+  if (!wrap) return;
+  var present = {};
+  pieces.forEach(function(p) { present[typeKey(p)] = true; });
+  var keys = KNOWN_TYPES.filter(function(k) { return present[k]; });
+  if (present[OTHER_TYPE]) keys.push(OTHER_TYPE);
+  // Zvoleny typ uz neexistuje (napr. po zmazani kusu) -> vrat sa na All
+  if (currentMuseumType !== 'all' && keys.indexOf(currentMuseumType) === -1) currentMuseumType = 'all';
+  wrap.innerHTML = '';
+  ['all'].concat(keys).forEach(function(k) {
+    var b = document.createElement('button');
+    b.className = 'filter-btn' + (k === currentMuseumType ? ' active' : '');
+    b.setAttribute('data-type', k);
+    b.textContent = k === 'all' ? 'All' : k;
+    b.onclick = function() { filterMuseumType(k); };
+    wrap.appendChild(b);
+    wrap.appendChild(document.createTextNode(' '));
+  });
+  // Ak je len jeden typ (alebo ziadny), filter je zbytocny - schovaj cely riadok
+  var row = document.getElementById('type-filter-row');
+  if (row) row.style.display = keys.length > 1 ? '' : 'none';
+}
+
+function filterMuseumType(type) {
+  currentMuseumType = type;
+  var btns = document.querySelectorAll('#type-filters .filter-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', btns[i].getAttribute('data-type') === type);
+  }
+  applyMuseumFilters();
+}
+
 function setMuseumSort(sort) {
   currentMuseumSort = sort;
   applyMuseumFilters();
@@ -2113,11 +2265,12 @@ function applyMuseumFilters() {
   var list = pieces.slice();
   if (currentMuseumFilter !== 'all') list = list.filter(function(p) { return p.cat === currentMuseumFilter; });
   if (currentMuseumStatus !== 'all') list = list.filter(function(p) { return p.status === currentMuseumStatus; });
-  // Vyhladavanie je teraz sucast filtrov — predtym ignorovalo kategoriu/status a po kliku
+  if (currentMuseumType !== 'all') list = list.filter(function(p) { return typeKey(p) === currentMuseumType; });
+  // Vyhladavanie je teraz sucast filtrov - predtym ignorovalo kategoriu/status a po kliku
   // na filter sa zoznam vratil na vsetko, hoci v inpute ostal text.
   if (currentSearch) list = list.filter(function(p) {
     return (p.name || '').toLowerCase().indexOf(currentSearch) > -1 ||
-           (p.type || '').toLowerCase().indexOf(currentSearch) > -1 ||
+           typeLabel(p).toLowerCase().indexOf(currentSearch) > -1 ||
            (p.story || '').toLowerCase().indexOf(currentSearch) > -1;
   });
   // Rovnaky rok = rozhoduje poradie v pieces[] (novsie pridany piece = "latest")
@@ -2138,12 +2291,14 @@ function applyMuseumFilters() {
   if (cnt) cnt.innerHTML = (list.length === pieces.length ? 'showing all ' + pieces.length : 'showing ' + list.length + ' of ' + pieces.length) + ' drops &nbsp;&middot;&nbsp; one of one only';
 }
 
-// Vrati vsetko na vychodzi stav (kategoria, status, vyhladavanie) — pouziva prazdny stav
+// Vrati vsetko na vychodzi stav (kategoria, status, vyhladavanie) - pouziva prazdny stav
 function resetMuseumFilters() {
   currentMuseumStatus = 'all';
+  currentMuseumType = 'all';
   currentSearch = '';
   var inp = document.getElementById('search-input'); if (inp) inp.value = '';
   msActive('ms-all');
+  buildTypeFilters();
   filterMuseum('all');
 }
 
@@ -2169,14 +2324,8 @@ function setMuseumView(view, btn) {
   filterMuseum(currentMuseumFilter);
 }
 
-function shopFilter(filter) {
-  var list = filter === 'all' ? pieces : pieces.filter(function(p) { return p.status === filter; });
-  document.getElementById('shop-bc').textContent = filter === 'all' ? 'All' : filter === 'available' ? 'Available' : 'Sold Archive';
-  renderShop(list);
-}
-
 // =============================================
-// CAROUSEL — stav a funkcie pre sipkove prepinanie
+// CAROUSEL - stav a funkcie pre sipkove prepinanie
 // =============================================
 
 var currentGallery = [];      // gallery aktualneho otvoreho piecu
@@ -2189,7 +2338,7 @@ function carouselStep(dir) {
   carouselGoTo(next);
 }
 
-/* Prejdi na konkretny index — aktualizuje hlavny obrazok, counter aj active thumb */
+/* Prejdi na konkretny index - aktualizuje hlavny obrazok, counter aj active thumb */
 function carouselGoTo(idx) {
   // Zastavime aktualne video bez spustenia BGM callbacku
   stopCurrentVideoSilently();
@@ -2198,15 +2347,17 @@ function carouselGoTo(idx) {
   var src = currentGallery[idx];
   var imgEl = document.getElementById('detail-main-img');
 
+  // Media sa vytvara cez DOM (makeMediaEl), takze specialne znaky v nazve suboru nic nerozbiju
+  var mediaEl = makeMediaEl(src, { full: true, alt: '' });
+  mediaEl.id = 'main-detail-photo';
+  imgEl.innerHTML = '';
+  imgEl.appendChild(mediaEl);
   if (isVideo(src)) {
-    imgEl.innerHTML = '<video playsinline id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
-    var vid = document.getElementById('main-detail-photo');
-    vid.addEventListener('play', pauseBGM);
-    vid.addEventListener('pause', playBGM);
+    mediaEl.addEventListener('play', pauseBGM);
+    mediaEl.addEventListener('pause', playBGM);
   } else {
-    imgEl.innerHTML = '<img id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" />';
-    // Pri prechode z videa na obrazok resume BGM
-    if (_bgmPausedForVideo) playBGM();
+    // Pri prechode z videa na obrazok sa hudba obnovi (s malym oneskorenim, viz resumeBGMAfterVideo)
+    if (_bgmPausedForVideo) resumeBGMAfterVideo();
   }
 
   // aktualizuj counter
@@ -2220,52 +2371,56 @@ function carouselGoTo(idx) {
 }
 
 // =============================================
-// DETAIL OVERLAY — otvorenie detailu kusa
+// DETAIL OVERLAY - otvorenie detailu kusa
 // =============================================
 
 function openDetail(i) {
   var p = pieces[i];
   document.getElementById('detail-bc-name').textContent = p.name;
-  document.getElementById('detail-titlebar-text').textContent = 'FROWN — ' + p.name;
+  document.getElementById('detail-titlebar-text').textContent = 'FROWN - ' + p.name;
   document.getElementById('detail-item-title').textContent = p.name;
-  document.getElementById('d-type').textContent = p.type;
+  document.getElementById('d-type').textContent = typeLabel(p);
   document.getElementById('d-construction').textContent = p.construction;
   document.getElementById('d-year').textContent = p.year;
   document.getElementById('d-story').textContent = p.story;
 
-  // Nastav gallery pre carousel
-  currentGallery = (p.gallery && p.gallery.length) ? p.gallery : PLACEHOLDER_GALLERY;
+  // Thumbnails sa stavaju PRED carouselGoTo, aby sa active trieda nastavila na spravne (nove) miniatury
+  var galleryList = (p.gallery && p.gallery.length) ? p.gallery : PLACEHOLDER_GALLERY;
+  currentGallery = galleryList.map(function(g) { return String(g).trim(); });
   currentGalleryIdx = 0;
+  var thumbRow = document.getElementById('detail-thumb-row');
+  thumbRow.innerHTML = '';
+  currentGallery.forEach(function(tsrc, t) {
+    var box = document.createElement('div');
+    box.className = 'detail-thumb-sm' + (t === 0 ? ' active' : '');
+    box.onclick = function() { carouselGoTo(t); };
+    box.appendChild(makeMediaEl(tsrc, { alt: 'thumb' }));
+    thumbRow.appendChild(box);
+  });
   carouselGoTo(0);
 
-  // Sipky — schovaj ak len 1 media
+  // Sipky - schovaj ak len 1 media
   document.querySelectorAll('.carousel-arrow').forEach(function(a) {
     a.style.display = currentGallery.length > 1 ? 'flex' : 'none';
   });
   var counter = document.getElementById('carousel-counter');
   if (counter) counter.style.display = currentGallery.length > 1 ? 'block' : 'none';
 
-  // Thumbnails
-  var thumbRow = document.getElementById('detail-thumb-row');
-  var thumbsHTML = '';
-  for (var t = 0; t < currentGallery.length; t++) {
-    var tsrc = currentGallery[t].trim();
-    var thumbInner = isVideo(tsrc)
-      ? '<video playsinline src="' + tsrc + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;pointer-events:none;" onloadedmetadata="this.currentTime=0.001;"></video>'
-      : '<img src="' + tsrc + '" alt="thumb" />';
-    thumbsHTML += '<div class="detail-thumb-sm ' + (t === 0 ? 'active' : '') + '" onclick="carouselGoTo(' + t + ')">' + thumbInner + '</div>';
-  }
-  thumbRow.innerHTML = thumbsHTML;
-
   // Cena + status
   var ctaBtn = document.getElementById('d-cta-btn');
   var priceEl = document.getElementById('detail-price');
   var isNA = (p.status === 'unavailable');
-  // NOT FOR SALE piece: bez "Includes" riadku a bez zeleneho boxu "What ships with this piece"
-  document.getElementById('d-includes-row').style.display = isNA ? 'none' : '';
-  document.getElementById('d-includes-box').style.display = isNA ? 'none' : '';
+
+  // WHAT SHIPS - custom zoznam z p.includes (viz getIncludes); prazdny zoznam = sekcia sa schova
+  var incl = getIncludes(p);
+  var hasIncl = incl.length > 0;
+  document.getElementById('d-includes-box').style.display = hasIncl ? '' : 'none';
+  if (hasIncl) {
+    document.getElementById('d-includes-title').textContent = p.includesTitle || DEFAULT_INCLUDES_TITLE;
+    document.getElementById('d-includes-text').innerHTML = incl.map(esc).join(' &nbsp;&middot;&nbsp; ');
+  }
   if (p.status === 'sold') {
-    priceEl.textContent = p.price ? p.price : '—';
+    priceEl.textContent = p.price ? p.price : '-';
     priceEl.style.color = '#888';
     ctaBtn.style.display = 'none';
   } else if (isNA) {
@@ -2292,11 +2447,13 @@ function openDetail(i) {
   if (p.links && p.links.length > 0) {
     linksHtml = '<div class="detail-links-title">Content for this piece:</div>';
     for (var j = 0; j < p.links.length; j++) {
-      linksHtml += '<a href="' + p.links[j].href + '" class="detail-link-item" target="_blank">' + p.links[j].label + '</a>';
+      linksHtml += '<a href="' + esc(p.links[j].href) + '" class="detail-link-item" target="_blank" rel="noopener">' + p.links[j].label + '</a>';
     }
   }
   document.getElementById('d-links').innerHTML = linksHtml;
-  document.getElementById('detail-overlay').classList.add('open');
+  var ov = document.getElementById('detail-overlay');
+  ov.classList.add('open');
+  ov.scrollTop = 0; // popup sa vzdy otvori hore, nie na pozicii z minuleho kusa
   document.body.style.overflow = 'hidden';
 }
 
@@ -2304,12 +2461,26 @@ function closeDetail() {
   // Zastavime video a resumujeme BGM
   stopCurrentVideoSilently();
   setTimeout(function() {
+    // Hudba sa obnovi LEN ak bola pozastavena kvoli videu (nie ak ju clovek medzitym vypol)
+    if (_bgmPausedForVideo && bgm && bgm.paused) bgm.play().catch(function(){});
     _bgmPausedForVideo = false;
-    if (bgm && window.isMusicPlaying && bgm.paused) bgm.play().catch(function(){});
   }, 60);
   document.getElementById('detail-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// Klavesnica: Esc zavrie popup, sipky vlavo/vpravo prepinaju galeriu
+document.addEventListener('keydown', function(e) {
+  var ov = document.getElementById('detail-overlay');
+  if (!ov || !ov.classList.contains('open')) return;
+  if (e.key === 'Escape') closeDetail();
+  else if (e.key === 'ArrowLeft') carouselStep(-1);
+  else if (e.key === 'ArrowRight') carouselStep(1);
+});
+// Klik na tmave pozadie mimo okna zavrie popup
+document.getElementById('detail-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeDetail();
+});
 
 // =============================================
 // SEARCH
@@ -2324,7 +2495,7 @@ function doSearch(q, closeMenu) {
 }
 
 // =============================================
-// STATS — automaticky sa pocita z pieces[]
+// STATS - automaticky sa pocita z pieces[]
 // Ked pridáš alebo vymazes piece, čísla sa aktualizuju samy
 // =============================================
 function updateStats() {
@@ -2337,13 +2508,13 @@ function updateStats() {
   var msUn = document.getElementById('ms-unavail');
   if (msUn) msUn.style.display = unavail > 0 ? '' : 'none';
 
-  // Last updated — najnovsie year z pieces
+  // Last updated - najnovsie year z pieces
   var years = pieces.map(function(p) { return p.year; }).filter(Boolean).sort(function(a,b){ return b.localeCompare(a); });
-  var lastYear = years[0] || '—';
+  var lastYear = years[0] || '-';
   var lastUpdatedEl = document.getElementById('last-updated-text');
   if (lastUpdatedEl) lastUpdatedEl.innerHTML = 'Last updated: ' + lastYear + ' &nbsp;&middot;&nbsp; Secure connection';
 
-  // Sidebar stats box — bez "All one of one"
+  // Sidebar stats box - bez "All one of one"
   var statsEl = document.querySelector('.sidebar-stats');
   if (statsEl) {
     statsEl.innerHTML =
@@ -2363,7 +2534,7 @@ function updateStats() {
     }
   });
 
-  // Category counts — automaticky z pieces[]
+  // Category counts - automaticky z pieces[]
   var countTops    = pieces.filter(function(p) { return p.cat === 'tops'; }).length;
   var countHoodies = pieces.filter(function(p) { return p.cat === 'hoodies'; }).length;
   var countOther   = pieces.filter(function(p) { return p.cat === 'other'; }).length;
@@ -2382,43 +2553,17 @@ function updateStats() {
   if (footerTotal) footerTotal.textContent = total;
   if (footerAvail) footerAvail.textContent = avail;
 
+  // TYPE filter tlacidla (All + existujuce typy + Other)
+  buildTypeFilters();
+
   // (pocet v nadpise archivu sa teraz aktualizuje v applyMuseumFilters)
 }
 
 // =============================================
-// INIT — prvy render pri nacitani stranky
+// INIT - prvy render pri nacitani stranky
 // =============================================
 applyMuseumFilters();
 updateStats();
-
-
-
-// =============================================
-// CHANGE DETAIL IMAGE
-// =============================================
-
-/* [NÁPOVEDA] changeDetailImage zabezpečuje dynamickú výmenu obsahu v hlavnom okne detailu po kliknutí na miniatúru.
-   Ak klikneš na video, vytvorí sa plnohodnotný video prehrávač s ovládacími prvkami a automatickým stíšením hudby na pozadí pri play. */
-function changeDetailImage(el, src) {
-  stopCurrentVideoSilently();
-  var imgEl = document.getElementById('detail-main-img');
-
-  if (isVideo(src)) {
-    imgEl.innerHTML = '<video playsinline id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" controls autoplay></video>';
-    var vid = document.getElementById('main-detail-photo');
-    vid.addEventListener('play', pauseBGM);
-    vid.addEventListener('pause', playBGM);
-  } else {
-    imgEl.innerHTML = '<img id="main-detail-photo" src="' + src + '" style="width:100%;height:100%;object-fit:cover;" />';
-    if (_bgmPausedForVideo) playBGM();
-  }
-
-  document.querySelectorAll('.detail-thumb-sm').forEach(function(t) {
-    t.classList.remove('active');
-  });
-
-  el.classList.add('active');
-}
 
 </script>
 
